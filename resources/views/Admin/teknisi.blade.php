@@ -20,7 +20,6 @@
 			<!-- End Of Box Dashboard -->
 		</div>
 
-
 		<div class="row">
 			<div class="col-12" style="max-width: 300px;">
 				<table class="table table_option">
@@ -68,8 +67,6 @@
 							</div>
 						</td>
 						<!-- End Of Form Filter Status -->
-
-
 					</tr>
 				</table>
 				<table class="table table_data">
@@ -77,35 +74,19 @@
 						<tr class="row_header">
 							<td> <i class="fas fa-cog"></i> </td>
 							<th> No </th>
-							<th> Kolom </th>
-							<th> Kolom </th>
-							<th> Waktu </th>
-							<th> Status </th>
+							<th>ID</th>
+							<th>User</th>
+							<th>Longitude</th>
+							<th>Latitude</th>
+							<th>Status Teknisi</th>
+							<th>Last Update</th>
+							<th>User Pembuat</th>
+							<th>Waktu</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						<!-- 					<tr>
-							<td>
-								<button class="btn btn-default btn_opt"><i class="fas fa-ellipsis-v"></i></button>
-								<div class="menu_opt">
-									<div class="link_opt close_opt">Tutup</div>
-									<a href="/edit/${row.id_user}" class="link_opt">
-										<i class="fas fa-edit"></i> Edit
-									</a>
-									<a href="/delete/${row.id_user}" class="link_opt">
-										<i class="fas fa-trash"></i> Hapus
-									</a>
-								</div>
-							</td>
-							<td>${i + 1}</td>
-							<td><img src="asset/gam/logo.png" class="profile"></td>
-							<td>${row.user}</td>
-							<td>${row.nama}</td>
-							<td>${row.level}</td>
-							<td>${row.waktu}</td>
-							<td><div class="label ${statusClass}">${row.status}</div></td>
-						</tr>`; -->
 						<!-- Disi oleh ajax -->
 					</tbody>
 				</table>
@@ -116,53 +97,34 @@
 
 
 	<!-- Modal Tambah -->
-	<div class="modal fade" id="modal_tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal_tambah" tabindex="-1">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
+
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+					<h5 class="modal-title">Tambah User Teknisi</h5>
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
 					</button>
 				</div>
+
 				<div class="modal-body">
-
-
-					<form action="account" method="post">
+					<form action="teknisi" method="post">
 
 						<div class="form-group">
-							<label> Name : </label>
-							<input autosave type="text" name="nama" class="form-control" required placeholder="Your Name">
+							<label>User</label>
+							<input type="text" name="user" class="form-control" required>
 						</div>
 
-						<div class="form-group">
-							<label> User : </label>
-							<input autosave type="text" name="user" class="form-control" required>
-						</div>
+						<button type="submit" class="btn btn-success btn-block">Submit</button>
 
-						<div class="form-group">
-							<label> Email : </label>
-							<input autosave type="text" name="email" class="form-control" required placeholder="Your Email">
-						</div>
-
-						<div class="form-group">
-							<label> Input Select </label>
-							<select class="form-control" name="level">
-								<!-- Ini akan ditambahkan dengan jvascript -->
-							</select>
-						</div>
-
-						<div class="form-group">
-							<button type="submit" name="submit" class="btn btn-success form-control">
-								Submit
-							</button>
-						</div>
 					</form>
-
 				</div>
+
 			</div>
 		</div>
 	</div>
+
 
 </section>
 

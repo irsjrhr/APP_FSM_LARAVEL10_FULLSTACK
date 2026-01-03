@@ -344,7 +344,7 @@ function el_load_modalSelectFile( param, text_load = "Loading....") {
 	}
 
 }
-function load_ajax_modalFileSelect() {
+function load_ajax_modalFileSelect(  ) {
 	
 
 	load_data_kapasitas();

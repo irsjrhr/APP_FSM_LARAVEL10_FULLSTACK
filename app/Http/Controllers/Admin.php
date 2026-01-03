@@ -45,6 +45,11 @@ class Admin extends Controller{
         $data = [];
         return view( 'Admin/teknisi', $data);
     }
+    //https://url_app/admin/produk 
+    public function produk(){
+        $data = [];
+        return view( 'Admin/produk', $data);
+    }
     //https://url_app/admin/project 
     public function project(){
         $data = [];
@@ -61,28 +66,29 @@ class Admin extends Controller{
         return view( 'Admin/monitoring', $data);
     }
 
+
     // +++++++++ Modul Aplikasi Keuangan +++++++
 
-    //https://url_app/admin/transaksi_kategori 
-    public function transaksi_kategori(){   
-        $data = [];
-        return view( 'Admin/transaksi_kategori', $data );
-    }
-    //https://url_app/admin/transaksi_pemasukan 
-    public function transaksi_pemasukan(){  
-        $data = [];
-        return view( 'Admin/transaksi_pemasukan', $data );
-    }
-    //https://url_app/admin/transaksi_pengeluaran 
-    public function transaksi_pengeluaran(){    
-        $data = [];
-        return view( 'Admin/transaksi_pengeluaran', $data );
-    }
-    //https://url_app/admin/transaksi_pembayaran 
-    public function transaksi_pembayaran(){ 
-        $data = [];
-        return view( 'Admin/transaksi_pembayaran', $data );
-    }
+    // //https://url_app/admin/transaksi_kategori 
+    // public function transaksi_kategori(){   
+    //     $data = [];
+    //     return view( 'Admin/transaksi_kategori', $data );
+    // }
+    // //https://url_app/admin/transaksi_pemasukan 
+    // public function transaksi_pemasukan(){  
+    //     $data = [];
+    //     return view( 'Admin/transaksi_pemasukan', $data );
+    // }
+    // //https://url_app/admin/transaksi_pengeluaran 
+    // public function transaksi_pengeluaran(){    
+    //     $data = [];
+    //     return view( 'Admin/transaksi_pengeluaran', $data );
+    // }
+    // //https://url_app/admin/transaksi_pembayaran 
+    // public function transaksi_pembayaran(){ 
+    //     $data = [];
+    //     return view( 'Admin/transaksi_pembayaran', $data );
+    // }
 }
 
 
@@ -118,22 +124,23 @@ class Menu{
         //++++ Menambahkan modul menu account 
         $this->ADD_MODUL_MENU( 'Modul Account', [
             [ "menu" => "Atur Level", "icon" => "fas fa-key", "url" => asset("admin/level") ],
-            [ "menu" => "Atur Account", "icon" => "fas fa-users", "url" => asset("admin/account") ]
+            [ "menu" => "Atur Account", "icon" => "fas fa-users", "url" => asset("admin/account") ],
+            [ "menu" => "Atur Teknisi", "icon" => "fas fa-hard-hat", "url" => asset("admin/teknisi") ]
         ]);
         //++++ Menambahkan modul menu fsm 
         $this->ADD_MODUL_MENU( 'Modul FSM', [
-            [ "menu" => "Atur Teknisi", "icon" => "fas fa-hard-hat", "url" => asset("admin/teknisi") ],
+            [ "menu" => "Atur Produk", "icon" => "fas fa-box", "url" => asset("admin/produk") ],
             [ "menu" => "Atur Project", "icon" => "fas fa-tasks", "url" => asset("admin/project") ],
             [ "menu" => "Atur Laporan", "icon" => "fas fa-file-alt", "url" => asset("admin/laporan") ],
             [ "menu" => "Monitoring", "icon" => "fas fa-tv", "url" => asset("admin/monitoring") ],
         ]);
         //++++ Menambahkan modul menu keuangan 
-        $this->ADD_MODUL_MENU( 'Modul Keuangan', [
-            [ "menu" => "Atur Transaksi Kategori", "icon" => "fas fa-filter", "url" => asset("admin/transaksi_kategori") ],
-            [ "menu" => "Atur Pemasukan", "icon" => "fas fa-cash-register", "url" => asset("admin/transaksi_pemasukan") ],
-            [ "menu" => "Atur Pengeluaran", "icon" => "fas fa-money-bill", "url" => asset("admin/transaksi_pengeluaran") ],
-            [ "menu" => "Atur Pembayaran", "icon" => "fas fa-cash-register", "url" => asset("admin/transaksi_pembayaran") ],
-        ]);
+        // $this->ADD_MODUL_MENU( 'Modul Keuangan', [
+        //     [ "menu" => "Atur Transaksi Kategori", "icon" => "fas fa-filter", "url" => asset("admin/transaksi_kategori") ],
+        //     [ "menu" => "Atur Pemasukan", "icon" => "fas fa-cash-register", "url" => asset("admin/transaksi_pemasukan") ],
+        //     [ "menu" => "Atur Pengeluaran", "icon" => "fas fa-money-bill", "url" => asset("admin/transaksi_pengeluaran") ],
+        //     [ "menu" => "Atur Pembayaran", "icon" => "fas fa-cash-register", "url" => asset("admin/transaksi_pembayaran") ],
+        // ]);
 
         return $this->data_sidebar;
     }

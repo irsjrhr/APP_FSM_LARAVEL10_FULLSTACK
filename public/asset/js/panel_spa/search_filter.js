@@ -15,8 +15,8 @@ function load_table_search_filter() {
 	//data-fungsi menjadi path endpoint
 	var section_content = $('.section_content');
 	var data_fungsi = section_content.attr('data-fungsi');
-	//Hasil yang diharapkan {url_service_ci}/{data_fungsi}
-	var URL_ENDPOINT = URL_SERVICE_CI + data_fungsi;
+	//Hasil yang diharapkan {URL_SERVICE_BE}/{data_fungsi}
+	var URL_ENDPOINT = URL_SERVICE_BE + data_fungsi;
 	var animasi_loadPageEl = section_content.find('.animasi_loadPage');
 	animasi_loadPage('show', animasi_loadPageEl, "Memuat data table...." );
 

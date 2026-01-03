@@ -7,7 +7,10 @@ const BASE_URL_PAGE = "http://127.0.0.1:8000/";
 // const URL_SERVICE_CI = "https://app.certara.id/";
 const URL_SERVICE_CI = "http://localhost/My_Script/SCRIPT_PROJECT/client_product/Konsep_OOP/APP_BASE_CI_3/APP_FSM_WAFA/service_ci/";
 // UNTUK URL APP BE TERKAIT SERVICE BE DENGAN LARAVEL
-const URL_SERVICE_LARAVEL = "http://localhost/My_Script/SCRIPT_PROJECT/client_product/Konsep_OOP/APP_BASE_CI_3/APP_FSM_WAFA/service_laravel/";
+const URL_SERVICE_LARAVEL = "http://127.0.0.1:8001/api/";
+
+const URL_SERVICE_BE = URL_SERVICE_LARAVEL;
+
 // UNTUK URL APP BE TERKAIT SERVICE BE FILE
 const URL_SERVICE_FILE = "http://localhost/My_Script/SCRIPT_PROJECT/client_product/Konsep_OOP/APP_BASE_CI_3/APP_FSM_WAFA/service_file/";
 
@@ -55,11 +58,18 @@ function cv_json_obj(json) {
 
 
 //Mengambil dari local storage yang ditetapkan pada saat autentikasi 
+// var DATA_AUTH = {
+// 	user_login : localStorage.getItem('user_login'),
+// 	level_login : localStorage.getItem('level_login'),
+// 	source_file_profile : localStorage.getItem('source_file_profile'),
+// }
 var DATA_AUTH = {
-	user_login : localStorage.getItem('user_login'),
-	level_login : localStorage.getItem('level_login'),
-	source_file_profile : localStorage.getItem('source_file_profile'),
+	user_login : 'admin',
+	level_login : 'admin',
+	source_file_profile : 'admin',
 }
+
+
 
 $(function() {
 	$('.box_profile').find('.info_user').text( DATA_AUTH.user_login );
@@ -190,8 +200,8 @@ function post_dataForm( endpoint_action_form, form_data, callback ) {
 	//Endppoint ini disarankan nilai yang diambil dari atribut action form 
 	console.log("Menjalankan fungsi post_dataForm", form_data);
 
-	//hasil : https://URL_SERVICE_CI/endpoint_service
-	var url_endpoint = URL_SERVICE_CI + endpoint_action_form;
+	//hasil : https://URL_SERVICE/endpoint_service
+	var url_endpoint = URL_SERVICE_BE + endpoint_action_form;
 	post_tambah_data( url_endpoint, form_data, callback );
 }
 //Contoh : https://url_service/endpoint_service/post_update_data  POST 
@@ -200,7 +210,7 @@ function post_update_data( url_endpoint = "https://URL_SERVICE/endpoint_service"
 	//Endppoint ini disarankan nilai yang diambil dari atribut action form 
 	console.log("Menjalankan fungsi update_data", data_post);
 
-	//Contoh https://URL_SERVICE_CI/endpoint_service/?id_data_kolom={nilai}
+	//Contoh https://URL_SERVICE/endpoint_service/?id_data_kolom={nilai}
 	url_endpoint = url_endpoint + `/post_update_data${data_param_url}`;
 	post_API( url_endpoint, data_post, callback );
 }
@@ -211,7 +221,7 @@ function post_tambah_data( url_endpoint = "https://URL_SERVICE/endpoint_service"
 	//Endppoint ini disarankan nilai yang diambil dari atribut action form 
 	console.log("Menjalankan fungsi post_tambah_data", data_post);
 
-	//hasil => https://URL_SERVICE_CI/endpoint_service/post_tambah_data
+	//hasil => https://URL_SERVICE/endpoint_service/post_tambah_data
 	url_endpoint = url_endpoint + "/post_tambah_data";
 	post_API( url_endpoint, data_post, callback );
 }

@@ -11,56 +11,74 @@ Route::get('/', function () {
 });
 
 //+++++++++++++++++++ ADMIN ROUTE ++++++++++++++++++++
-//=== Ini adalah route utama entry SPA Admin =======
-Route::get('/admin', [ Admin::class, 'index' ]);
-//=========================================
-//=== Ini adalah route view fitur/method yang akan di akses oleh JS untuk melakukan SPA di index =======
-Route::get('/admin/dashboard', [ Admin::class, 'dashboard' ]);
-// Route Modul Account
-Route::get('/admin/account', [ Admin::class, 'account' ]);
-Route::get('/admin/level', [ Admin::class, 'level' ]);
 
-Route::get('/admin/teknisi', [ Admin::class, 'teknisi' ]);
-Route::get('/admin/project', [ Admin::class, 'project' ]);
-Route::get('/admin/laporan', [ Admin::class, 'laporan' ]);
-Route::get('/admin/monitoring', [ Admin::class, 'monitoring' ]);
 
-Route::get('/admin/transaksi_kategori', [ Admin::class, 'transaksi_kategori' ]);
-Route::get('/admin/transaksi_pemasukan', [ Admin::class, 'transaksi_pemasukan' ]);
-Route::get('/admin/transaksi_pengeluaran', [ Admin::class, 'transaksi_pengeluaran' ]);
-Route::get('/admin/transaksi_pembayaran', [ Admin::class, 'transaksi_pembayaran' ]);
+
+Route::controller(Admin::class)->group(function () {
+
+    //=== Ini adalah route utama entry SPA Admin =======
+    Route::get('/admin', 'index' )->name('admin.index');
+    //=========================================
+    //=== Ini adalah route view fitur/method yang akan di akses oleh JS untuk melakukan SPA di index =======
+    Route::get('/admin/dashboard', 'dashboard');
+    // Route Modul Account
+    Route::get('/admin/account', 'account');
+    Route::get('/admin/level', 'level');
+
+    Route::get('/admin/teknisi', 'teknisi');
+    Route::get('/admin/produk', 'produk');
+    Route::get('/admin/project', 'project');
+    Route::get('/admin/laporan', 'laporan');
+    Route::get('/admin/monitoring', 'monitoring');
+
+});
 
 
 
 //+++++++++++++++++++ TEKNISI ROUTE ++++++++++++++++++++
+Route::controller(Teknisi::class)->group(function () {
 
-//=== Ini adalah route utama entry SPA Teknisi =======
-Route::get('/teknisi', [ Teknisi::class, 'index' ]);
-//=========================================================
-//=== Ini adalah route view fitur/method yang akan di akses oleh JS untuk melakukan SPA di index =======
-Route::get('/teknisi/dashboard', [ Teknisi::class, 'dashboard' ]);
-// Route Modul Account
-Route::get('/teknisi/project', [ Teknisi::class, 'project' ]);
-Route::get('/teknisi/submission_project', [ Teknisi::class, 'submission_project' ]);
+    //=== Ini adalah route utama entry SPA Teknisi =======
+    Route::get('/teknisi', 'index')->name('teknisi.index');
+    //=========================================================
+    //=== Ini adalah route view fitur/method yang akan di akses oleh JS untuk melakukan SPA di index =======
+    Route::get('/teknisi/dashboard', 'dashboard');
+    // Route Modul Account
+    Route::get('/teknisi/project', 'project');
+    Route::get('/teknisi/submission_project', 'submission_project');
+
+});
 
 
 //+++++++++++++++++++ USER ROUTE ++++++++++++++++++++
-//=== Ini adalah route utama entry SPA Teknisi =======
-Route::get('/user', [ User::class, 'index' ]);
-//=========================================================
-//=== Ini adalah route view fitur/method yang akan di akses oleh JS untuk melakukan SPA di index =======
-Route::get('/user/dashboard', [ User::class, 'dashboard' ]);
-// Route Modul Account
-Route::get('/user/profile', [ User::class, 'profile' ]);
-Route::get('/user/project', [ User::class, 'project' ]);
-Route::get('/user/tambah_project', [ User::class, 'tambah_project' ]);
-Route::get('/user/monitoring', [ User::class, 'monitoring' ]);
+Route::controller(User::class)->group(function () {
+
+     //=== Ini adalah route utama entry SPA Teknisi =======
+    Route::get('/user', 'index')->name('user.teknisi');
+    //=========================================================
+    //=== Ini adalah route view fitur/method yang akan di akses oleh JS untuk melakukan SPA di index =======
+    Route::get('/user/dashboard', 'dashboard');
+    // Route Modul Account
+    Route::get('/user/profile', 'profile');
+    Route::get('/user/project', 'project');
+    Route::get('/user/tambah_project', 'tambah_project');
+    Route::get('/user/monitoring', 'monitoring');
+
+});
+
+
+
 
 
 //+++++++++++++++++++ AUTH ROUTE ++++++++++++++++++++
-Route::get('/auth', [Auth::class, 'index']);
-Route::get('/auth/set_sesi', [Auth::class, 'set_sesi']);
-Route::get('/auth/logout', [Auth::class, 'logout']);
+Route::controller(User::class)->group(function () {
+
+    Route::get('/auth', 'index');
+    Route::get('/auth/set_sesi', 'set_sesi');
+    Route::get('/auth/logout', 'logout');
+
+});
+
 
 
 

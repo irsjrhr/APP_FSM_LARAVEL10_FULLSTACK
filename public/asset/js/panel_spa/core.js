@@ -1,6 +1,5 @@
 //Script TERHUBUNGAN DENGAN FUNGSI PADA api.js untuk melakukan request data dan admin_table.js untuk melakukan load DOM table terkait data yang di load
-//Di script ini semuanya berhubungan dengan data di URL_SERVICE_CI
-
+//Di script ini semuanya berhubungan dengan data di URL_SERVICE_BE
 var LOAD_PAGE_URL;
 $(document).ready(function() {
 	// ======================== ADMIN EVENT TRIGER ========================================
@@ -35,34 +34,20 @@ $(document).ready(function() {
 
 		load_page( data_page );
 	});
-
+	
 	//Buka page pertama dashboard untuk setiap SPA
 	var link_menu_first = $('.sidebar').find('.link_menu').first();
 	var data_page = link_menu_first.attr('data-page');
-	load_page( data_page );
-	// setTimeout(function() {// 	$('#modal_tambah').modal('show');// },100);
+	load_page( BASE_URL_PAGE + "admin/teknisi" );
 
+
+	setTimeout(function() {
+			$('#modal_tambah').modal('show');// 
+	},100);
 	//Event .btn_load untuk melakukan load data ke tabel yang ada di main_container pada page yang sedang aktif atau dimuat
 	$('.main_container').on('click', '.btn_load', function() {
 		// Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
 		load_table_active();
-	});
-
-
-	// Menambahkan data secara asynchronous
-	$('.main_container').on('submit', '#modal_tambah form', function(e) {
-		e.preventDefault(); //Menghentikan laju fungsi submit pada form
-
-		var form = $(this);
-		var form_data = form.serialize();
-		var action = form.attr('action');
-		post_dataForm( action, form_data, function( response ) {
-			console.log(response);
-			var msg = response.msg;
-			Swal.fire( msg );
-			//Refresh data di table load 
-			load_table_active();
-		} );
 	});
 
 });
@@ -179,7 +164,7 @@ function load_page( target_page = BASE_URL_PAGE ) {
 		create_animasiLoadPageEl();
 
 		//Membuat list select level pada halaman Admin/account di modal form berdasarkan data api
-		get_data( URL_SERVICE_CI + "level", {}, function( response ) {
+		get_data( URL_SERVICE_BE + "level", {}, function( response ) {
 			var select_level = $('select[name=level]');
 			for (var i = 0; i < response.length; i++) {
 				var row_level = response[i];
@@ -189,17 +174,6 @@ function load_page( target_page = BASE_URL_PAGE ) {
 			}
 		});
 
-		//Membuat list select kategori transaksi pada halaman Admin/transaksi di modal form berdasarkan data api
-		get_data( URL_SERVICE_CI + "transaksi_kategori", {}, function( response ) {
-			var select_level = $('select[name=id_transaksi_kategori]');
-			for (var i = 0; i < response.length; i++) {
-				var row_transaksi_kategori = response[i];
-				var id_transaksi_kategori = row_transaksi_kategori.id_transaksi_kategori;
-				var nama_transaksi_kategori = row_transaksi_kategori.nama_transaksi_kategori;
-				var option_el = `<option value='${id_transaksi_kategori}'>${nama_transaksi_kategori}</option>`;
-				select_level.append( option_el );
-			}
-		});
 
 		//Kalo ada monitoring maps 
 		maps_update();
@@ -229,8 +203,8 @@ function load_table_active() {
 	//data-fungsi menjadi path endpoint
 	var section_content = $('.section_content');
 	var data_fungsi = section_content.attr('data-fungsi');
-	//Hasil yang diharapkan {url_service_ci}/{data_fungsi}
-	var URL_ENDPOINT = URL_SERVICE_CI + data_fungsi;
+	//Hasil yang diharapkan {URL_SERVICE_BE}/{data_fungsi}
+	var URL_ENDPOINT = URL_SERVICE_BE + data_fungsi;
 	var animasi_loadPageEl = section_content.find('.animasi_loadPage');
 	animasi_loadPage('show', animasi_loadPageEl, "Memuat data table...." );
 	//Menjalankan fungsi get_data( enpoint, callback ) yang ada pada api.js

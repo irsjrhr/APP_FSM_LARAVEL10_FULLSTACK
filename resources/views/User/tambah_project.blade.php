@@ -188,8 +188,7 @@
 				lat_input.val( lat );
 				long_input.val( long );
 				//Update juga di visualiasi mapsnya
-				SET_LAT_LONG( lat, long ); 
-				maps_update();
+				maps_update( lat, long );
 
 				console.log( "+====LOKASI TERUPDATE", lat + "," + long );
 				loader_page( 'hide',  $('.loader_update_lokasi'), "");

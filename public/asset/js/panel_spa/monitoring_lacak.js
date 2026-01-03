@@ -20,8 +20,7 @@ var lacak_project = ( btn_lacak ) => {
 	var lat = data_row_project.lat;
 	var long = data_row_project.long;
 
-	SET_LAT_LONG( lat, long );
-	maps_update();
+	maps_update( lat, long );
 };
 var lacak_teknisi = ( btn_lacak ) => {
 	var row_teknisi = btn_lacak.parents('tr.row_teknisi');
@@ -30,8 +29,7 @@ var lacak_teknisi = ( btn_lacak ) => {
 	var lat = data_row_teknisi.lat;
 	var long = data_row_teknisi.long;
 
-	SET_LAT_LONG( lat, long );
-	maps_update();
+	maps_update( lat, long );
 };
 
 var SET_LAT_LONG = ( lat, long ) => {
@@ -39,6 +37,8 @@ var SET_LAT_LONG = ( lat, long ) => {
 	LONG = long;
 };
 var maps_update = ( lat = LAT, long = LONG) => {
+
+	SET_LAT_LONG( lat, lang );
 
 	var monitoring_maps = $('.monitoring_maps');
 	var maps = monitoring_maps.find('#maps');
@@ -55,9 +55,8 @@ var maps_update = ( lat = LAT, long = LONG) => {
 		url = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52739252.67058551!2d84.20547375!3d-2.4833827499999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c5d1fdf2a5f7b2f%3A0x1030bfbca8b7a1b8!2sIndonesia!5e0!3m2!1sid!2sid!4v1700000000000';
 		console.log('TIDAK ADA');
 	}
-
+	
 	maps.attr('src', url);
-
 }
 
 
