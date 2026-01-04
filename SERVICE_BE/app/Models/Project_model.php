@@ -74,36 +74,19 @@ class Project_model extends Model
 
         /*  
         Starat :
-        - User yag didaftarkan belum pernah terdaaftar sebagai teknisi
-        - User yang didaftarkan punya level teknisi atau level admin di data_user 
-        - Validasi apakah user sudah pernah didaftarkan menjadi teknisi
-        - Validasi apakah user yang di tambahkan jadi teknisi itu punya level teknisi atau level admin di data_user        */
+        - Validasi apakah nama project sudah pernah digunakan atau belum  
+        */
         $response = [];
-        $user = $row_input['user'];
-        //Validasi apakah user sudah pernah didaftarkan menjadi teknisi
-        $row_userTeknisi_valid = $this->get_row(['user' => $user]);
-        if ( empty( $row_userTeknisi_valid ) ) {
-
-            //Jika user belum pernah di daftarkan menjadi teknisi 
-            //Validasi apakah user yang di tambahkan jadi teknisi itu punya level teknisi atau level admin tidak di data_user 
-            //SELECT * from data_user WHERE ( user = 'shandy' AND level = "admin"  ) OR ( user = 'shandy' => level = 'teknisi'  )
-            $row_user_db_builder = DB::table('data_user')
-            ->where('user', $user)
-            ->whereIn('level', ['admin', 'teknisi']); //Object Builder
-            $row_user_db = $row_user_db_builder->first(); //Collection
-            if ( !empty( $row_user_db ) ) {
-                //Jika user levelnya teknisi di data_user
-                $response = $this->tambah_teknisi( $row_input );
-            }else{
-                //Jika user levelnya bukan teknisi di data_user
-                $response['status'] = false;
-                $response['msg'] = "Gagal menambahkan teknisi, user $user akunnya bukan level teknisi atau admin";
-                $response['debug_sql'] = $row_user_db_builder->toSql();
-            }
+        //Validasi apakah nama project sudah pernah digunakan atau belum 
+        $row_project_valid = $this->get_row(['nama_project' => $row_input['nama_project']]);
+        $response['debug'] = $row_input;
+        return $response;
+        if ( empty( $row_project_valid ) ) {
+            //Jika user nama project belum digunakan 
         }else{
-            //Jika user sudah pernah di daftarkan menjadi teknisi 
+            //Jika user nama project sudah digunakan 
             $response['status'] = false;
-            $response['msg'] = "Gagal menambahkan teknisi, user <b>$user</b> akunnya sudah pernah terdaftar menjadi teknisi!!";
+            $response['msg'] = "Gagal menambahkan project!";
         }
 
         return $response;
