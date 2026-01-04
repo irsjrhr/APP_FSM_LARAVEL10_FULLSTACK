@@ -1,7 +1,7 @@
 $(document).ready(function(e) {
 
 	// Method event untMenambahkan data secara asynchronous
-	$('.main_container').on('submit', '#modal_tambah form', function(e) {
+	$('body').on('submit', '#modal_tambah form', function(e) {
 		e.preventDefault(); //Menghentikan laju fungsi submit pada form
 
 		var form = $(this);
@@ -13,7 +13,7 @@ $(document).ready(function(e) {
 			Swal.fire( msg );
 			//Refresh data di table load 
 			load_table_active();
-		} );
+		});
 	});
 	//+++++++++++++++++ Method Event Terkait Account ++++++++++++
 	//Event pemindahan data ke modal form update dari tabel row data yang dipilih

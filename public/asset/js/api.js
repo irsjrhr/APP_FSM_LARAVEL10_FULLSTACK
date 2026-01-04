@@ -27,7 +27,11 @@ function loader_page( param_visible = 'show', selector_loader_page = null, capti
 	}else{
 		//Jika id_loader tidak null, maka dia memilih loader berdasarkan idnya 
 		el_loader_page = el_loader_page.filter(selector_loader_page );
+
 	}
+
+
+
 
 	el_loader_page.html(" ");
 	el_loader_page.append(`<div class="content">

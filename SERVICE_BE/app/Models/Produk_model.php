@@ -71,10 +71,6 @@ class Produk_model extends Model
     // ++++++++++++++++++++ TAMBAH DATA ++++++++++++++++
     public function tambah( $row_input = []  ){
 
-        /*
-        - Validasi konfirmasi password
-        - Validasi user dan email double dengan aturan user dan email belum pernah digunakan di akun manapun
-        */
         $response = [];
         $nama_produk = $row_input['nama_produk'];
         //Validasi nama produk gak boleh sama

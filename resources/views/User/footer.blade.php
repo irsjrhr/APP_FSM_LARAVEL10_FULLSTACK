@@ -19,6 +19,8 @@
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user_table.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/search_filter.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/tambah_project.js"></script>
+
 
 </body>
 </html>

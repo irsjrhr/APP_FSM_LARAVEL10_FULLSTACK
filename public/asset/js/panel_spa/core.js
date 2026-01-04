@@ -36,14 +36,14 @@ $(document).ready(function() {
 	});
 	
 	//Buka page pertama dashboard untuk setiap SPA
-	var link_menu_first = $('.sidebar').find('.link_menu').first();
-	var data_page = link_menu_first.attr('data-page');
-	load_page( BASE_URL_PAGE + "admin/teknisi" );
+	// var link_menu_first = $('.sidebar').find('.link_menu').first();
+	// var data_page = link_menu_first.attr('data-page');
+	// load_page( BASE_URL_PAGE + "admin/project", function() {
+	// 	$('#modal_tambah').modal('show');
+	// });
 
 
-	setTimeout(function() {
-			$('#modal_tambah').modal('show');// 
-	},100);
+
 	//Event .btn_load untuk melakukan load data ke tabel yang ada di main_container pada page yang sedang aktif atau dimuat
 	$('.main_container').on('click', '.btn_load', function() {
 		// Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
@@ -127,7 +127,12 @@ function create_animasiLoadPageEl() {
 	parent_table.prepend( new_animasi_loadPage );
 
 }
-function load_page( target_page = BASE_URL_PAGE ) {
+function load_page( target_page = BASE_URL_PAGE, callback = false ) {
+	if ( callback == false ) {
+		callback = function() {
+			return false;
+		}
+	}
 
 	//SET DEBUG URL ACTIVE
 	LOAD_PAGE_URL = target_page; 
@@ -178,7 +183,7 @@ function load_page( target_page = BASE_URL_PAGE ) {
 		//Kalo ada monitoring maps 
 		maps_update();
 
-
+		callback();
 	});
 
 

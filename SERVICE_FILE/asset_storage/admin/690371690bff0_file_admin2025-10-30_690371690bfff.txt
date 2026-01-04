@@ -1,0 +1,122 @@
+📘 DASAR MATEMATIKA UMUM (Versi SMA)
+========================================================
+
+Bagian ini adalah fondasi penting untuk semua cabang matematika yang dipakai di AI dan Machine Learning,
+namun dijabarkan dalam konteks materi setingkat SMA agar mudah dipahami.
+
+========================================================
+1. ALJABAR DASAR
+========================================================
+- Bilangan Real dan Operasi Dasar:
+  • Penjumlahan, pengurangan, perkalian, pembagian
+  • Pangkat dan akar (misal: √x, x², x³)
+  • Bilangan pecahan dan desimal
+
+- Pertidaksamaan dan Persamaan:
+  • Persamaan linear satu variabel: ax + b = 0
+  • Persamaan kuadrat: ax² + bx + c = 0
+  • Pertidaksamaan linear dan kuadrat
+  • Sistem persamaan linear dua variabel
+
+- Pemfaktoran dan Fungsi Kuadrat:
+  • Faktorisasi bentuk aljabar
+  • Rumus kuadrat: x = (-b ± √(b² - 4ac)) / (2a)
+  • Grafik fungsi kuadrat (parabola)
+
+- Fungsi dan Bentuk Umum:
+  • Konsep fungsi y = f(x)
+  • Domain (nilai x yang mungkin)
+  • Range (nilai y yang dihasilkan)
+  • Fungsi linear, kuadrat, eksponensial, dan logaritmik
+
+========================================================
+2. LOGIKA MATEMATIKA
+========================================================
+- Proposisi dan Nilai Kebenaran:
+  • Kalimat yang bisa bernilai benar (True) atau salah (False)
+  • Contoh: “x > 2” adalah proposisi
+
+- Operasi Logika:
+  • Negasi (NOT) → ¬p
+  • Konjungsi (AND) → p ∧ q
+  • Disjungsi (OR) → p ∨ q
+  • Implikasi (→) dan Biimplikasi (↔)
+
+- Tabel Kebenaran:
+  • Menentukan hasil logika dari beberapa proposisi
+    Contoh:
+      p | q | p ∧ q
+      -------------
+      T | T |   T
+      T | F |   F
+      F | T |   F
+      F | F |   F
+
+- Logika dalam Pemrograman:
+  • Digunakan dalam struktur percabangan (if, else, switch) pada algoritma.
+
+========================================================
+3. HIMPUNAN
+========================================================
+- Pengertian Himpunan:
+  • Kumpulan objek yang terdefinisi jelas.
+  • Contoh: A = {1, 2, 3, 4}
+
+- Cara Menyatakan Himpunan:
+  • Dengan mendaftar elemen → A = {2, 4, 6, 8}
+  • Dengan sifat → A = {x | x bilangan genap < 10}
+
+- Operasi Himpunan:
+  • Irisan (∩): Elemen yang sama di dua himpunan
+  • Gabungan (∪): Semua elemen dari dua himpunan
+  • Selisih (−): Elemen A yang tidak ada di B
+  • Komplemen: Elemen di luar himpunan yang dimaksud
+
+- Diagram Venn:
+  • Visualisasi hubungan antarhimpunan.
+
+========================================================
+4. FUNGSI DAN GRAFIK
+========================================================
+- Fungsi Linear:
+  y = mx + c
+  • m = gradien (kemiringan garis)
+  • c = titik potong sumbu y
+
+- Fungsi Kuadrat:
+  y = ax² + bx + c
+  • Bentuk parabola
+  • Nilai puncak (vertex): x = -b / 2a
+
+- Fungsi Eksponensial dan Logaritmik:
+  • Eksponensial: y = a^x
+  • Logaritma: y = logₐ(x)
+  • Sifat penting: a^(logₐ(x)) = x
+
+- Grafik Fungsi:
+  • Menentukan bentuk kurva dari tabel nilai x dan y
+  • Digunakan untuk memahami bentuk loss function di ML.
+
+========================================================
+5. TRIGONOMETRI (Tambahan)
+========================================================
+- Sudut, radian, dan derajat
+- Fungsi sinus, cosinus, dan tangen
+- Identitas trigonometri
+- Grafik fungsi trigonometri
+
+========================================================
+6. RANGKUMAN URUTAN BELAJAR
+========================================================
+| Urutan | Materi          | Fokus Utama                    |
+|---------|-----------------|--------------------------------|
+| 1       | Aljabar dasar   | Operasi, persamaan, fungsi     |
+| 2       | Logika          | Dasar berpikir algoritmik      |
+| 3       | Himpunan        | Konsep dasar kumpulan data     |
+| 4       | Fungsi & Grafik | Hubungan input-output          |
+| 5       | Trigonometri    | Pola dan fungsi non-linear     |
+
+========================================================
+SARAN:
+Mulailah dari Aljabar Dasar dan Logika, kemudian lanjut ke Himpunan dan Fungsi.
+Gunakan kalkulator, grafik, dan latihan soal rutin agar konsepnya benar-benar melekat.

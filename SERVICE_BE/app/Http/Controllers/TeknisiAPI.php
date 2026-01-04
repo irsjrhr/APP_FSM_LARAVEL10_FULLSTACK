@@ -50,10 +50,9 @@ class TeknisiAPI extends Controller{
 
         $user_pembuat = $req->header('X-User-Login');
         $row_input = [
-            "id_produk" => NULL,
             'user' => $req->input('user'),
-            'long' => "0",
-            'lat' => "0",
+            'lok_long' => "0",
+            'lok_lat' => "0",
             'status_teknisi' => Base_model::status_teknisi('ready'),
             'last_update_lacak' => Base_model::waktu(),
             'user_pembuat' => $user_pembuat,

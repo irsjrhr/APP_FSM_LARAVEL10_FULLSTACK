@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/style.css">
 		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel.css">
 		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel_admin.css">
+		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/tambah_project.css">
 		<title> Admin Panel </title>
 	</head>
 	<body>

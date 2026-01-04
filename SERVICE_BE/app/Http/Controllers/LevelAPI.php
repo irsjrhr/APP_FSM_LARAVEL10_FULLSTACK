@@ -34,10 +34,10 @@ class LevelAPI extends Controller{
         Mengembalikan null kalo gak ada 
         Mengembalikan array associatif kalo ada 
         */
-        //  account/get_row?by_user
-        if (isset($_GET['by_user']) &&  !empty($_GET['by_user'])) {
-            $by_user = $req->input('by_user');
-            $result = $this->Level_model->get_row(['user' => $by_user]);
+        //  account/get_row?by_id_level
+        if (isset($_GET['by_id_level']) &&  !empty($_GET['by_id_level'])) {
+            $by_id_level = $req->input('by_id_level');
+            $result = $this->Level_model->get_row(['user' => $by_id_level]);
         }else{
             $result = $this->Level_model->get_row([]);
         }
@@ -50,7 +50,6 @@ class LevelAPI extends Controller{
 
         $user_admin = $req->header('X-User-Login');
         $row_input = array(
-            'id_level' => null,
             'nama_level' =>  $req->input('nama_level'),
             'user_admin' =>  $user_admin,
             "waktu" => Base_model::waktu(),

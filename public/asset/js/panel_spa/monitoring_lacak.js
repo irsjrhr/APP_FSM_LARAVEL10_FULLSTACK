@@ -38,7 +38,7 @@ var SET_LAT_LONG = ( lat, long ) => {
 };
 var maps_update = ( lat = LAT, long = LONG) => {
 
-	SET_LAT_LONG( lat, lang );
+	SET_LAT_LONG( lat, long );
 
 	var monitoring_maps = $('.monitoring_maps');
 	var maps = monitoring_maps.find('#maps');

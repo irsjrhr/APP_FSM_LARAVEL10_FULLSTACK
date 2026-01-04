@@ -6,6 +6,7 @@ use App\Http\Controllers\AccountAPI;
 use App\Http\Controllers\LevelAPI;
 use App\Http\Controllers\ProdukAPI;
 use App\Http\Controllers\TeknisiAPI;
+use App\Http\Controllers\ProjectAPI;
 
 /*
 
@@ -53,5 +54,10 @@ Route::controller(TeknisiAPI::class)->group(function(){
     Route::get('/teknisi/get_data', 'get_data');
     Route::get('/teknisi/get_row', 'get_row');
     Route::post('/teknisi/post_tambah_data', 'post_tambah_data');
+});
+Route::controller(ProjectAPI::class)->group(function(){
+    Route::get('/project/get_data', 'get_data');
+    Route::get('/project/get_row', 'get_row');
+    Route::post('/project/post_tambah_data', 'post_tambah_data');
 });
 

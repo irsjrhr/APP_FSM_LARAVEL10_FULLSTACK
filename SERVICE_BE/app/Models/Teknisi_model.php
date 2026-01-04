@@ -113,8 +113,8 @@ class Teknisi_model extends Model
         $data = [
             "id_user_teknisi" => NULL,
             'user' => $row_input['user'],
-            'long' => $row_input['long'],
-            'lat' => $row_input['lat'],
+            'lok_long' => $row_input['lok_long'],
+            'lok_lat' => $row_input['lok_lat'],
             'status_teknisi' => $row_input['status_teknisi'],
             'last_update_lacak' => $row_input['last_update_lacak'],
             'user_pembuat' => $row_input['user_pembuat'],

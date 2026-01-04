@@ -606,7 +606,14 @@ function load_data_kapasitas() {
 //+++++++++++ End Of Fungsi untuk upload file asynchronous di modal select file dan modal tambah file async +++++++++++++++++++++++s
 
 //+++++++++++ Fungsi terkait modal view file +++++++++++++++++++++++
-
+function escapeHtml(unsafe) {
+	return unsafe
+	.replace(/&/g, "&amp;")
+	.replace(/</g, "&lt;")
+	.replace(/>/g, "&gt;")
+	.replace(/"/g, "&quot;")
+	.replace(/'/g, "&#039;");
+}
 function btn_modal_view( btn_modal_view ) {
 	var data_href = btn_modal_view.attr('data-href');
 	open_modal_view( data_href );
@@ -621,14 +628,7 @@ function open_modal_view( src ) {
 	btn_download.attr('data-href', src);
 	setMedia( src );
 }
-function escapeHtml(unsafe) {
-	return unsafe
-	.replace(/&/g, "&amp;")
-	.replace(/</g, "&lt;")
-	.replace(/>/g, "&gt;")
-	.replace(/"/g, "&quot;")
-	.replace(/'/g, "&#039;");
-}
+
 function setMedia(src =  "https://source_url_file.xx") {
 
 	function loader_page_media( param_visible, text ) {

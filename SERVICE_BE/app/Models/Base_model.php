@@ -18,6 +18,9 @@ class Base_model extends Model
     public static function status_teknisi(){
         return "READY";
     }
+    public static function status_project(){
+        return "PENDING";
+    }
 
 
 }

@@ -67,9 +67,6 @@ Route::controller(User::class)->group(function () {
 });
 
 
-
-
-
 //+++++++++++++++++++ AUTH ROUTE ++++++++++++++++++++
 Route::controller(User::class)->group(function () {
 

@@ -11,6 +11,8 @@
 		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/style.css">
 		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel.css">
 		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel_user.css">
+		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/tambah_project.css">
+		
 		<title> User Panel </title>
 	</head>
 	<body>
