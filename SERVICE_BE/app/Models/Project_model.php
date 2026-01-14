@@ -74,19 +74,66 @@ class Project_model extends Model
 
         /*  
         Starat :
-        - Validasi apakah nama project sudah pernah digunakan atau belum  
+        - Validasi apakah nama project sudah pernah digunakan atau belum   x
+        - Validasi user_client itu ada di data_user atau tidak X 
+        - Validasi user_teknisi itu ada di data_user_teknisi atau tidak X
+        - Validasi apakah status_teknisi dari user_teknisi itu READY atau tidak  X
+        
         */
+
+        $table_user = DB::table('data_user');
+        $table_user_teknisi = DB::table('data_user_teknisi');
+
+        $user_client = $row_input['user_client'];
+        $user_teknisi = $row_input['user_teknisi'];
+
         $response = [];
         //Validasi apakah nama project sudah pernah digunakan atau belum 
         $row_project_valid = $this->get_row(['nama_project' => $row_input['nama_project']]);
-        $response['debug'] = $row_input;
-        return $response;
+        // $response['debug'] = $row_input;
+        // return $response;
         if ( empty( $row_project_valid ) ) {
             //Jika user nama project belum digunakan 
+            //Lakukan validasi apakah client terdafftar akunnya di data_user atau tidak
+            $validasi_user_client = $table_user
+            ->select('*')
+            ->where('user', $user_client )
+            ->get()->toArray(); 
+
+            if ( !empty( $validasi_user_client ) ) {    
+
+                //Validasi apakah user_teknisi terdaftar atau tidak
+                $validasi_user_teknisi = $table_user_teknisi
+                ->select('*')
+                ->where('user', $user_teknisi)
+                ->get()
+                ->map(fn ($row) => (array) $row) //Mengubah setiap row menjadi object row agar jadi arr associatif 
+                ->toArray();     
+                if ( !empty($validasi_user_teknisi ) ) {
+                    //Jika user teknisi terdaftar di database, maka lakukan validasi status teknisi
+                    $row_teknisi = $validasi_user_teknisi[0];
+                    $status_teknisi = $row_teknisi['status_teknisi'];
+                    if ( $status_teknisi == "READY" ) {
+                        //JIka semua validasi berhasil dan teknisi READY 
+                        $response = $this->tambah_teknisi( $row_input );
+                    }else{
+                        $response['status'] = false;
+                        $response['msg'] = "Gagal menambahkan project! Teknisi $user_teknisi tidak pada status READY!!";
+                    }
+                }else{
+                    //Jika user teknisi belum terdaftar sebagai account 
+                    $response['status'] = false;
+                    $response['msg'] = "Gagal menambahkan project! Teknisi $user_teknisi tidak terdaftar!!";
+                }
+            }else{
+                //Jika user client belum terdaftar sebagai account 
+                $response['status'] = false;
+                $response['msg'] = "Gagal menambahkan project! Client $user_client tidak terdaftar!!";   
+            }
         }else{
             //Jika user nama project sudah digunakan 
             $response['status'] = false;
-            $response['msg'] = "Gagal menambahkan project!";
+            $response['msg'] = "Gagal menambahkan project! nama project sudah digunakan";
         }
 
         return $response;
@@ -94,28 +141,33 @@ class Project_model extends Model
     public function tambah_teknisi( $row_input ){
 
         $data = [
-            "id_user_teknisi" => NULL,
-            'user' => $row_input['user'],
+            'id_produk' => $row_input['id_produk'],
+            'user_teknisi' => $row_input['user_teknisi'],
+            'user_client' => $row_input['user_client'],
+            'nama_project' => $row_input['nama_project'],
+            'deskripsi_project' => $row_input['deskripsi_project'],
+            'id_dokumen_project' => $row_input['id_dokumen_project'],
+            'source_dokumen_project' => $row_input['source_dokumen_project'],
             'lok_long' => $row_input['lok_long'],
             'lok_lat' => $row_input['lok_lat'],
-            'status_teknisi' => $row_input['status_teknisi'],
-            'last_update_lacak' => $row_input['last_update_lacak'],
+            'waktu_mulai_project' => $row_input['waktu_mulai_project'],
+            'waktu_selesai_project' => $row_input['waktu_selesai_project'],
+            'status_project' => $row_input['status_project'],
             'user_pembuat' => $row_input['user_pembuat'],
             'waktu' => $row_input['waktu'],
-            'status' => $row_input['status'],
+            'status' => $row_input['status']
         ];
 
-        $user = $row_input['user'];
+        $nama_project = $row_input['nama_project'];
         try{
             $tambah_data = $this->db->insert($data);
-
             //Response ketika tambah SQL Berjalan
-            $response['status'] = true ;
-            $response['msg'] = "Teknisi $user berhasil di ditambahkan";            
+            $response['status'] = true;
+            $response['msg'] = "Project $nama_project berhasil di ditambahkan";            
         }catch (Exception $e){
             //Response ketika tambah SQLTidak Berjalan 
             $response['status'] = false;
-            $response['msg'] = "Teknisi $user gagal ditambahkan, masalah query!!" . $e->message;
+            $response['msg'] = "Project $nama_project gagal di ditambahkan, masalah query!!" . $e->message;
         }
 
         return $response;

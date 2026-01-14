@@ -16,10 +16,14 @@
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_table.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/monitoring_lacak.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user_table.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/search_filter.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/tambah_project.js"></script>
+
+
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user/main.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user/table.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user/tambah_project.js"></script>
+
+
 
 
 </body>

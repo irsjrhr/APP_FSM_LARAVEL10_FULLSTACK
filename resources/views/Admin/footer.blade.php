@@ -17,9 +17,9 @@
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_table.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/monitoring_lacak.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/search_filter.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin_table.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/tambah_project.js"></script>
+
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin/main.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin/table.js"></script>
 
 </body>
 </html>

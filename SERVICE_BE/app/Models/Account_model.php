@@ -202,6 +202,7 @@ class Account_model extends Model
         }else{
             //Jika email yang diinputkan sama dengan email dia sebelumnya, maka tidak dilakukan pengecekan email double
             $param_validasi_update['status'] = true;
+            $param_validasi_update['msg'] = "Gagal melakukan update, email ini sudah digunakan di akun kamu!";
         }
 
         return $param_validasi_update;
@@ -223,7 +224,7 @@ class Account_model extends Model
             //Jika email yang di inputkan itu TIDAK SAMA DENGAN email dia sebelumnya, maka lakukan pengecekan apakah email yang di inputkan pernah digunakan atau belum. TAPI kalo yang diinnputkan emailnya itu SAMA dengan email dia sebelumnya, maka tidak usah di lakukan pengecekan.
             $updateAccount_validation_email = $this->updateAccount_validation_email( $by_user, $email );
             if ( $updateAccount_validation_email['status'] == true ) {
-            //Kalo validasi berhasil 
+                //Kalo validasi berhasil 
                 $data = array(
                     'nama' =>  $nama,
                     'email' => $email,

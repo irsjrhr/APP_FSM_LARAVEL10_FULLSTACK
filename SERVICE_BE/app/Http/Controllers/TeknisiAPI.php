@@ -14,12 +14,21 @@ class TeknisiAPI extends Controller{
     }
     // endpoint : url_service/api/teknisi/get_data
     // Mengambil banyak data
-    public function get_data(){
+    public function get_data( Request $req ){
         /* 
         Mengembalikan array kosong kalo gak ada 
         Mengembalikan array index multidimensi isi arr assocatif kalo ada 
-        */
-        $result = $this->Teknisi_model->get_data([]);
+        */  
+
+        $result = [];
+        if ( isset($_GET['rekomendasi_teknisi']) && isset($_GET['long']) ) {
+            // mengambil data teknisi dengan jarak terdekat dari lokasi client menggunakan algoritma HAVERSINE
+            $lok_lat = $req->input('lat');
+            $lok_long = $req->input('long');
+            $result = $this->Teknisi_model->get_teknisi_rekomHaversine( $lok_lat, $lok_long );
+        }else{
+            $result = $this->Teknisi_model->get_data([]);
+        }
         if ( empty($result) ) {
             $result = null;
         }

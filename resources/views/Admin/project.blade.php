@@ -117,7 +117,7 @@
 
 
 	<!-- Modal Tambah -->
-	<div class="modal fade" id="modal_tambah_project" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal_tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -131,8 +131,6 @@
 					<div class="container_tambah_project">
 
 						<div class="loader_page loader_tambah_project"></div>
-						{{-- Ada di folder resource/view/template/form_tambah_project.blade.php --}}
-						@include('template.form_tambah_project')
 
 					</div>
 					{{-- End Of Container tambah project --}}

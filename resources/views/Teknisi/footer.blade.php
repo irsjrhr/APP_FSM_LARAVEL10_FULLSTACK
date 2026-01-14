@@ -16,9 +16,10 @@
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_table.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/monitoring_lacak.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/teknisi.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/teknisi_table.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/search_filter.js"></script>
+
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/teknisi/main.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/teknisi/table.js"></script>
 
 </body>
 </html>

@@ -49,8 +49,6 @@ class ProjectAPI extends Controller{
     public function post_tambah_data( Request $req ) {
 
         $user_pembuat = $req->header('X-User-Login');
-
-
         $row_input = [
             'id_produk' => $req->input('id_produk'),
             'user_teknisi' => $req->input('user_teknisi'),

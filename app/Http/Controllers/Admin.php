@@ -116,7 +116,6 @@ class Menu{
         ];
         return $this->data_modal_menu;
     }
-
     public function SET_SIDEBAR_MENU(){
         $this->data_sidebar = [ 
             [ "menu" => "Dashboard", "icon" => "fas fa-th-large", "url" => asset("admin/dashboard") ],
