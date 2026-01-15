@@ -4,26 +4,15 @@ function cv_decimal(num, decimals = 2) {
     const factor = Math.pow(10, decimals);
     return Math.round((num + Number.EPSILON) * factor) / factor;
 }
+
 $(document).ready(function() {
 
     maps_update();
-
-    //Membuka halaman tambah project untuk debug
-    // load_page( BASE_URL_PAGE + 'user/tambah_project', function() {
-
-    //     //Debug
-    //     // setTimeout(function() {
-    //     //     open_form_rekom_teknisi( "-6.181563",  "106.630646" );
-    //     // }, 200);
-    // }); 
 
     // Submit Form 
     $('body').on('submit', '#form_tambah_project', function(e) {
 
         e.preventDefault();
-
-
-
 
         var loader_tambah_project = $('.loader_tambah_project');
         var lat_input = $('input.lat_input');
@@ -118,6 +107,14 @@ $(document).ready(function() {
         });
     });
 
+    //Event btn back to form input
+    $('body').on('click', '.btn_back_form', function() {
+        //Event ini biss bekerja jika content form yang actve itu adalah yang form rekom
+        if ( $('.content_form').filter('#form_rekom_teknisi').filter('.active').length > 0 ) {
+            open_form_input();
+        }
+    });
+
 
 
 }); 
@@ -169,13 +166,17 @@ var open_form_rekom_teknisi = ( lat, long ) =>{
             var data_rekom_teknisi = response; 
             load_card_rekomTeknisi( data_rekom_teknisi );
 
+            //Setelah berhasil langsung arahkan ke monitoring project 
+            
+
+
         }, 100);
     }); 
 
 };
 
 
-function load_card_rekomTeknisi( data_rekom_teknisi = [] ) {
+function load_card_rekomTeknisi( data_rekom_teknisi = []) {
 
     var form_rekom_teknisi = $( '#form_rekom_teknisi' );
     var el_row_teknisi = form_rekom_teknisi.find('.row_teknisi');

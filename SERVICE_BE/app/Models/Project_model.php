@@ -56,6 +56,7 @@ class Project_model extends Model
         if ( count( $where ) > 0 ) {
             $result = $this->get_data($where);
             if ( !empty( $result ) ) {
+                //Ambil index row yang pertama
                 $result = $result[0]; 
             }
         }
@@ -66,6 +67,10 @@ class Project_model extends Model
         }
 
         return $result; //Mengembalikan array associatif
+    }
+    public function get_monitoring_project($by_id_project){
+        $result = $this->get_row( ['id_project' => $by_id_project ] );
+        return $result;
     }
 
 

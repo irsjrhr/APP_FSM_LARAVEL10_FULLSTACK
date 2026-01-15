@@ -12,6 +12,16 @@ $(document).ready(function() {
 		lacak_teknisi( $(this) );
 	});
 
+	var id_project = 11;
+
+	var endpoint = URL_SERVICE_BE + "project";
+	get_row( endpoint, data_param = {	
+		monitoring_project : true,
+		by_id_project : id_project
+	}, function(repsonse) {	
+		console.log(repsonse);
+	});
+
 }); 
 var lacak_project = ( btn_lacak ) => {
 	var card_project = btn_lacak.parents('.card_project.data_project');

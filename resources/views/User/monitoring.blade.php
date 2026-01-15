@@ -96,9 +96,9 @@
 							</tbody>
 
 						</table>
-						<button class="btn btn-primary btn_lacak_project" style="width:100%">
+						{{-- 						<button class="btn btn-primary btn_lacak_project" style="width:100%">
 							Lacak
-						</button>
+						</button> --}}
 					</div>
 				</div>
 				<!-- end of card project -->
@@ -118,7 +118,7 @@
 									<th> ID </th>
 									<th> Nama </th>
 									<th> Last Update </th>
-									<th> Action </th>
+									{{-- <th> Action </th> --}}
 								</tr>
 							</thead>
 							<tbody>
@@ -128,9 +128,9 @@
 									<td> Irshandy </td>
 									<td style="font-style: italic;"> 5 Menit </td>
 									<td> 
-										<button class="btn btn-primary btn_lacak_teknisi">
+										{{-- 										<button class="btn btn-primary btn_lacak_teknisi">
 											Lacak
-										</button>
+										</button> --}}
 									</td>
 								</tr>
 							</tbody>
@@ -200,4 +200,4 @@
 
 </section>
 
-	
+

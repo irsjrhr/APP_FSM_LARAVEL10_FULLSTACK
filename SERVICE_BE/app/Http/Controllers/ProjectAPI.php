@@ -38,12 +38,21 @@ class ProjectAPI extends Controller{
         if (isset($_GET['by_id_project']) && !empty($_GET['by_id_project'])) {
             $by_id_project = $req->input('by_id_project');
             $result = $this->Project_model->get_row(['id_project' => $by_id_project]);
-        }else{
+        }else if ( isset($_GET['monitoring_project']) && isset($_GET['by_id_project']) ) {
+
+            $by_id_project = $req->input('by_id_project');
+            $result = $this->Project_model->get_monitoring_project( $by_id_project );
+        }
+
+        else{
             $result = $this->Project_model->get_row([]);
         }
 
         return response()->json( $result, 200 );
     }
+
+
+
     // endpoint : url_service/api/project/post_tambah_data
     // Menambah data baru
     public function post_tambah_data( Request $req ) {

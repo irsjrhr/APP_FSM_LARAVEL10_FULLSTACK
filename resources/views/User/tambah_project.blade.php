@@ -1,4 +1,12 @@
 
+<style type="text/css">
+.btn_back_form{
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 99;
+}
+</style>
 <section class="section_content" data-fungsi="tambah_project" style="position:relative;">
 	<div class="header_page">
 		<h1>
@@ -12,18 +20,20 @@
 
 		<div class="loader_page loader_tambah_project"></div>
 		{{-- Ada di folder resource/view/template/form_tambah_project.blade.php --}}
-		<form method="post" class="form_file_upload" id="form_tambah_project" action="project">
+		{{-- Form Submit --}}
+		<form method="post" class="form_file_upload" id="form_tambah_project" action="project" style="position:relative">
 
 			<div class="header_content_form">
 				Form Project
 			</div>
-
 			{{-- Container content form --}}
-			<div class="body_content_form">
+			<div class="body_content_form" style="position: relative;">
 				<input type="hidden" class="lat_input" name="lok_lat" value="none">
 				<input type="hidden" class="long_input" name="lok_long" value="none">
 				<input type="hidden" name="user_teknisi" value="none">
 				<input type="hidden" name="user_client" value="none">
+
+
 				{{-- Content Form - Form Teknisi --}}
 				<div class="container-fluid content_form active" id="form_input">
 					{{-- Row Form --}}
@@ -88,6 +98,10 @@
 				{{-- Content Form - Form Rekom Teknisi --}}
 				<div class="container-fluid content_form" id="form_rekom_teknisi">
 
+					<button type="button" class="btn btn-primary btn_back_form">
+						<i class="fas fa-arrow-left"></i>
+					</button>
+
 					{{-- Row Teknisi - Tempat Loop --}}
 					<div class="row row_teknisi">
 						{{--  INI DIISI OLEH JS SECARA ASYN API di 
@@ -118,6 +132,7 @@
 			</div>
 
 		</form>
+		{{-- End Of Form --}}
 
 
 	</div>
