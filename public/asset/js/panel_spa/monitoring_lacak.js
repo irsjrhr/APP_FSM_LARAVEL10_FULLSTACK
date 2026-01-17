@@ -3,56 +3,96 @@ var LAT = "", LONG = "";
 $(document).ready(function() {
 
 	SET_LAT_LONG( "", "" );
-	maps_update();
+	maps_update();	
 
-	$('body').on('click', '.btn_lacak_project', function(e) {
-		lacak_project( $(this) );
+	// Ini dijalankan ketika monitoring untuk ambil atau lacak lokasi project atau teknisi
+	$('body').on('click', '.btn_lacak_project, .btn_lacak_teknisi', function(e) {
+
+		trace();
+
+		var btn_lacak = $(this);
+		var section_content_teknisi = $('.section_content[data-fungsi=monitoring]');
+		var data_row_project = section_content_teknisi.attr('data-row-project');
+		// alert( '' );
+		// console.log("+++++++++++++++");
+		// console.log( data_row_project );
+		data_row_project = cv_json_obj( data_row_project );
+
+		var id_monitoring_maps;
+		if ( btn_lacak.is('.btn_lacak_project') ) {
+			id_monitoring_maps = "#maps_project";
+			lat = data_row_project.project_lat;
+			long = data_row_project.project_long;
+		}else if ( btn_lacak.is('.btn_lacak_teknisi')) {
+			id_monitoring_maps = "#maps_teknisi";
+			lat = data_row_project.teknisi_lat;
+			long = data_row_project.teknisi_long;
+		}
+
+		// alert( lat + " , " +long );
+
+		maps_update( id_monitoring_maps, lat, long );
 	});
-	$('body').on('click', '.btn_lacak_teknisi', function(e) {
-		lacak_teknisi( $(this) );
-	});
 
-	var id_project = 11;
+}); 
 
+
+//Mengambil dan merendering data project berdasarkan id project
+function get_data_project( id_project, callback = false ) {
+	trace();
+
+
+	if ( callback == false ) {
+		callback = function() {
+			return 1;
+		}
+	}
 	var endpoint = URL_SERVICE_BE + "project";
 	get_row( endpoint, data_param = {	
 		monitoring_project : true,
 		by_id_project : id_project
-	}, function(repsonse) {	
-		console.log(repsonse);
+	}, function(response) {	
+
+		console.log('=++++++=====');
+		console.log( response );
+
+
+
+		callback( response );
 	});
 
-}); 
-var lacak_project = ( btn_lacak ) => {
-	var card_project = btn_lacak.parents('.card_project.data_project');
-	var data_row_project = card_project.attr('data-row-project');
-	data_row_project = cv_json_obj( data_row_project );
-	var lat = data_row_project.lat;
-	var long = data_row_project.long;
+}
 
-	maps_update( lat, long );
-};
-var lacak_teknisi = ( btn_lacak ) => {
-	var row_teknisi = btn_lacak.parents('tr.row_teknisi');
-	var data_row_teknisi = row_teknisi.attr('data-row-teknisi');
-	data_row_teknisi = cv_json_obj( data_row_teknisi );
-	var lat = data_row_teknisi.lat;
-	var long = data_row_teknisi.long;
 
-	maps_update( lat, long );
-};
+
+
+
+
+
+
+
+
 
 var SET_LAT_LONG = ( lat, long ) => {
 	LAT = lat;
 	LONG = long;
 };
-var maps_update = ( lat = LAT, long = LONG) => {
+var maps_update = ( id_monitoring_maps = "#id_monitoring_maps", lat = LAT, long = LONG) => {
+
+	trace();
+
 
 	SET_LAT_LONG( lat, long );
 
 	var monitoring_maps = $('.monitoring_maps');
-	var maps = monitoring_maps.find('#maps');
 
+	if ( monitoring_maps.filter( id_monitoring_maps ).length > 0 ) {
+		monitoring_maps = monitoring_maps.filter( id_monitoring_maps );
+	}else{
+		console.log('+++++++++ TIDAK DITEMUKAN ID '+ id_monitoring_maps +' UNTUK MONITORING MAPS');
+	}
+
+	var maps = monitoring_maps.find('#maps');
 	lat = lat.toString();
 	long = long.toString();
 
@@ -103,3 +143,8 @@ async function get_lokasi_user( callback = false ) {
 		console.log("Error:", e.message);
 	}
 }
+
+
+
+
+

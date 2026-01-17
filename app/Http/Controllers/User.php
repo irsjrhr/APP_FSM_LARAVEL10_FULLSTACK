@@ -73,7 +73,8 @@ class Menu{
             [ "menu" => "Profile", "icon" => "fas fa-user", "url" => asset("user/profile") ],
             [ "menu" => "List Project", "icon" => "fas fa-tasks", "url" => asset("user/project") ],
             [ "menu" => "Buat Project", "icon" => "fas fa-plus", "url" => asset("user/tambah_project") ],
-            [ "menu" => "Monitoring Project", "icon" => "fas fa-file-alt", "url" => asset("user/monitoring") ],
+            [ "menu" => "Monitoring", "icon" => "fas fa-tv", "url" => asset("user/monitoring") ],
+
         ]);
 
         return $this->data_sidebar;

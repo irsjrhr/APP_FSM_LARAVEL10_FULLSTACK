@@ -1,4 +1,5 @@
 function load_table_level( data = [] ) {
+	trace('load_table_level');
 
 
 	var row_struktur = {
@@ -48,6 +49,7 @@ function load_table_level( data = [] ) {
 }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++
 function load_table_account( data = [] ) {
+	trace('load_table_account');
 
 	// Contoh data JSON yang berasal dari server
 	var row_struktur = {
@@ -116,6 +118,7 @@ function load_table_account( data = [] ) {
 
 
 function load_table_produk( data = [] ) {
+	trace('load_table_produk');
 
 	// Contoh data JSON yang berasal dari server
 	var row_struktur = {
@@ -174,6 +177,7 @@ function load_table_produk( data = [] ) {
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++
 function load_table_teknisi( data = [] ) {
+	trace('load_table_teknisi');
 
 	// Contoh data JSON yang berasal dari server
 	var row_struktur = {
@@ -238,6 +242,7 @@ function load_table_teknisi( data = [] ) {
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++
 function load_table_project(data = []) {
+	trace('load_table_project');
 
 	var row_struktur = {
 		id_project: "NULL",
@@ -302,7 +307,11 @@ function load_table_project(data = []) {
 		<td>${row.nama_project}</td>
 		<td>${row.deskripsi_project}</td>
 		<td>${row.id_dokumen_project}</td>
-		<td>${row.source_dokumen_project}</td>
+		<td>
+		<button class="btn btn-primary btn_modal_view" data-href="${row.source_dokumen_project}">
+		<i class="fas fa-eye"></i>
+		</button>
+		</td>
 		<td>${row.lok_long}</td>
 		<td>${row.lok_lat}</td>
 		<td>${row.waktu_mulai_project}</td>

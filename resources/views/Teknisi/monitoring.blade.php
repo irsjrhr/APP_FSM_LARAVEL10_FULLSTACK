@@ -15,7 +15,6 @@
 
 	<div class="container-fluid">
 
-
 		<div class="row">
 			<div class="col-sm-5">
 				<div class="container_option">
@@ -30,6 +29,7 @@
 				</div>
 			</div>
 		</div>
+
 
 		{{-- Row Project --}}
 		<div class="row" id="row_card_project">
@@ -104,84 +104,6 @@
 			</div>
 		</div>
 		{{-- End Of Row Project --}}
-
-
-		{{-- Row Teknisi --}}
-		<div class="row mt-4" id="row_card_teknisi">
-			{{-- Col Card --}}
-			<div class="col col_card">
-				<!-- card project - data_teknisi -->
-				<div class="card card_project" id="card_data_teknisi">
-					<div class="card-header">
-						<h5> Info Teknisi </h5>
-						<i class="fas fa-info"></i>
-					</div>
-
-					<div class="card-body">
-						<div class="section_btn">
-							<button class="btn btn-primary btn_lacak_teknisi mb-3" style="width:100%">
-								Lacak
-							</button> 
-						</div>
-
-						<div class="card_table" style="max-height: 200px;overflow: auto;">
-							
-							<table class="table">
-								<tbody>
-									<tr class="row_teknisi_teknisi_nama">
-										<th class="judul">Teknisi Nama</th>   
-										<td class="value" id="teknisi_nama">-</td>   
-									</tr>
-									<tr class="row_teknisi_user_teknisi">
-										<th class="judul">User Teknisi</th>   
-										<td class="value" id="user_teknisi">-</td>   
-									</tr>
-									<tr class="row_teknisi_id_user_teknisi">
-										<th class="judul">ID User Teknisi</th>   
-										<td class="value" id="id_user_teknisi">-</td>   
-									</tr>
-									<tr class="row_teknisi_teknisi_lat">
-										<th class="judul">Lat</th>   
-										<td class="value" id="teknisi_lat">-</td>   
-									</tr>
-									<tr class="row_teknisi_teknisi_long">
-										<th class="judul">Long</th>   
-										<td class="value" id="teknisi_long">-</td>   
-									</tr>
-									<tr class="row_teknisi_teknisi_status">
-										<th class="judul">Teknisi Status</th>   
-										<td class="value" id="teknisi_status">-</td>   
-									</tr>
-									<tr class="row_teknisi_teknisi_last_update_lacak">
-										<th class="judul">Teknisi Last Update Lacak</th>   
-										<td class="value" id="teknisi_last_update_lacak">-</td>   
-									</tr>
-
-								</tbody>
-							</table>
-						</div>
-
-					</div>
-				</div>
-				<!-- end of card project - data_teknisi -->
-			</div>
-			{{-- End Of Col Card --}}
-
-			{{-- Col Maps --}}
-			<div class="col col_maps">
-				<!-- Section monitoring maps - Maps Teknisi -->
-				<section class="monitoring_maps" id="maps_teknisi">
-					<iframe id="maps" style="border:0;"loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
-					</iframe>
-				</section>
-				<!-- End Of Section monitoring maps - Maps Teknisi  -->
-			</div>
-			{{-- End Of Col Maps --}}
-
-		</div>
-		{{-- End Of Row Teknisi --}}
-
-
 
 	</div>
 

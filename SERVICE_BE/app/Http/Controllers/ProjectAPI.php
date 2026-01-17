@@ -14,11 +14,13 @@ class ProjectAPI extends Controller{
     }
     // endpoint : url_service/api/project/get_data
     // Mengambil banyak data
-    public function get_data(){
+    public function get_data( Request $req ){
         /* 
         Mengembalikan array kosong kalo gak ada 
         Mengembalikan array index multidimensi isi arr assocatif kalo ada 
         */
+
+        
         $result = $this->Project_model->get_data([]);
         if ( empty($result) ) {
             $result = null;

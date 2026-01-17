@@ -14,6 +14,10 @@ const URL_SERVICE_BE = URL_SERVICE_LARAVEL;
 // UNTUK URL APP BE TERKAIT SERVICE BE FILE
 const URL_SERVICE_FILE = "http://localhost/My_Script/SCRIPT_PROJECT/client_product/Konsep_OOP/APP_BASE_CI_3/APP_FSM_WAFA/service_file/";
 
+//Untuk menghandle debug fungsi trace di seluruh fungsi dengan trace ada di core.js
+//Jadikan false jika ingin debug trace dimatikan dan dissarankkan untuk melakukn itu ketika masuk ke prod agar tidak memberatkan server prod
+const DEBUG_CONSOLE_TRACE = true;
+
 // ++++++++++++ CONSTANT REQUEST API SERVICE ++++++++
 
 //Loaader Page
@@ -71,7 +75,7 @@ function cv_json_obj(json) {
 		user_login : 'admin',
 		level_login : 'admin',
 		source_file_profile : 'admin',
-	}
+	};
 
 
 
@@ -94,6 +98,14 @@ function cv_json_obj(json) {
 		//Ini diambil dari local storage login user 
 		return DATA_AUTH.user_login;
 	}
+	//Mengambil level yang sedang login 
+	function get_levelLogin() {
+		//Ini diambil dari local storage login level 
+		return DATA_AUTH.level_login;
+	}
+
+
+
 	//Fungsi ketika mengambil 1 data
 	//Contoh : https://url_service/endpoint_service/get_data
 	function get_row( url_endpoint = "URL_SERVICE/endpoint_service", data_param = {}, callback ) {
@@ -106,7 +118,7 @@ function cv_json_obj(json) {
 		- KALO DATA GAK ADA ----> bentuk null
 		*/
 
-		//Contoh : https://url_service/course/get_data
+		//Contoh : https://url_service/course/get_row
 		url_endpoint += "/get_row";		
 		get_API(  url_endpoint, data_param, callback );
 	}
@@ -173,6 +185,7 @@ function cv_json_obj(json) {
 			contentType : "application/JSON", //Bentuk data yang dikirim
 			headers: {
 				"X-User-Login": get_userLogin(),
+				"X-Level-Login" : get_levelLogin()
 			},
 			data : data_param,
 			dataType: "json",
@@ -272,6 +285,7 @@ function cv_json_obj(json) {
 			// contentType : "application/JSON", //Bentuk data yang dikirim
 			headers: {
 				"X-User-Login" : get_userLogin(),
+				"X-Level-Login" : get_levelLogin(),
 			},
 			dataType: "json", //Bentuk data yasng diterima itu json dan otomaatis akan diubah ke bentuk object
 			data : data, 

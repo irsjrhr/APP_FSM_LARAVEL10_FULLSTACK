@@ -35,7 +35,7 @@ class AccountAPI extends Controller{
         Mengembalikan array associatif kalo ada 
         */
         //  account/get_row?by_user
-        if (isset($_GET['by_user']) &&  !empty($_GET['by_user'])) {
+        if (isset($_GET['by_user']) && !empty($_GET['by_user'])) {
             $by_user = $req->input('by_user');
             $result = $this->Account_model->get_row(['user' => $by_user]);
         }else{

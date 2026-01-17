@@ -1,19 +1,28 @@
 //Script TERHUBUNGAN DENGAN FUNGSI PADA api.js untuk melakukan request data dan admin_table.js untuk melakukan load DOM table terkait data yang di load
 //Di script ini semuanya berhubungan dengan data di URL_SERVICE_BE
 var LOAD_PAGE_URL;
+
+
 $(document).ready(function() {
 	// ======================== ADMIN EVENT TRIGER ========================================
 	
 	$('body').on('click', '.btn_opt', function(e) {
+		trace();
+
 		btn_opt_toggle( $(this) );
 	});
 	$('body').on('click', '.menu_opt .close_opt', function(e) {
+		trace();
+
 
 		var close_opt = $(this);
 		var menu_opt = close_opt.parents('.menu_opt');
 		menu_opt_hide( menu_opt );
 	});
 	$('body').on('click', '.btn_video', function(e) {
+		trace();
+
+
 		var btn = $(this);
 		var data_url = btn.attr('data-url'); //Ambil data source video dari button
 		var modal_video = $('#modal_video');
@@ -28,6 +37,10 @@ $(document).ready(function() {
 	});	
 	//++++++++++ Asynchronous ++++++++++++++++
 	$('.sidebar .link_menu').on('click', function() {
+
+		trace();
+
+
 		var link_menu = $('.sidebar .link_menu');
 		var link_menu_target = $(this);
 		var data_page = link_menu_target.attr('data-page');
@@ -39,21 +52,25 @@ $(document).ready(function() {
 	// var link_menu_first = $('.sidebar').find('.link_menu').first();
 	// var data_page = link_menu_first.attr('data-page');
 	// load_page( BASE_URL_PAGE + "admin/project", function() {
-	// 	$('#modal_tambah').modal('show');
-	// });
+		// 	$('#modal_tambah').modal('show');
+		// });
 
 
 
-	//Event .btn_load untuk melakukan load data ke tabel yang ada di main_container pada page yang sedang aktif atau dimuat
-	$('.main_container').on('click', '.btn_load', function() {
-		// Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
-		load_table_active();
+		//Event .btn_load untuk melakukan load data ke tabel yang ada di main_container pada page yang sedang aktif atau dimuat
+		$('.main_container').on('click', '.btn_load', function() {
+			trace();
+
+			// Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
+			load_table_active();
+		});
+
 	});
-
-});
 
 
 function btn_opt_toggle( obj ) {
+	trace();
+
 	var btn_opt = $( obj );
 	var td = btn_opt.parents('td');
 	var menu_opt = td.find('.menu_opt');
@@ -70,6 +87,8 @@ function btn_opt_toggle( obj ) {
 	});
 }
 function menu_opt_hide( menu_opt ) {
+	trace();
+
 	menu_opt.hide();
 	$('html').unbind('click');
 }
@@ -77,6 +96,8 @@ function menu_opt_hide( menu_opt ) {
 
 // +++++++++++ Asynchronous Method 
 function animasi_loadPage( param = "show", animasi_loadPageElInput = "", text_load = "Memuat data ....", callback = false ) {
+	trace();
+
 
 	console.log("Animasi load page", param);
 	var animasi_loadPageEl = $(animasi_loadPageElInput);
@@ -111,6 +132,8 @@ function animasi_loadPage( param = "show", animasi_loadPageElInput = "", text_lo
 	callback( animasi_loadPageEl );
 }
 function create_animasiLoadPageEl() {
+	trace();
+
 	//Ambil element yang sudah pernah ada di col content utama
 	var col_content = $('.col.content');
 	var animasi_loadPageEl = col_content.find('.animasi_loadPage').html();
@@ -128,6 +151,8 @@ function create_animasiLoadPageEl() {
 
 }
 function load_page( target_page = BASE_URL_PAGE, callback = false ) {
+	trace();
+
 	if ( callback == false ) {
 		callback = function() {
 			return false;
@@ -179,6 +204,58 @@ function load_page( target_page = BASE_URL_PAGE, callback = false ) {
 			}
 		});
 
+		//Menampilkan list produk pada option di form tambah project pada fitur User/tambah_project 
+		var form_tambah_project = $('#form_tambah_project'); 
+		var select_option_produk = form_tambah_project.find('select[name=id_produk]');
+		//Bersihan elemen option lama 
+		select_option_produk.html(" ");
+		if ( form_tambah_project.length > 0 ) {
+			get_data( URL_SERVICE_BE + "produk", {}, function(response) {
+				var form_tambah_project = $('#form_tambah_project'); 
+				for (var i = 0; i < response.length; i++) {
+					var row_produk = response[i];
+					var el_option = `<option value='${ row_produk.id_produk }'> ${ row_produk.nama_produk } </option>`;
+					select_option_produk.append(  el_option );
+				}
+			});
+		}
+
+
+		//Menampilkan profile pada card profile 
+		get_row(URL_SERVICE_BE + "account", { by_user : get_userLogin() }, function(response ) {
+			// ===============================
+			// PROFILE HEADER
+			// ===============================
+			if (response.source_file_profile) {
+				$('#source_file_profile').attr('src', response.source_file_profile);
+			}
+
+			$('#nama').text(response.nama);
+			$('#user').text(response.user);
+			$('#level').text(response.level);
+
+			// ===============================
+			// PERSONAL INFORMATION
+			// ===============================
+			$('#email').text(response.email);
+
+			if (response.alamat && response.alamat !== 'NULL') {
+				$('#alamat').text(response.alamat);
+			} else {
+				$('#alamat').text('-');
+			}
+
+			// ===============================
+			// FORM UPDATE PROFILE (MODAL)
+			// ===============================
+			$('input[name=nama]').val(response.nama);
+			$('input[name=email]').val(response.email);
+			$('textarea[name=alamat]').val(
+				(response.alamat && response.alamat !== 'NULL') ? response.alamat : ''
+				);
+
+		});
+
 
 		//Kalo ada monitoring maps 
 		maps_update();
@@ -203,11 +280,14 @@ function load_page( target_page = BASE_URL_PAGE, callback = false ) {
 
 // Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
 function load_table_active() {	
+	trace();
+
 	//Event ini akan membuat fungsi load yang di ambil dari data-fungsi dan fungsinya yang sudah dibuat 
 	//Contoh melakukan load di section_content dengan data-fungsi "course" dan maka course tersebut dijadikan string load_content_course dan dijadikan fungsi kemudian dijalankan. Fungsi load_content_course itu sudah ada sebelumnya
 	//data-fungsi menjadi path endpoint
 	var section_content = $('.section_content');
-	var data_fungsi = section_content.attr('data-fungsi');
+	var data_fungsi = section_content.attr('data-fungsi');	
+
 	//Hasil yang diharapkan {URL_SERVICE_BE}/{data_fungsi}
 	var URL_ENDPOINT = URL_SERVICE_BE + data_fungsi;
 	var animasi_loadPageEl = section_content.find('.animasi_loadPage');
@@ -230,6 +310,8 @@ function load_table_active() {
 
 //Melakukan load tabel data yang mengintegrasikannya pada fungsi di admin_table.js dengan closure berdasarkan data yang dikirimkan pada argument 
 function load_table( data = [] ) {
+	trace();
+
 	// Bentuk argument data nya adalah array index multidimensi yang isinya object 
 	//Ini adalah konsep closure interopobility
 	//Merupakan fungsi untuk melakukan load data ke suatu table pada section_content (berdasarkan data-fungsi) yang sedang di buka berdasarkan data yang di kirim pada argument
@@ -258,6 +340,9 @@ function load_table( data = [] ) {
 }
 
 function open_modal_pembayaran( src ) {
+	trace();
+
+
 	function loader_pembayaran( param_visible = "hide", caption = "...."  ) {
 		var loader_pembayaran = $('.loader_pembayaran');
 		loader_page( param_visible, loader_pembayaran, caption );
@@ -282,8 +367,104 @@ function open_modal_pembayaran( src ) {
 }
 
 
+//Melakukan Debug Untuk Setiap Fungsi Yang Berjalan Pada FE 
+// variabel DEBUG_CONSOLE_TRACE ada di api.js dan kalo nilainya false maka debug fungsi ini akan berjalan. Jika true debug fungsi ini tidak akan berjalan
+function trace(label = "", data = null, callback = false) {
 
+	// Handling callback
+	if (callback == false) {
+		callback = function() {
+			return false;
+		};
+	}
 
+	//Handling Debug
+	if ( DEBUG_CONSOLE_TRACE == false ) {
+		return false;
+	}
 
+	// Ambil stack trace
+	const stack = new Error().stack;
+	const stackLines = stack.split('\n');
 
+	// Cari informasi caller (line ke-3 di stack)
+	let callerInfo = "Unknown";
+	let fileInfo = "Unknown";
+	let functionName = "anonymous";
 
+	if (stackLines.length >= 4) {
+		const callerLine = stackLines[3].trim();
+
+		// Ekstrak informasi fungsi dan file
+		// Format: "at functionName (file:///path/to/file.js:10:20)"
+		const funcMatch = callerLine.match(/at\s+([^\s(]+)/);
+		if (funcMatch && funcMatch[1] !== "trace") {
+			functionName = funcMatch[1];
+		}
+
+		// Ekstrak file path dan line number
+		const fileMatch = callerLine.match(/\((.*):(\d+):(\d+)\)/);
+		if (fileMatch) {
+			const fullPath = fileMatch[1];
+			// Ambil hanya nama file
+			const fileName = fullPath.split('/').pop() || fullPath.split('\\').pop() || fullPath;
+			const line = fileMatch[2];
+			fileInfo = `${fileName}:${line}`;
+		} else {
+			// Format alternatif (tanpa parentheses)
+			fileInfo = callerLine.replace('at ', '');
+		}
+
+		callerInfo = `${functionName} @ ${fileInfo}`;
+	}
+
+	// Header dengan informasi caller
+	console.log(
+		`%c =====TRACE%c ${label} %c| ${callerInfo}`,
+		'background:#222;color:#00e676;font-weight:bold;padding:2px 6px;border-radius:4px 0 0 4px;',
+		'color:#999;background:#333;padding:2px 8px;',
+		'color:#aaa;font-size:11px;font-style:italic;padding:2px 8px;border-radius:0 4px 4px 0;'
+		);
+
+	// Data
+	if (data !== null) {
+		console.log(
+			'%cDATA',
+			'color:#03a9f4;font-weight:bold;',
+			data
+			);
+	}
+
+	// Stack trace dengan highlight
+	console.log(
+		'%cSTACK TRACE',
+		'color:#ff5252;font-weight:bold;margin-top:8px;display:block;'
+		);
+
+	// Format stack trace agar lebih rapi
+	const formattedStack = stackLines
+	.slice(2, 8) // Ambil 6 baris mulai dari index 2
+	.map((line, index) => {
+		const trimmed = line.trim();
+
+		// Highlight baris caller (index 1)
+		if (index === 1) {
+			return `%c▶ ${trimmed}`;
+		}
+
+		return `  ${trimmed}`;
+	})
+	.join('\n');
+
+	// Print stack trace dengan styling
+	console.log(
+		formattedStack,
+		'color:#00e676;font-weight:bold;' // Style untuk baris caller
+		);
+
+	// Separator
+	console.log('%c' + '─'.repeat(60), 'color:#444;font-size:10px;');
+
+	// Eksekusi callback
+	return callback();
+}

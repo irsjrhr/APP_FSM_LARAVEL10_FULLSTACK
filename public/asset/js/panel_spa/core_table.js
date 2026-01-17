@@ -24,6 +24,14 @@ function checkSameStructure(row_struktur, row_response) {
 		
 }
 //Melakukan validasi data agar data response yang diterima itu konsisten sama dengan data yang ditentukan pada setiap table
+//Intinya struktur object row_struktur harus ada/dimiliki oleh row dari data_response. Selama itu terpenuhi, walaupun di row data response nya itu ada property tambahan yang tidak ada di dalam row_strutkur, maka itu tidak apa
+/*	
+Misal :
+row_struktur = { id : "shandy", nama : "andi" }
+row_response = { id : "shandy", nama : "andi", umur : 20 }
+Ini Diperbolehkan, karena property row_struktur itu dimiliki oleh row_response dan itu sudah cukup
+
+*/
 function validasi_data( row_struktur, data_reponse ) {
 	//Cek struktur data_reponse dari data_reponse yang diterima agar terjadi konsistensi data_reponse 
 	//Mengecek apakah row_struktur yang di tentukan sama strukturnya dengan row pada data_response yang diterima, dan kalo mau bener harus sama strukturnya.

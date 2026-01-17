@@ -20,6 +20,8 @@
 
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/teknisi/main.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/teknisi/table.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/teknisi/monitoring.js"></script>
+
 
 </body>
 </html>

@@ -30,7 +30,7 @@ class Account_model extends Model
 
         $db = $this->db->select('*')
         ->where( $where )
-        ->orderBy('data_user.waktu');
+        ->orderBy('data_user.waktu', 'DESC');
         ;
         if (is_callable($callback)) {
             $db = callback( $db );

@@ -493,34 +493,24 @@ iframe{
 	top: 50%;
 	transform:translateY(-50%);
 }
-.card_project.data_project{
+.card_project{
 
 }
-.card_project .row_project_judul{
-
-}
-.card_project .row_project_status{
-
-}
-.row_project_status td{
-	font-style: italic;
-}
-
-.card_project.data_teknisi{
+.card_project{
 	width: 100%;
-	background: none !important;
+	/*background: none !important;*/
 	border: none;
 	padding-left: 0;
 }
-.card_project.data_teknisi .card-body{
+.card_project .card-body{
 	padding-left: 0;
-}
-.card_project.data_teknisi .row_teknisi{
-
 }
 .scroll_dashboard{
 	width: 800px;
 	overflow: auto;
 }
-
+.card_project .section_btn{
+	padding-left: 20px;
+	padding-right: 20px;
+}
 

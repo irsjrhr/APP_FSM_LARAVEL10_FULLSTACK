@@ -29,9 +29,45 @@ class Project_model extends Model
         // $this->db->order_by("CASE WHEN status = 'ACTIVE' THEN 1 ELSE 2 END", 'ASC'); //Mengurutkan berdasrkan status yang ACTIVE
         // $this->db->order_by('data_project.waktu', 'DESC');  // Mengurutkan berdasarkan kolom waktu
 
-        $db = $this->db->select('*')
+        $db = $this->db
+        ->join('data_user_teknisi', 'data_project.user_teknisi',  '=', 'data_user_teknisi.user')
+        ->select([
+            'data_project.id_project',
+            'data_project.id_produk',
+            'data_project.user_teknisi',
+            'data_project.user_client',
+            'data_project.nama_project',
+            'data_project.deskripsi_project',
+            'data_project.id_dokumen_project',
+            'data_project.source_dokumen_project',
+            'data_project.lok_long', //Ini yang digunakan oleh row_struktur 
+            'data_project.lok_lat', //Ini yang digunakan oleh row_struktur 
+            'data_project.lok_long AS project_long', //Solving named for Front which is same value with lok_long
+            'data_project.lok_lat AS project_lat',//Surving named for Front which is same value with lok_lat
+            'data_project.waktu_mulai_project',
+            'data_project.waktu_selesai_project',
+            'data_project.status_project',
+            'data_project.user_pembuat',
+            'data_project.waktu AS project_waktu',
+            'data_project.status', //Ini yang digunakan oleh row struktur 
+            'data_project.waktu', //Ini yang digunakan oleh row struktur
+            'data_project.status AS project_status',
+            'data_project.waktu AS project_waktu',
+            'data_project.status AS project_status',
+
+
+            'data_user_teknisi.id_user_teknisi',
+            'data_user_teknisi.user',
+            'data_user_teknisi.lok_long AS teknisi_long',
+            'data_user_teknisi.lok_lat AS teknisi_lat',
+            'data_user_teknisi.status_teknisi AS teknisi_status',
+            'data_user_teknisi.last_update_lacak AS teknisi_last_update_lacak',
+            'data_user_teknisi.user_pembuat AS teknisi_user_pembuat',
+            'data_user_teknisi.waktu AS teknisi_waktu',
+            'data_user_teknisi.status AS teknisi_status_data'
+        ])
         ->where( $where )
-        ->orderBy('data_project.waktu');
+        ->orderBy('data_project.waktu', 'DESC');
         ;
         if (is_callable($callback)) {
             $db = callback( $db );
@@ -143,8 +179,9 @@ class Project_model extends Model
 
         return $response;
     }
-    public function tambah_teknisi( $row_input ){
-
+    //Melakukan tambah project ke data_project dan update status teknisi ke data_user_teknisi
+    public function tambah_teknisi($row_input)
+    {
         $data = [
             'id_produk' => $row_input['id_produk'],
             'user_teknisi' => $row_input['user_teknisi'],
@@ -155,8 +192,8 @@ class Project_model extends Model
             'source_dokumen_project' => $row_input['source_dokumen_project'],
             'lok_long' => $row_input['lok_long'],
             'lok_lat' => $row_input['lok_lat'],
-            'waktu_mulai_project' => $row_input['waktu_mulai_project'],
-            'waktu_selesai_project' => $row_input['waktu_selesai_project'],
+            'waktu_mulai_project' => Base_model::waktu($row_input['waktu_mulai_project']),
+            'waktu_selesai_project' => null,
             'status_project' => $row_input['status_project'],
             'user_pembuat' => $row_input['user_pembuat'],
             'waktu' => $row_input['waktu'],
@@ -164,15 +201,32 @@ class Project_model extends Model
         ];
 
         $nama_project = $row_input['nama_project'];
-        try{
-            $tambah_data = $this->db->insert($data);
-            //Response ketika tambah SQL Berjalan
+        $user_teknisi = $row_input['user_teknisi'];
+
+        try {
+            DB::beginTransaction(); // Mulai transaction
+
+            // Insert project
+            $this->db->insert($data);
+
+            // Update status teknisi
+            DB::table('data_user_teknisi')
+            ->where('user', $user_teknisi)
+            ->update([
+                'status_teknisi' => 'BOOKING',
+                'waktu' => Base_model::waktu()
+            ]);
+
+            DB::commit(); // Commit jika semua sukses
+
             $response['status'] = true;
-            $response['msg'] = "Project $nama_project berhasil di ditambahkan";            
-        }catch (Exception $e){
-            //Response ketika tambah SQLTidak Berjalan 
+            $response['msg'] = "Project $nama_project berhasil ditambahkan dan status teknisi diperbarui";
+
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback jika ada error
+
             $response['status'] = false;
-            $response['msg'] = "Project $nama_project gagal di ditambahkan, masalah query!!" . $e->message;
+            $response['msg'] = "Project $nama_project gagal ditambahkan. Error: " . $e->getMessage();
         }
 
         return $response;

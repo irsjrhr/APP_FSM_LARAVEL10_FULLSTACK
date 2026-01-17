@@ -79,7 +79,7 @@
 							<th>Longitude</th>
 							<th>Latitude</th>
 							<th>Status Teknisi</th>
-							<th>Last Update</th>
+							<th>Last Update Lacak</th>
 							<th>User Pembuat</th>
 							<th>Waktu</th>
 							<th>Status</th>

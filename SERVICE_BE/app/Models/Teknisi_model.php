@@ -31,7 +31,7 @@ class Teknisi_model extends Model
 
         $db = $this->db->select('*')
         ->where( $where )
-        ->orderBy('data_user_teknisi.waktu');
+        ->orderBy('data_user_teknisi.waktu', 'DESC');
         ;
         if (is_callable($callback)) {
             $db = callback( $db );
@@ -163,7 +163,7 @@ class Teknisi_model extends Model
             'lok_long' => $row_input['lok_long'],
             'lok_lat' => $row_input['lok_lat'],
             'status_teknisi' => $row_input['status_teknisi'],
-            'last_update_lacak' => $row_input['last_update_lacak'],
+            'last_update_lacak' => null,
             'user_pembuat' => $row_input['user_pembuat'],
             'waktu' => $row_input['waktu'],
             'status' => $row_input['status'],

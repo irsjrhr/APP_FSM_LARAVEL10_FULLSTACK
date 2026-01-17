@@ -1,5 +1,4 @@
 
-
 <section class="section_content" data-fungsi="project">
 	<div class="header_page">
 		<h1>
@@ -29,9 +28,9 @@
 							<button class="btn btn-primary btn_load mr-2">
 								<i class="fas fa-recycle"></i>
 							</button>
-							{{-- 							<button class="btn btn-default btn_tambah_data" data-toggle="modal" data-target="#modal_tambah">
+							<button class="btn btn-default btn_tambah_data" data-toggle="modal" data-target="#modal_tambah_project">
 								<i class="fas fa-plus"></i>
-							</button> --}}
+							</button>
 							<!-- 							<button class="btn btn-warning btn_filter">
 								<i class="fas fa-filter"></i>
 							</button> -->
@@ -39,7 +38,7 @@
 						<!-- Form Search -->
 						<td>
 							<div class="container_option">
-								<form id="form_search">
+								<form id="form_monitoring">
 									<div class="form-group">
 										<input type="text" class="form-control" name="search_keyword" placeholder="By User, Email, Nama">
 									</div>
@@ -75,37 +74,39 @@
 				<table class="table table_data">
 					<thead>
 						<tr class="row_header">
-							<td> <i class="fas fa-cog"></i> </td>
-							<th> No </th>
-							<th> Kolom </th>
-							<th> Kolom </th>
-							<th> Waktu </th>
-							<th> Status </th>
+							<table class="table table_data">
+								<thead>
+									<tr class="row_header">
+										<th><i class="fas fa-cog"></i></th>
+										<th>No</th>
+										<th>ID Project</th>
+										<th>ID Produk</th>
+										<th>User Teknisi</th>
+										<th>User Client</th>
+										<th>Nama Project</th>
+										<th>Deskripsi Project</th>
+										<th>ID Dokumen Project</th>
+										<th>Source Dokumen Project</th>
+										<th>Longitude</th>
+										<th>Latitude</th>
+										<th>Waktu Mulai</th>
+										<th>Waktu Selesai</th>
+										<th>Status Project</th>
+										<th>User Pembuat</th>
+										<th>Waktu</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<!-- Data akan diisi melalui JS -->
+								</tbody>
+							</table>
+
 						</tr>
 					</thead>
 
 					<tbody>
-						<!-- 					<tr>
-							<td>
-								<button class="btn btn-default btn_opt"><i class="fas fa-ellipsis-v"></i></button>
-								<div class="menu_opt">
-									<div class="link_opt close_opt">Tutup</div>
-									<a href="/edit/${row.id_user}" class="link_opt">
-										<i class="fas fa-edit"></i> Edit
-									</a>
-									<a href="/delete/${row.id_user}" class="link_opt">
-										<i class="fas fa-trash"></i> Hapus
-									</a>
-								</div>
-							</td>
-							<td>${i + 1}</td>
-							<td><img src="asset/gam/logo.png" class="profile"></td>
-							<td>${row.user}</td>
-							<td>${row.nama}</td>
-							<td>${row.level}</td>
-							<td>${row.waktu}</td>
-							<td><div class="label ${statusClass}">${row.status}</div></td>
-						</tr>`; -->
 						<!-- Disi oleh ajax -->
 					</tbody>
 				</table>
@@ -126,45 +127,21 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					{{-- Container tambah project --}}
+					<div class="container_tambah_project">
 
+						<div class="loader_page loader_tambah_project"></div>
 
-					<form action="account" method="post">
-
-						<div class="form-group">
-							<label> Name : </label>
-							<input autosave type="text" name="nama" class="form-control" required placeholder="Your Name">
-						</div>
-
-						<div class="form-group">
-							<label> User : </label>
-							<input autosave type="text" name="user" class="form-control" required>
-						</div>
-
-						<div class="form-group">
-							<label> Email : </label>
-							<input autosave type="text" name="email" class="form-control" required placeholder="Your Email">
-						</div>
-
-						<div class="form-group">
-							<label> Input Select </label>
-							<select class="form-control" name="level">
-								<!-- Ini akan ditambahkan dengan jvascript -->
-							</select>
-						</div>
-
-						<div class="form-group">
-							<button type="submit" name="submit" class="btn btn-success form-control">
-								Submit
-							</button>
-						</div>
-					</form>
-
+					</div>
+					{{-- End Of Container tambah project --}}
 				</div>
 			</div>
 		</div>
 	</div>
 
 </section>
+
+
 
 
 

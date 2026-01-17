@@ -45,7 +45,8 @@ Route::controller(Teknisi::class)->group(function () {
     Route::get('/teknisi/dashboard', 'dashboard');
     // Route Modul Account
     Route::get('/teknisi/project', 'project');
-    Route::get('/teknisi/submission_project', 'submission_project');
+    Route::get('/teknisi/monitoring', 'monitoring');
+
 
 });
 

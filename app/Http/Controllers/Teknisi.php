@@ -40,6 +40,12 @@ class Teknisi extends Controller{
         $data = [];
         return view( 'Teknisi/project', $data);
     }
+    //https://url_app/teknisi/monitoring 
+    public function monitoring(){
+        $data = [];
+        return view( 'Teknisi/monitoring', $data);
+    }
+
 
 
 }
@@ -68,7 +74,8 @@ class Menu{
         //++++ Menambahkan modul menu course 
         $this->ADD_MODUL_MENU( 'Modul FSM', [
             [ "menu" => "List Project", "icon" => "fas fa-tasks", "url" => asset("teknisi/project") ],
-            [ "menu" => "Submission Project", "icon" => "fas fa-file-alt", "url" => asset("teknisi/submission_project") ],
+            [ "menu" => "Monitoring", "icon" => "fas fa-tv", "url" => asset("teknisi/monitoring") ],
+
         ]);
 
         return $this->data_sidebar;

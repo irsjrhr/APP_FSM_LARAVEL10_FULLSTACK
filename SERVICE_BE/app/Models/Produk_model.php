@@ -30,7 +30,7 @@ class Produk_model extends Model
 
         $db = $this->db->select('*')
         ->where( $where )
-        ->orderBy('data_produk.waktu');
+        ->orderBy('data_produk.waktu', 'DESC');
         ;
         if (is_callable($callback)) {
             $db = callback( $db );

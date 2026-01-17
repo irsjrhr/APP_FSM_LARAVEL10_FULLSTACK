@@ -29,7 +29,7 @@ class Level_model extends Model
 
 		$db = $this->db->select('*')
 		->where( $where )
-		->orderBy('data_level.waktu');
+		->orderBy('data_level.waktu', 'DESC');
 		;
 		if (is_callable($callback)) {
 			$db = callback( $db );

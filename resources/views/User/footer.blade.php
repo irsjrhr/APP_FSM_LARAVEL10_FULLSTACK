@@ -22,8 +22,7 @@
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user/main.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user/table.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user/tambah_project.js"></script>
-
-
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/user/monitoring.js"></script>
 
 
 </body>

@@ -81,7 +81,7 @@
 									Update Lokasi Kamu
 								</button>
 								<!-- Section monitoring maps -->
-								<section class="monitoring_maps">
+								<section class="monitoring_maps" id="maps_tambah_project">
 
 									<iframe id="maps" style="border:0;"loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
 									</iframe>

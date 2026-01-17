@@ -5,12 +5,40 @@ function cv_decimal(num, decimals = 2) {
     return Math.round((num + Number.EPSILON) * factor) / factor;
 }
 
+
 $(document).ready(function() {
 
     maps_update();
 
-    // Submit Form 
+    //Button ambil lokasi user saat tambah project 
+    $('body').on('click', '.btn_ambil_lokasi', function() {
+
+        trace();
+
+
+        var loader_tambah_project = $('.loader_tambah_project');
+        var lat_input = $('input.lat_input');
+        var long_input = $('input.long_input');
+        var user_teknisi_input = $('input[name=user_teknisi]');
+
+        loader_page( 'show',  $('.loader_update_lokasi'), "Mengambil lokasi anda");
+        get_lokasi_user( function( lat, long ) {
+            lat_input.val( lat );
+            long_input.val( long );
+            //Update juga di visualiasi mapsnya
+            maps_update( '#maps_tambah_project', lat, long );
+
+            console.log( "+====LOKASI TERUPDATE", lat + "," + long );
+            loader_page( 'hide',  $('.loader_update_lokasi'), "");
+
+        });
+    });
+
+    // Submit Form Tambah Project dan Pilih Teknisi Berdasarkan Rekomendasi Teknisi Haversine
     $('body').on('submit', '#form_tambah_project', function(e) {
+
+        trace();
+
 
         e.preventDefault();
 
@@ -51,6 +79,9 @@ $(document).ready(function() {
                 var msg = response.msg;
                 Swal.fire( msg );
 
+                //Setelah berhasil langsung arahkan ke list project user
+                load_page( BASE_URL_PAGE + "user/project"); 
+
             });
 
 
@@ -73,6 +104,9 @@ $(document).ready(function() {
     });
     // Event Pilih Teknisi
     $('body').on('click', '.btn_pilih_teknisi', function() {
+        trace();
+
+
         var col_teknisi = $('.col_teknisi');
         var btn_pilih_teknisi = $(this);
         var col_teknisi_target = btn_pilih_teknisi.parents('.col_teknisi');
@@ -86,40 +120,21 @@ $(document).ready(function() {
 
     }); 
 
-    //Button ambil lokasi user
-    $('body').on('click', '.btn_ambil_lokasi', function() {
-
-        var loader_tambah_project = $('.loader_tambah_project');
-        var lat_input = $('input.lat_input');
-        var long_input = $('input.long_input');
-        var user_teknisi_input = $('input[name=user_teknisi]');
-
-        loader_page( 'show',  $('.loader_update_lokasi'), "Mengambil lokasi anda");
-        get_lokasi_user( function( lat, long ) {
-            lat_input.val( lat );
-            long_input.val( long );
-            //Update juga di visualiasi mapsnya
-            maps_update( lat, long );
-
-            console.log( "+====LOKASI TERUPDATE", lat + "," + long );
-            loader_page( 'hide',  $('.loader_update_lokasi'), "");
-
-        });
-    });
 
     //Event btn back to form input
     $('body').on('click', '.btn_back_form', function() {
+        trace();
         //Event ini biss bekerja jika content form yang actve itu adalah yang form rekom
         if ( $('.content_form').filter('#form_rekom_teknisi').filter('.active').length > 0 ) {
             open_form_input();
         }
     });
 
-
-
 }); 
 
 var open_form_input = () =>{
+    trace();
+
 
     console.log('+++++++++ Membuka .content_form #form_input tambah project ++++++++ ');
 
@@ -134,6 +149,9 @@ var open_form_input = () =>{
     form_input.addClass('active');
 }
 var open_form_rekom_teknisi = ( lat, long ) =>{
+
+    trace();
+
 
     //REQUEST DATA TEKNISI BERDASARKAN LOKASI LAT DAN LONG MENGGUNAKAN ALGORITMA HAVERESINE
 
@@ -165,11 +183,6 @@ var open_form_rekom_teknisi = ( lat, long ) =>{
             //Menampilkan card teknisi berdasarkan data json yang di terima dari BE 
             var data_rekom_teknisi = response; 
             load_card_rekomTeknisi( data_rekom_teknisi );
-
-            //Setelah berhasil langsung arahkan ke monitoring project 
-            
-
-
         }, 100);
     }); 
 
@@ -177,6 +190,9 @@ var open_form_rekom_teknisi = ( lat, long ) =>{
 
 
 function load_card_rekomTeknisi( data_rekom_teknisi = []) {
+
+    trace();
+
 
     var form_rekom_teknisi = $( '#form_rekom_teknisi' );
     var el_row_teknisi = form_rekom_teknisi.find('.row_teknisi');

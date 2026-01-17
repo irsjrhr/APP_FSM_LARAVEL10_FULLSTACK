@@ -20,6 +20,7 @@
 
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin/main.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin/table.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin/monitoring.js"></script>
 
 </body>
 </html>
