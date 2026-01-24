@@ -18,7 +18,65 @@ var OBJ_MEDIA = {
 $(document).ready(function() {	
 
 
-	//+++++++++++ Method event untuk modal view file +++++++++++ ==================================================
+
+	// $('#modal_select_file').modal('show');
+	//Memunculkan semua modal tambah data di admin
+	// $('#modal_tambah').modal('show');
+
+	//Interopability file handling 	
+	//Akan menambahkan element berkaitan dengan semua modal file upload section ke setiap form yang menggunakan class .form_file_upload
+	el_form_file_upload();
+
+
+	//+++++++++++ Method Event Pada Modal Select File +++++++++++ 
+	//Event untuk di modal tambah file untuk tipe penyimpanan
+	validasi_tipe_penyimpanan();
+	$('select[name=tipe_penyimpanan]').on('change', function(e) {
+		validasi_tipe_penyimpanan();
+	});
+	//Modal ketika tombol Pilih di modal_select_file di tekan
+	$('#modal_select_file .btn_submit_select').on('click', function(e) {
+		submit_select_file();
+	});
+	//Melakukan asynchronous ajax untuk pertama kali dengan ambil data file yang di upload ketika modal select file muncul
+	$('.indicator_tipe_penyimpanan').on('click', function(){
+
+		var indicator_tipe_penyimpanan = $('.indicator_tipe_penyimpanan');
+		var indicator_tipe_penyimpanan_target = $(this);
+
+		var id = indicator_tipe_penyimpanan_target.attr('id');
+		if ( id == "all" ) {
+			id = false;
+		}
+
+		TIPE_PENYIMPANAN_PARAM = id;
+		indicator_tipe_penyimpanan.removeClass('active');
+		indicator_tipe_penyimpanan_target.addClass('active');
+
+		load_ajax_modalFileSelect();
+	});
+	$('#modal_select_file').on('shown.bs.modal', function (event) {
+		load_ajax_modalFileSelect();
+	});
+	// Event refresh ulang pada modal select file 
+	$('.btn_refresh_select').on('click', function(e) {
+		load_ajax_modalFileSelect();
+	});
+	// Event untuk tombol .btn_preview_select pada modal select file di klik dan akan membuka modal view file yang akan menampilkan preview file dari col_file yang dipilih
+	$('#modal_select_file .btn_preview_select').on('click', function () {
+		var modal_select_file = $('#modal_select_file');
+		var col_file_active = modal_select_file.find('.col_file').filter('.active');
+		if ( col_file_active.length > 0 ) {
+			console.log("Col file ada yang dipilih, maka bisa di preview");
+			var data_sourceFile = col_file_active.attr('data-sourceFile');
+			open_modal_view( data_sourceFile );
+		}else{
+			console.log("Col file tidak ada yang dipilih, maka tidak bisa di preview");
+		}
+	});
+
+
+	//+++++++++++ Method event pada Modal View File +++++++++++ 
 
 	// Event untuk melihat file 
 	$('body').on('click', '.btn_modal_view', function() {
@@ -36,75 +94,15 @@ $(document).ready(function() {
 			alert("Gagal menyalin: " + err);
 		});
 	});
-	//+++++++++++ Method Event untuk di modal select file dan modal tambah file asycn +++++++++++ ==================================================
-	// $('#modal_select_file').modal('show');
-	//Memunculkan semua modal tambah data di admin
-	// $('#modal_tambah').modal('show');
 
-	//Interopability file handling 	
-	//Akan menambahkan element berkaitan dengan semua modal file upload section ke setiap form yang menggunakan class .form_file_upload
-	el_form_file_upload();
+	//+++++++++++ Method event pada Modal Tambah File ( Upload File ) +++++++++++ 
 
-	//Event untuk di modal tambah file untuk tipe penyimpanan
-	validasi_tipe_penyimpanan();
-	$('select[name=tipe_penyimpanan]').on('change', function(e) {
-		validasi_tipe_penyimpanan();
-	});
-
-	//Modal ketika tombol Pilih di modal_select_file di tekan
-	// Event untuk tombol submit untuk pilih file
-	$('#modal_select_file .btn_submit_select').on('click', function(e) {
-		submit_select_file();
-	});
-
-	//Modal ketika tombol preview di modal_select_file di tekan
-	// Event untuk tombol preview untuk col_file yang dipiih yang akan dibuka di modal view file
-	$('#modal_select_file .btn_preview_select').on('click', function () {
-		var modal_select_file = $('#modal_select_file');
-		var col_file_active = modal_select_file.find('.col_file').filter('.active');
-		if ( col_file_active.length > 0 ) {
-			console.log("Col file ada yang dipilih, maka bisa di preview");
-			var data_sourceFile = col_file_active.attr('data-sourceFile');
-			open_modal_view( data_sourceFile );
-		}else{
-			console.log("Col file tidak ada yang dipilih, maka tidak bisa di preview");
-		}
-	});
-
-
-	//Melakukan asynchronous ajax untuk pertama kali dengan ambil data file yang di upload ketika modal select file muncul
-	$('.indicator_tipe_penyimpanan').on('click', function(){
-
-		var indicator_tipe_penyimpanan = $('.indicator_tipe_penyimpanan');
-		var indicator_tipe_penyimpanan_target = $(this);
-
-		var id = indicator_tipe_penyimpanan_target.attr('id');
-		if ( id == "all" ) {
-			id = false;
-		}
-
-
-		TIPE_PENYIMPANAN_PARAM = id;
-		indicator_tipe_penyimpanan.removeClass('active');
-		indicator_tipe_penyimpanan_target.addClass('active');
-
-		load_ajax_modalFileSelect();
-	});
+	// Event ajax untuk modal tambah file async untuk melakukan upload dan tambah data file secara asynchronous 
 	$('#modal_tambahFile_async').on('shown.bs.modal', function() {
 		var form = $(this).find('form');
 		form.trigger('reset'); //Reset form
 		el_load_modalFileTambah("hide", "....");
 	});
-	$('#modal_select_file').on('shown.bs.modal', function (event) {
-		load_ajax_modalFileSelect();
-	});
-	// Event refresh ulang pada modal select file 
-	$('.btn_refresh_select').on('click', function(e) {
-		load_ajax_modalFileSelect();
-	});
-
-	// Event ajax untuk modal tambah file async untuk melakukan upload dan tambah data file secara asynchronous 
-	// $('#modal_tambahFile_async').modal('show')
 	$('#modal_tambahFile_async form').on('submit', function (e) {
 		e.preventDefault(); // Mencegah reload halaman
 
@@ -166,7 +164,8 @@ $(document).ready(function() {
 			},
 			processData: false, // Jangan memproses data
 			contentType: false, // Jangan atur jenis konten
-			xhr: function() {//Untuk mendapatkan progress saat mengirim input ke BE 
+			//Event real time mendapatkan progress saat mengirim input file ke BE 
+			xhr: function() {
 				var xhr = $.ajaxSettings.xhr();
 				if (xhr.upload) {
 					//Kalo browser sudah bisa upload 
@@ -187,7 +186,7 @@ $(document).ready(function() {
 				}
 				return xhr;
 			},
-			// Ketika input berhasil terkirim
+			// Ketika file berhasil terkirim semua 
 			success: function (res) {
 				//res sudahdalam bentuk JSON
 				var response = res;
@@ -226,31 +225,9 @@ $(document).ready(function() {
 
 
 	});
-//+++++++++++  End Of Method Event untuk di modal select file dan modal tambah file asycn +++++++++++ ==================================================
-
-$();
-
-
 });
-function open_modal_selectFile( btn_modal_selectFile ) {
-	btn_modal_selectFile = $(btn_modal_selectFile);
-	//Buat active .form_modal_file yang menjadi parent dari btn_modal_selectFile yang ditekan 
-	// Hal ini dilakukan untuk memberikan tanda active jjadi ketika modal file submit, perubahan nilai file yang dipilih hanya yang form punya class active. 
-	// Ini sangat penting ketika .form_modal_file lebih dari 1 dari setiap cycle
-	var form_modal_file = $('.form_modal_file');
-	var form_modal_file_target = btn_modal_selectFile.parents('.form_modal_file');
-	//Hilangkan active .form_modal_file yang lainnya 
-	form_modal_file.removeClass('active');
 
-	//Berikan tanda active ke form_modal_file
-	form_modal_file_target.addClass('active');
-
-	var modal_select_file = $('#modal_select_file');
-	modal_select_file.modal('show'); 
-}
-
-//+++++++++++ Fungsi untuk upload file asynchronous di modal select file dan modal tambah file async +++++++++++++++++++++++
-
+//+++++++++++ FUNGSI TERKAIT TRIGER FORM UPLOAD DENGAN MODAL SELECT FILE +++++++++++++++++++++++
 function create_el_formModalFile( name_id_file =  "id_file", name_source_file = "source_file" ) {
 	var el_form_modal_file =  `
 	<!-- Form Row Yang Terintegrasi dengan modal select file asynchronous -->
@@ -330,21 +307,25 @@ function el_load_modalFileTambah( param, text_load = "Loading...." ) {
 
 }
 
-function el_load_modalSelectFile( param, text_load = "Loading....") {
+//+++++++++++ FUNGSI TERKAIT EVENT PADA MODAL SELECT FILE +++++++++++++++++++++++
+function open_modal_selectFile( btn_modal_selectFile ) {
+	btn_modal_selectFile = $(btn_modal_selectFile);
+	//Buat active .form_modal_file yang menjadi parent dari btn_modal_selectFile yang ditekan 
+	// Hal ini dilakukan untuk memberikan tanda active jjadi ketika modal file submit, perubahan nilai file yang dipilih hanya yang form punya class active. 
+	// Ini sangat penting ketika .form_modal_file lebih dari 1 dari setiap cycle
+	var form_modal_file = $('.form_modal_file');
+	var form_modal_file_target = btn_modal_selectFile.parents('.form_modal_file');
+	//Hilangkan active .form_modal_file yang lainnya 
+	form_modal_file.removeClass('active');
+
+	//Berikan tanda active ke form_modal_file
+	form_modal_file_target.addClass('active');
+
 	var modal_select_file = $('#modal_select_file');
-	var el_load_ajax = modal_select_file.find('.load_ajax_data');
-	var el_text_caption = el_load_ajax.find('.text_caption');
-
-	el_text_caption.html( text_load );
-
-	if ( param == "show" ) {
-		el_load_ajax.show();
-	}else if ( param == "hide" ) {
-		el_load_ajax.hide();
-	}
-
+	modal_select_file.modal('show'); 
 }
-function load_ajax_modalFileSelect(  ) {
+
+function load_ajax_modalFileSelect() {
 	
 
 	load_data_kapasitas();
@@ -391,8 +372,20 @@ function load_ajax_modalFileSelect(  ) {
 		}
 	});
 }
+function el_load_modalSelectFile( param, text_load = "Loading....") {
+	var modal_select_file = $('#modal_select_file');
+	var el_load_ajax = modal_select_file.find('.load_ajax_data');
+	var el_text_caption = el_load_ajax.find('.text_caption');
 
+	el_text_caption.html( text_load );
 
+	if ( param == "show" ) {
+		el_load_ajax.show();
+	}else if ( param == "hide" ) {
+		el_load_ajax.hide();
+	}
+
+}
 function getFileIconSrc( source_file ) {
 
 	var FILE_ICON = {
@@ -451,18 +444,6 @@ function create_el_file(row_obj) {
 	var tipe_penyimpanan = row_obj.tipe_penyimpanan;
 
 	var ext_file; 
-	/* Kalo eksistensinya berdasarkan tipe penyimpanan yang  ingin ditampilkan
-	switch(tipe_penyimpanan){
-		case "lokal":
-		ext_file = source_file.split('.');
-		var last_index = ext_file.length - 1;
-		ext_file = ext_file[last_index];
-		break;
-		case "url":
-		ext_file = "URL"
-		break;
-	}
-	*/
 
 	//Buat icon source gambar filenya berdasarkan eksistensi dari source filenya 
 	var FILE_ICON = getFileIconSrc( source_file );
@@ -526,37 +507,19 @@ function submit_select_file() {
 	form_modal_file_active.find('#source_file').val(data_sourceFile);
 }
 
-function validasi_tipe_penyimpanan() {
-	// Melakukan validasi tipe penyimpanan pada modal tambah file di input select dengan name tipe_penyimpanan
 
-	var el_tipe_penyimpanan = $('select[name=tipe_penyimpanan]');
-	if ( el_tipe_penyimpanan.length < 1 ) {
-		return false;
-	}
-	var tipe_penyimpanan = el_tipe_penyimpanan.val();
+// ++ FUNGSI TERKAIT MODAL SELECT FILE UNTUK MENDAPATKAN KAPASITAS +++
+function load_data_kapasitas() {
+	get_API( URL_SERVICE_FILE + "file/get_data_kapasitas", {}, function( response ) {
+		console.log("++++ KAPATASITAS TERPAKAI++++++++++++++");
 
-	var input_tipe_select;
-	switch( tipe_penyimpanan  ){
-		case "lokal":
-		input_tipe_select = $('input[name=upload_file]');
-		break;
-		case "cloud":
-		input_tipe_select = $('input[name=upload_file]');
-		break;
-		case "url":
-		input_tipe_select = $('input[name=url_file]');
-		break;
-	}
+		var lokal_data = response.lokal;
+		indicator_storage_implement( '.col_indicator_str.lokal', lokal_data );
 
-	var form_row_tipe = $('.form_row_tipe');
-	form_row_tipe.find('*').hide();
-	form_row_tipe.find('*').prop('disabled', true);
-
-	input_tipe_select.show();
-	input_tipe_select.prop('disabled', false);
+		var cloud_data = response.cloud;
+		indicator_storage_implement( '.col_indicator_str.cloud', cloud_data );
+	} );
 }
-
-
 function bar_indicator_implement( bar_indicator_el_selector, nilai_persentase ) {
 	var bar_indicator_el = $( bar_indicator_el_selector );
 	var bar_indicator = bar_indicator_el.find('.bar_indicator');
@@ -591,21 +554,43 @@ function indicator_storage_implement( col_indicator_str_selector, storage_data )
 	var nilai_persentase = ( kapasitas_terpakai / kapasitas ) * 100; 
 	bar_indicator_implement( col_indicator_str.find('.bar_indicator_el'), nilai_persentase );
 }
-function load_data_kapasitas() {
-	get_API( URL_SERVICE_FILE + "file/get_data_kapasitas", {}, function( response ) {
-		console.log("++++ KAPATASITAS TERPAKAI++++++++++++++");
 
-		var lokal_data = response.lokal;
-		indicator_storage_implement( '.col_indicator_str.lokal', lokal_data );
 
-		var cloud_data = response.cloud;
-		indicator_storage_implement( '.col_indicator_str.cloud', cloud_data );
 
-	} );
+//+++++++++++ FUNGSI TERKAIT EVENT PADA MODAL TAMBAH FILE +++++++++++++++++++++++
+function validasi_tipe_penyimpanan() {
+	// Melakukan validasi tipe penyimpanan pada modal tambah file di input select dengan name tipe_penyimpanan
+
+	var el_tipe_penyimpanan = $('select[name=tipe_penyimpanan]');
+	if ( el_tipe_penyimpanan.length < 1 ) {
+		return false;
+	}
+	var tipe_penyimpanan = el_tipe_penyimpanan.val();
+
+	var input_tipe_select;
+	switch( tipe_penyimpanan  ){
+		case "lokal":
+		input_tipe_select = $('input[name=upload_file]');
+		break;
+		case "cloud":
+		input_tipe_select = $('input[name=upload_file]');
+		break;
+		case "url":
+		input_tipe_select = $('input[name=url_file]');
+		break;
+	}
+
+	var form_row_tipe = $('.form_row_tipe');
+	form_row_tipe.find('*').hide();
+	form_row_tipe.find('*').prop('disabled', true);
+
+	input_tipe_select.show();
+	input_tipe_select.prop('disabled', false);
 }
-//+++++++++++ End Of Fungsi untuk upload file asynchronous di modal select file dan modal tambah file async +++++++++++++++++++++++s
 
-//+++++++++++ Fungsi terkait modal view file +++++++++++++++++++++++
+
+
+//+++++++++++ FUNGSI TERKAIT EVENT PADA MODAL VIEW FILE +++++++++++++++++++++++
 function escapeHtml(unsafe) {
 	return unsafe
 	.replace(/&/g, "&amp;")
@@ -748,7 +733,6 @@ function setMedia(src =  "https://source_url_file.xx") {
 }
 
 
-//+++++++++++ End Of Fungsi terkait modal view file +++++++++++++++++++++++
 
 
 

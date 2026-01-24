@@ -150,7 +150,17 @@ function create_animasiLoadPageEl() {
 	parent_table.prepend( new_animasi_loadPage );
 
 }
+
+
+
+
+
+
+
 function load_page( target_page = BASE_URL_PAGE, callback = false ) {
+
+
+
 	trace();
 
 	if ( callback == false ) {
