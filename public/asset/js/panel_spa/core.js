@@ -36,6 +36,8 @@ $(document).ready(function() {
 
 	});	
 	//++++++++++ Asynchronous ++++++++++++++++
+
+	//Event sidebar menu untuk load page spa 
 	$('.sidebar .link_menu').on('click', function() {
 
 		trace();
@@ -45,7 +47,7 @@ $(document).ready(function() {
 		var link_menu_target = $(this);
 		var data_page = link_menu_target.attr('data-page');
 
-		load_page( data_page );
+		load_page( data_page ); //Inni ada di route_app.js
 	});
 	
 	//Buka page pertama dashboard untuk setiap SPA
@@ -150,20 +152,13 @@ function create_animasiLoadPageEl() {
 	parent_table.prepend( new_animasi_loadPage );
 
 }
-
-
-
-
-
-
-
-function load_page( target_page = BASE_URL_PAGE, callback = false ) {
-
-
+//FUNGSI CORE UNTUK LOAD PAGE SPA
+function LOAD_PAGE_SPA( target_page = BASE_URL_PAGE, callback = false ) {
 
 	trace();
 
-	if ( callback == false ) {
+	//Handling Error Callback Type
+	if ( typeof callback !== 'function' ) {
 		callback = function() {
 			return false;
 		}
@@ -203,74 +198,8 @@ function load_page( target_page = BASE_URL_PAGE, callback = false ) {
 		//Menambahan element animasi load page pada table
 		create_animasiLoadPageEl();
 
-		//Membuat list select level pada halaman Admin/account di modal form berdasarkan data api
-		get_data( URL_SERVICE_BE + "level", {}, function( response ) {
-			var select_level = $('select[name=level]');
-			for (var i = 0; i < response.length; i++) {
-				var row_level = response[i];
-				var nama_level = row_level.nama_level;
-				var option_el = `<option value='${nama_level}'>${nama_level}</option>`;
-				select_level.append( option_el );
-			}
-		});
-
-		//Menampilkan list produk pada option di form tambah project pada fitur User/tambah_project 
-		var form_tambah_project = $('#form_tambah_project'); 
-		var select_option_produk = form_tambah_project.find('select[name=id_produk]');
-		//Bersihan elemen option lama 
-		select_option_produk.html(" ");
-		if ( form_tambah_project.length > 0 ) {
-			get_data( URL_SERVICE_BE + "produk", {}, function(response) {
-				var form_tambah_project = $('#form_tambah_project'); 
-				for (var i = 0; i < response.length; i++) {
-					var row_produk = response[i];
-					var el_option = `<option value='${ row_produk.id_produk }'> ${ row_produk.nama_produk } </option>`;
-					select_option_produk.append(  el_option );
-				}
-			});
-		}
-
-
-		//Menampilkan profile pada card profile 
-		get_row(URL_SERVICE_BE + "account", { by_user : get_userLogin() }, function(response ) {
-			// ===============================
-			// PROFILE HEADER
-			// ===============================
-			if (response.source_file_profile) {
-				$('#source_file_profile').attr('src', response.source_file_profile);
-			}
-
-			$('#nama').text(response.nama);
-			$('#user').text(response.user);
-			$('#level').text(response.level);
-
-			// ===============================
-			// PERSONAL INFORMATION
-			// ===============================
-			$('#email').text(response.email);
-
-			if (response.alamat && response.alamat !== 'NULL') {
-				$('#alamat').text(response.alamat);
-			} else {
-				$('#alamat').text('-');
-			}
-
-			// ===============================
-			// FORM UPDATE PROFILE (MODAL)
-			// ===============================
-			$('input[name=nama]').val(response.nama);
-			$('input[name=email]').val(response.email);
-			$('textarea[name=alamat]').val(
-				(response.alamat && response.alamat !== 'NULL') ? response.alamat : ''
-				);
-
-		});
-
-
-		//Kalo ada monitoring maps 
-		maps_update();
-
-		callback();
+		//Memanggil callback
+		callback( responseText, statusText, xhr );
 	});
 
 

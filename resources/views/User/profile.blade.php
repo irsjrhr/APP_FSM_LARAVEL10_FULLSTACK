@@ -28,13 +28,13 @@
 			</div>
 			<div class="col-md-6">
 				<h4 class="text_title" id="nama">
-					Irshandy Juniar Hardadi 
+					- 
 				</h4>
 				<h5 class="text_info">
-					User Id : <span id="user"> shandy28 </span>
+					User Id : <span id="user"> - </span>
 				</h5>
 				<h5 class="text_info">
-					Level : <span id="level"> nama level </span>
+					Level : <span id="level"> - </span>
 				</h5>
 			</div>
 		</div>
@@ -62,12 +62,7 @@
 							<div class="card">
 								<div class="card-body">
 									<p class="text_title"> Alamat </p>
-									<p class="text_info" id="alamat">  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-										consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-										cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-									proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+									<p class="text_info" id="alamat">  - </p>
 								</div>
 							</div>
 						</div>
