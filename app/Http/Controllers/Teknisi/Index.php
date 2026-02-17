@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Teknisi;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Base_model;
 
-class Teknisi extends Controller{
+class Index extends Controller{
 
     public function __construct(){
         $this->Base_model = new Base_model();
     }
 
-     //Method View Untuk Masuk Modul Aplikasi 
+    //Method View Untuk Masuk Modul Aplikasi 
     //https://url_app/teknisi/ 
     public function index(){
         $Menu = new Menu();
@@ -21,32 +22,10 @@ class Teknisi extends Controller{
         $data = [];
         $data['data_modal_menu'] = $data_modal_menu;
         $data['data_sidebar'] = $data_sidebar;
-        return view('Teknisi/index', $data);
+        return view('Teknisi/Index/index', $data);
     }
 
     //+++++++ Method dibawah akan ditampilkan dengan asynchronous SPA pada javascript melalui index +++++++++++
-    //https://url_app/teknisi/dashboard
-    public function dashboard(){  
-        $data = [];
-        return view( 'Teknisi/dashboard', $data );
-    }
-    //https://url_app/teknisi/submission_project
-    public function submission_project(){  
-        $data = [];
-        return view( 'Teknisi/submission_project', $data );
-    }
-    //https://url_app/teknisi/project
-    public function project(){
-        $data = [];
-        return view( 'Teknisi/project', $data);
-    }
-    //https://url_app/teknisi/monitoring 
-    public function monitoring(){
-        $data = [];
-        return view( 'Teknisi/monitoring', $data);
-    }
-
-
 
 }
 
