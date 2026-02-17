@@ -15,6 +15,10 @@ class Auth extends Controller{
     public function set_sesi( Request $req ){
         $user = $req->input('user');
         $level = $req->input('level');
+
+        
+        
+
         $source_file_profile = $req->input('source_file_profile');
         $this->Base_model->set_sesi_login( $user, $level, $source_file_profile );
         return redirect('/admin');

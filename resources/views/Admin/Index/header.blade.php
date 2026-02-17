@@ -93,59 +93,84 @@
 					<button class="btn btn-default btn_close">
 						<i class="fas fa-times"></i>
 					</button>
-					<div class="container-fluid">
 
-						<!-- Row Header -->
-						<!-- 						<div class="row row_header">
-							<div class="col-12">
-								<img src="{{asset('')}}asset/gam/logo.png" class="logo_sidebar">
-								<button class="btn btn-default btn_close">
-									<i class="fas fa-times"></i>
-								</button>
-								<h1 class="logo_font"> 
-									App - Admin
-								</h1>
-							</div>
-						</div> -->
-						<!-- End Of Row Header -->
-
+					{{-- container modul menu --}}
+					<div class="container-fluid container_modul_menu">
+						{{-- Loop data sidebar - modul menu --}}
 						@foreach ($data_sidebar as $row_sidebar)
+						@php
+						$jenis_modul = $row_sidebar['jenis_modul'];
+						@endphp
 
-						@if ($row_sidebar['url'] != 'batas')
-						{{-- Ini Adalah Ketika Link Menu --}}
-						<div data-page="{{ $row_sidebar['url'] }}" class="link_menu">
-							<div class="row row_menu">
-								<div class="col-3 menu_logo">
-									<i class="{{ $row_sidebar['icon'] }}"></i>
-								</div>
-								<div class="col menu_text">
-									{{ $row_sidebar['menu'] }}
-								</div>
-							</div>
-						</div>
-
-						@elseif ($row_sidebar['url'] == 'batas')
-						{{-- Ini Adalah Ketika Batas Menu --}}
-						<div class="link_batas">
-							<div class="row row_menu">
+						@if ( $jenis_modul == "MODUL" )
+						{{-- JIKA JENIS MODUL NYA MODUL --}}
+						{{-- Row Modul --}}
+						@php
+						$nama_modul = $row_sidebar['nama_modul'];
+						$data_modul_menu = $row_sidebar['data_modul_menu'];
+						@endphp
+						<div class="row_modul">
+							{{-- row modul header --}}
+							<div class="row row_modul_header mb-2">
 								<div class="col-1 menu_logo">
-									<i class="{{ $row_sidebar['icon'] }}"></i>
+									<i class="fas fa-arrow-right"></i>
 								</div>
 								<div class="col menu_text">
-									{{ $row_sidebar['menu'] }}
+									{{$nama_modul}}
 								</div>
 							</div>
-						</div>
+							{{-- end of row modul header --}}
 
+							{{-- row container menu --}}
+							<div class="row row_container_menu">
+								{{-- Col Container Menu --}}
+								<div class="col-12 col_container_menu" style="padding: 0;padding-left: 20px;">
+									{{-- Loop Row Menu --}}
+									@foreach ($data_modul_menu as $row_menu)
+									{{-- Row Menu - Link Menu --}}
+									<div class="row row_menu link_menu" data-page="{{ $row_menu['url'] }}">
+										<div class="col-1 menu_logo">
+											<i class="{{ $row_menu['icon'] }}"></i>
+										</div>
+										<div class="col menu_text">
+											{{ $row_menu['menu'] }}
+										</div>
+									</div>
+									{{-- End Of Row Menu - Link Menu --}}
+									@endforeach
+									{{-- End Of Loop Row Menu --}}
+								</div>
+								{{-- End Of Col Container Menu --}}
+							</div>
+							{{-- end of row container menu --}}
+						</div>
+						{{-- End Of Row Modul --}}
+						{{-- END OF JIKA JENIS MODUL NYA MODUL --}}
+
+						@elseif ( $jenis_modul = "MENU" )
+						{{-- JIKA JENIS MODUL NYA MENU --}}
+						{{-- Row Menu - Link Menu --}}
+						@php
+						$row_menu = $row_sidebar;
+						@endphp
+						<div class="row row_menu link_menu" data-page="{{ $row_menu['url'] }}">
+							<div class="col-1 menu_logo">
+								<i class="{{ $row_menu['icon'] }}"></i>
+							</div>
+							<div class="col menu_text">
+								{{ $row_menu['menu'] }}
+							</div>
+						</div>
+						{{-- End Of Row Menu - Link Menu --}}
+						{{-- JIKA JENIS MODUL NYA MENU --}}
 						@endif
 
 						@endforeach
-
-
-
-						<!-- End Of link_menu -->
+						{{-- End Of Loop data sidebar  --}}
 
 					</div>
+					{{-- end of container modul menu --}}
+
 				</div>
 			</div>
 			<!-- End Of Sidebar -->
