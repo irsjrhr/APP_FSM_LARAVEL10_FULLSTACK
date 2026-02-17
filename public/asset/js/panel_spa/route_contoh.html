@@ -1,0 +1,95 @@
+<script type="text/javascript">
+
+
+	//++++++++++++++++++++++++ ROUTING SCRIPT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+	// const BASE_URL_PAGE = "http://127.0.0.1:8000/"; 
+
+	const BASE_URL_PAGE = "http://127.0.0.1:8000/"; 
+
+	function ROUTE_INIT( route, load_spa = false ) {
+		this.route = route;
+		this.callback_route = false;
+		this.start = function() {
+			//Handling Type Callback
+			if (typeof this.callback_route !== 'function') {
+				this.callback_route = function ( route ) {
+					return 1;
+				};
+			}
+
+			///Panggil Routenya
+			this.callback_route( route );
+		}
+	}
+
+	const ROUTE = {
+		QUE_ROUTE : [],   
+		add : function( route = "{path}/{path2}/{path3}", callback = false, load_spa = false ) {
+
+			//Handling Default Type Callback
+			if (typeof callback !== 'function') {
+				callback = function () {
+					return "Callback is not sign for function callback!!!";
+				};
+			}
+
+			//++++++++ Build Object Route With Callback Triger +++++++
+			var page = new ROUTE_INIT( route, load_spa );
+			// Buat perilaku page ketika di triger dari method callback yang di daftarkan berdasarkan routenya
+			page.callback_route = function() {
+				callback( route );
+			};
+
+			//++++++++ Sign Object Route Yang Sudah Di Buil +++++++
+			this.QUE_ROUTE.push( page );
+		},
+
+		//MEMANGGIL ROUTE BERDASARKAN TRIGER ROUTE AARGUMENNYA 
+		load : function( url_route_target = BASE_URL_PAGE + "path/path2/" ) {
+			var ROUTE_INIT_EXIST = false;
+			var QUE_ROUTE = this.QUE_ROUTE;
+			for (var i = 0; i < QUE_ROUTE.length; i++) {
+				var row_obj = QUE_ROUTE[i];
+				//Kalo routenya sudah terdaftar sebagai object Page
+				if ( row_obj.route == url_route_target ) {	
+					ROUTE_INIT_EXIST = row_obj;
+					break;
+				}
+			}
+
+			if ( ROUTE_INIT_EXIST != false ) {
+				//Jika Route Yang Di Triger Ada, Maka Jalankan Perilaku dari callbacknya
+				console.log('ROUTE TARGET DITEMUKAN DENGAN MENJALANKAN CALLBACK URL ROUTE ' + url_route_target);
+
+				ROUTE_INIT_EXIST.start(); //Memanggil callback_route dari PAGE yang di pilih berdasarkan route
+			}else{
+				console.log('TIDAK ADA ROUTE DENGAN URL ROUTE ' + url_route_target);
+			}
+		}
+	};
+	//Helper Function For Route Load
+	function load_page( url_route = "path/path2/" ) {
+		ROUTE.load( url_route );
+	}
+
+	//===== IMPLEMENTASI PENGGUNAAN ===== 
+
+	//=== Daftarin Route Dengan Callback Triger
+	ROUTE.add( BASE_URL_PAGE + 'admin/page', function( route ) {
+		alert( "MENJALANKAN FUNGSI UNTUK URL ROUTE " + route );
+	});
+
+	//=== Panggil Routenya Dan Menjalankan Callbacck Trigernya
+	//Triger routenya untuk menjalankan callback dari page yang didaftarkan
+	load_page( BASE_URL_PAGE + 'admin/page' );
+
+	// console.log( ROUTE.QUE_ROUTE );
+
+
+	//++++++++++++++ END OF ROUTING SCRIPT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+</script>
