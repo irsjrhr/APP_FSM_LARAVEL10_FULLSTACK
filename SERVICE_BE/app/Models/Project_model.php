@@ -180,8 +180,7 @@ class Project_model extends Model
         return $response;
     }
     //Melakukan tambah project ke data_project dan update status teknisi ke data_user_teknisi
-    public function tambah_teknisi($row_input)
-    {
+    public function tambah_teknisi($row_input){
         $data = [
             'id_produk' => $row_input['id_produk'],
             'user_teknisi' => $row_input['user_teknisi'],
@@ -209,7 +208,7 @@ class Project_model extends Model
             // Insert project
             $this->db->insert($data);
 
-            // Update status teknisi
+            // Update status teknisi ketika project sudah di bookiing atas nama dia 
             DB::table('data_user_teknisi')
             ->where('user', $user_teknisi)
             ->update([

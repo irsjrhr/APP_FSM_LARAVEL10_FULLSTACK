@@ -1,5 +1,11 @@
 //++++++++++++++++++++++++ BASE ROUTING SCRIPT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //INGAT!! INI HARUS TERHUBUNG ATAU DIBARENGI DENGAN core.js dan api.js
+// Kemudian route yang ada disini merupkan callback triger dari pada load page yang di panggil di menu sidebar 
+
+
+
+
+
 // const BASE_URL_PAGE = "http://127.0.0.1:8000/"; ---> INI ADA DI api.js
 function ROUTE_INIT( route, load_spa = false ) {
 	this.route = route;
@@ -92,7 +98,7 @@ ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( route ) {
 
 
 
-//----- ADMIN CONTROLLER ROUTE ----
+//----- ADMIN CONTROLLER ROUTE CALLBACK ----
 //https://url_app_fe/admin/dashboard
 ROUTE.add( BASE_URL_PAGE + 'admin/dashboard', function( route ) {
 	LOAD_PAGE_SPA( route );
@@ -146,7 +152,7 @@ ROUTE.add( BASE_URL_PAGE + 'admin/monitoring', function( route ) {
 
 
 
-//----- TEKNISI CONTROLLER ROUTE ----
+//----- TEKNISI CONTROLLER ROUTE CALLBACK ----
 //https://url_app_fe/teknisi/dashboard
 ROUTE.add( BASE_URL_PAGE + 'teknisi/dashboard', function( route ) {
 	LOAD_PAGE_SPA( route );
@@ -161,9 +167,9 @@ ROUTE.add( BASE_URL_PAGE + 'teknisi/monitoring', function( route ) {
 });
 
 
-//----- USER CONTROLLER ROUTE ----
+//----- USER CONTROLLER ROUTE CALLBACK ----
 //https://url_app_fe/user/dashboard
-ROUTE.add( BASE_URL_PAGE + 'user/dashboard', function(route) {
+ROUTE.add( BASE_URL_PAGE + 'user/dashboard', function( route ) {
 	LOAD_PAGE_SPA( route );
 });
 //https://url_app_fe/user/profile
@@ -201,7 +207,6 @@ ROUTE.add( BASE_URL_PAGE + 'user/profile', function( route ){
 			$('textarea[name=alamat]').val(
 				(response.alamat && response.alamat !== 'NULL') ? response.alamat : ''
 				);
-
 		});
 	});
 });
@@ -242,6 +247,10 @@ ROUTE.add( BASE_URL_PAGE + 'user/monitoring', function(route) {
 
 //=== Contoh Penggunaan Memanggi Langsung Routenya Dan Menjalankan Callbacck Trigernya dengan Triger routenya untuk menjalankan callback dari page yang didaftarkan
 // load_page( URL_ROUTE_YANG_TERDAFTAR );
+
+
+
+
 
 
 

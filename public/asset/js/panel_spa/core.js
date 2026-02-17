@@ -270,7 +270,6 @@ function load_table( data = [] ) {
 		return ${nama_fungsi}( data );` //Pembuatan fungsi 
 		); //Closure interopablity 
 
-
 	//++++++++++++++++++
 	func( data );// Fungsi untuk load table, dengan perilaku loadnya ada di admin_table.js
 	//++++++++++++++++++
