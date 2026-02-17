@@ -52,17 +52,19 @@ Sistem ini menggunakan hierarki tiga tingkat untuk memastikan modularitas dan sk
 ### A. Admin Application
 **Namespace:** `App\Http\Controllers\Admin`
 
-| Modul | Controller | View Path | Route URL |
-| :--- | :--- | :--- | :--- |
-| **SPA Entry** | `Index` | `Admin\Index` | `/admin/index` |
-| **General** | `Modul` | `Admin\Modul` | `/admin/dashboard` |
-| **Account** | `Modul_account` | `Admin\Modul_account` | `/admin/account` |
-| **Account** | `Modul_account` | `Admin\Modul_account` | `/admin/level` |
-| **General** | `Modul` | `Admin\Modul` | `/admin/produk` |
-| **General** | `Modul` | `Admin\Modul` | `/admin/project` |
-| **General** | `Modul` | `Admin\Modul` | `/admin/laporan` |
-| **General** | `Modul` | `Admin\Modul` | `/admin/monitoring` |
-| **General** | `Modul` | `Admin\Modul` | `/admin/teknisi` |
+| Modul | Controller | View Path | Route URL | Deskripsi |
+| :--- | :--- | :--- | :--- | :--- |
+| **SPA Entry** | `Index` | `Admin\Index` | `/admin/index` | Entry point Admin |
+| **General** | `Modul` | `Admin\Modul` | `/admin/dashboard` | Dashboard utama |
+| **Account** | `Modul_account` | `Admin\Modul_account` | `/admin/account` | Manajemen user |
+| **Account** | `Modul_account` | `Admin\Modul_account` | `/admin/level` | Manajemen role |
+| **FSM** | `Modul_fsm` | `Admin\Modul_fsm` | `/admin/fsm` | Logika state/workflow |
+| **FSM** | `Modul_fsm` | `Admin\Modul_fsm` | `/admin/flow` | Konfigurasi alur |
+| **General** | `Modul` | `Admin\Modul` | `/admin/produk` | Master data produk |
+| **General** | `Modul` | `Admin\Modul` | `/admin/project` | Master data project |
+| **General** | `Modul` | `Admin\Modul` | `/admin/laporan` | Reporting |
+| **General** | `Modul` | `Admin\Modul` | `/admin/monitoring` | Monitoring sistem |
+| **General** | `Modul` | `Admin\Modul` | `/admin/teknisi` | Data teknisi |
 
 ### B. Teknisi Application
 **Namespace:** `App\Http\Controllers\Teknisi`
