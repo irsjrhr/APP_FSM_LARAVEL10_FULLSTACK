@@ -166,6 +166,31 @@ ROUTE.add( BASE_URL_PAGE + 'admin/monitoring', function( route ) {
 
 	});
 });
+//https://url_app_fe/admin/transaksi_kategori
+ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_kategori', function( route ) {
+	LOAD_PAGE_SPA( route, function() {
+
+	});
+});
+//https://url_app_fe/admin/transaksi_pemasukan
+ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_pemasukan', function( route ) {
+	LOAD_PAGE_SPA( route, function() {
+
+	});
+});
+//https://url_app_fe/admin/transaksi_pengeluaran
+ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_pengeluaran', function( route ) {
+	LOAD_PAGE_SPA( route, function() {
+
+	});
+});
+//https://url_app_fe/admin/transaksi_pembayaran
+ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_pembayaran', function( route ) {
+	LOAD_PAGE_SPA( route, function() {
+
+	});
+});
+
 
 
 

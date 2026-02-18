@@ -51,10 +51,10 @@ Route::controller(Admin\Modul_FSM::class)->group(function () {
 //Source View : resource\view\Admin\Modul_transaksi
 Route::controller(Admin\Modul_transaksi::class)->group(function () {
     //==== Route Fitur ====
-    Route::get('/admin/kategori', 'kategori');
-    Route::get('/admin/pemasukan', 'pemasukan');
-    Route::get('/admin/pengeluaran', 'pengeluaran');
-    Route::get('/admin/pembayaran', 'pembayaran');
+    Route::get('/admin/transaksi_kategori', 'kategori');
+    Route::get('/admin/transaksi_pemasukan', 'pemasukan');
+    Route::get('/admin/transaksi_pengeluaran', 'pengeluaran');
+    Route::get('/admin/transaksi_pembayaran', 'pembayaran');
 });
 
 
