@@ -63,7 +63,9 @@ const ROUTE = {
 
 			ROUTE_INIT_EXIST.start(); //Memanggil callback_route dari PAGE yang di pilih berdasarkan route
 		}else{
-			console.error('TIDAK ADA ROUTE ATAU BELUM DIDAFTARKAN DENGAN URL ROUTE ' + url_route_target);
+			var msg_error = 'TIDAK DITEMUKAN ATAU BELUM DIDAFTARKAN ROUTENYA DI route_app.js DENGAN URL ROUTE ' + url_route_target;
+			Swal.fire(msg_error);
+			console.error( msg_error );
 		}
 	}
 };
@@ -72,7 +74,7 @@ function load_page( url_route = "path/path2/" ) {
 
 	ROUTE.load( url_route );
 
-	//Membuka parent .link_modul jika link menu punya parent link_modul
+	// Membuka parent .link_modul jika link menu punya parent link_modul
 	var link_menu_target = $('.sidebar .link_menu').filter(`[data-page="${url_route}"]`); 
 	var link_modul = link_menu_target.parents('.link_modul');
 	if ( link_modul.length > 0 ) {
@@ -105,6 +107,11 @@ ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( route ) {
 	});
 });
 */
+
+
+
+
+
 
 
 

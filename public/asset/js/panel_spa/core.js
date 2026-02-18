@@ -39,7 +39,6 @@ $(document).ready(function() {
 	$('.sidebar .link_modul .row_modul_header').on('click', function() {
 		load_link_modul( $(this) );
 	});
-
 	//Event sidebar menu untuk load page spa 
 	$('.sidebar .link_menu').on('click', function() {
 
@@ -52,9 +51,6 @@ $(document).ready(function() {
 		load_page( data_page ); //Inni ada di route_app.js
 
 	});
-
-
-	
 	//Event .btn_load untuk melakukan load data ke tabel yang ada di main_container pada page yang sedang aktif atau dimuat
 	$('.main_container').on('click', '.btn_load', function() {
 		trace();
@@ -105,11 +101,11 @@ function animasi_loadPage( param = "show", animasi_loadPageElInput = "", text_lo
 
 	//Menentukan hilang atau muncul
 	switch( param ){
-		case "show" :
+	case "show" :
 		animasi_loadPageEl.show();
 		break;
 
-		case 'hide' :
+	case 'hide' :
 		setTimeout(function() {
 			animasi_loadPageEl.hide();
 		}, 100);
@@ -151,19 +147,23 @@ function create_animasiLoadPageEl() {
 
 
 
+
+
 function load_link_modul( row_modul_header_target ) {
 	var link_modul_target = row_modul_header_target.parents( '.link_modul.row_modul' );
 	var row_container_menu = link_modul_target.find('.row_container_menu');
-	var link_menu_active = row_container_menu.find('.link_menu.active');
-		
+	var link_menu_activeTarget = row_container_menu.find('.link_menu.active');
+
+	var link_modul_hasMenuActive =  $('.link_menu.active').parents('.link_modul');
+
 	if ( link_modul_target.is('.active') == false ) {
 		//Jika link modul tidak aktif dan tidak terlihat, maka aktifkan dan tampilkan
+		$('.link_modul').not( link_modul_hasMenuActive ).removeClass('active');
 
-		$('.link_modul').removeClass('active');
 		link_modul_target.addClass('active');
 	}else{
-		//Jika link modul aktif dan terlihat, maka nonaktifkan dan hilangkan
-		if ( link_menu_active.length < 1 ) {
+		//Jika link modul aktif, maka hilangkan link modul tersebut jika dia tidak punya menu active 
+		if ( link_menu_activeTarget.length < 1 ) {
 			link_modul_target.removeClass('active');
 		}else{
 			console.log('TIDAK BISA MENUTUP, KARENA ADA MENU YANG SEDANG AKTIF');
@@ -233,6 +233,11 @@ function LOAD_PAGE_SPA( target_page = BASE_URL_PAGE, callback = false ) {
 
 	console.log("+++ Melakukan load page async", target_page);
 }
+
+
+
+
+
 
 
 // +++++++++++++++++ Fungsi Untuk Melakukan Load Data Ke Table Berdasarkan data-fungsi yang ada pada section_content ++++++++++++++
@@ -378,11 +383,11 @@ function trace(label = "", data = null, callback = false) {
 
 	// Header dengan informasi caller
 	console.log(
-		`%c =====TRACE%c ${label} %c| ${callerInfo}`,
-		'background:#222;color:#00e676;font-weight:bold;padding:2px 6px;border-radius:4px 0 0 4px;',
-		'color:#999;background:#333;padding:2px 8px;',
-		'color:#aaa;font-size:11px;font-style:italic;padding:2px 8px;border-radius:0 4px 4px 0;'
-		);
+`%c =====TRACE%c ${label} %c| ${callerInfo}`,
+'background:#222;color:#00e676;font-weight:bold;padding:2px 6px;border-radius:4px 0 0 4px;',
+'color:#999;background:#333;padding:2px 8px;',
+'color:#aaa;font-size:11px;font-style:italic;padding:2px 8px;border-radius:0 4px 4px 0;'
+);
 
 	// Data
 	if (data !== null) {

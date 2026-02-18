@@ -46,8 +46,16 @@ Route::controller(Admin\Modul_FSM::class)->group(function () {
     Route::get('/admin/teknisi', 'teknisi');
 
 });
-
-
+//==== Route Modul Transaksi
+//Source Controller Modul : App\Http\Controllers\Admin\Modul_transaksi
+//Source View : resource\view\Admin\Modul_transaksi
+Route::controller(Admin\Modul_transaksi::class)->group(function () {
+    //==== Route Fitur ====
+    Route::get('/admin/kategori', 'kategori');
+    Route::get('/admin/pemasukan', 'pemasukan');
+    Route::get('/admin/pengeluaran', 'pengeluaran');
+    Route::get('/admin/pembayaran', 'pembayaran');
+});
 
 
 //+++++++++++++++++++ APLIKASI SPA Teknisi ROUTE  /teknisi ++++++++++++++++++++
