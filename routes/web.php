@@ -104,12 +104,6 @@ Route::controller(User\Modul::class)->group(function () {
 
 
 
-
-
-
-
-
-
 //+++++++++++++++++++ AUTH ROUTE ++++++++++++++++++++
 Route::controller(Auth::class)->group(function () {
 

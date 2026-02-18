@@ -46,10 +46,11 @@ class Menu{
     */
 
 
-    public static function ADD_ROW_MODULMENU_SIDEBAR( $nama_modul, $data_menuModulParam = [ ["menu"=>"MenuContoh","icon"=>"fas fa-coffee","url"=>""] ] ){
+    public static function ADD_ROW_MODULMENU_SIDEBAR( $nama_modul, $data_menuModulParam = [ ["menu"=>"MenuContoh","icon"=>"fas fa-coffee","url"=>""] ], $icon = "fas fa-folder"){
         $row_sidebar = [
             "jenis_modul" => "MODUL",
             "nama_modul" => $nama_modul,
+            "icon" => $icon,
             "data_modul_menu" => $data_menuModulParam //[ [], [] ]
         ];
         self::$data_sidebar[] = $row_sidebar;         

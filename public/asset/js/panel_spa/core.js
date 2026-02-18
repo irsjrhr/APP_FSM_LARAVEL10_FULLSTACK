@@ -153,22 +153,40 @@ function load_link_modul( row_modul_header_target ) {
 	var link_modul_target = row_modul_header_target.parents( '.link_modul.row_modul' );
 	var row_container_menu = link_modul_target.find('.row_container_menu');
 	var link_menu_activeTarget = row_container_menu.find('.link_menu.active');
+	var link_modul_icon = link_menu_activeTarget.find('i');
 
-	var link_modul_hasMenuActive =  $('.link_menu.active').parents('.link_modul');
 
 	if ( link_modul_target.is('.active') == false ) {
 		//Jika link modul tidak aktif dan tidak terlihat, maka aktifkan dan tampilkan
+
+		//Menghilangkan terlebih dahulu seluruh modul yang bukan target dan yang tidak punya child mennu yang sedang aktif
+		var link_modul_hasMenuActive =  $('.link_menu.active').parents('.link_modul');
 		$('.link_modul').not( link_modul_hasMenuActive ).removeClass('active');
 
+		//Munculkan link modul target
 		link_modul_target.addClass('active');
+
+		//Ubah Icon Indicator Menjadi Chevron Ke Bawah
+		var icon_indicator = link_modul_target.find('span.icon_indicator');
+		var i_element = icon_indicator.find('i');
+		i_element.removeClass('fa-chevron-right');
+		i_element.addClass('fa-chevron-down');
+
 	}else{
 		//Jika link modul aktif, maka hilangkan link modul tersebut jika dia tidak punya menu active 
 		if ( link_menu_activeTarget.length < 1 ) {
 			link_modul_target.removeClass('active');
+					//Ubah Icon Indicator Menjadi Chevron Ke Bawah
+			var icon_indicator = link_modul_target.find('span.icon_indicator');
+			var i_element = icon_indicator.find('i');
+			i_element.removeClass('fa-chevron-down');
+			i_element.addClass('fa-chevron-right');
 		}else{
 			console.log('TIDAK BISA MENUTUP, KARENA ADA MENU YANG SEDANG AKTIF');
 		}
 	}
+
+
 }
 
 

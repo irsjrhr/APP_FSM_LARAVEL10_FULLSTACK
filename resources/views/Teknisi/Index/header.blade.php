@@ -1,21 +1,21 @@
 
 <!doctype html>
-	<html lang="en">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/style.css">
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel.css">
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel_teknisi.css">
-		<title> Teknisi Panel </title>
-	</head>
-	<body>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/style.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel_teknisi.css">
+	<title> Teknisi Panel </title>
+</head>
+<body>
 
-		<style type="text/css">	
+	<style type="text/css">	
 		.content .nav_header .col_left{
 			display: flex;
 			flex-direction: column;
@@ -108,14 +108,17 @@
 						$nama_modul = $row_sidebar['nama_modul'];
 						$data_modul_menu = $row_sidebar['data_modul_menu'];
 						@endphp
-						<div class="row_modul">
+						<div class="row_modul link_modul">
 							{{-- row modul header --}}
 							<div class="row row_modul_header mb-2">
 								<div class="col-1 menu_logo">
-									<i class="fas fa-arrow-right"></i>
+									<i class="{{ $row_sidebar['icon'] }} icon_modul"></i>
 								</div>
 								<div class="col menu_text">
 									{{$nama_modul}}
+									<span class="icon_indicator">
+										<i class="fas fa-chevron-right"></i>
+									</span>
 								</div>
 							</div>
 							{{-- end of row modul header --}}
@@ -123,7 +126,7 @@
 							{{-- row container menu --}}
 							<div class="row row_container_menu">
 								{{-- Col Container Menu --}}
-								<div class="col-12 col_container_menu" style="padding: 0;padding-left: 20px;">
+								<div class="col-12 col_container_menu">
 									{{-- Loop Row Menu --}}
 									@foreach ($data_modul_menu as $row_menu)
 									{{-- Row Menu - Link Menu --}}

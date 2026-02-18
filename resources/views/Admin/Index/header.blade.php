@@ -113,10 +113,13 @@
 							{{-- row modul header --}}
 							<div class="row row_modul_header mb-2">
 								<div class="col-1 menu_logo">
-									<i class="fas fa-arrow-right"></i>
+									<i class="{{ $row_sidebar['icon'] }} icon_modul"></i>
 								</div>
 								<div class="col menu_text">
 									{{$nama_modul}}
+									<span class="icon_indicator">
+										<i class="fas fa-chevron-right"></i>
+									</span>
 								</div>
 							</div>
 							{{-- end of row modul header --}}
@@ -124,7 +127,7 @@
 							{{-- row container menu --}}
 							<div class="row row_container_menu">
 								{{-- Col Container Menu --}}
-								<div class="col-12 col_container_menu" style="padding: 0;padding-left: 20px;">
+								<div class="col-12 col_container_menu">
 									{{-- Loop Row Menu --}}
 									@foreach ($data_modul_menu as $row_menu)
 									{{-- Row Menu - Link Menu --}}
