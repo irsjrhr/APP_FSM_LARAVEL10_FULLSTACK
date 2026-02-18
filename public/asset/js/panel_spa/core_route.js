@@ -160,26 +160,18 @@ function load_link_modul( row_modul_header_target ) {
 
 		//Menghilangkan terlebih dahulu seluruh modul yang bukan target dan yang tidak punya child mennu yang sedang aktif
 		var link_modul_hasMenuActive =  $('.link_menu.active').parents('.link_modul');
-		$('.link_modul').not( link_modul_hasMenuActive ).removeClass('active');
+		var link_modul_NotMenuActive = $('.link_modul').not( link_modul_hasMenuActive );
+		close_link_modul( link_modul_NotMenuActive );
 
-		//Munculkan link modul target
-		link_modul_target.addClass('active');
-
-		//Ubah Icon Indicator Menjadi Chevron Ke Bawah
-		var icon_indicator = link_modul_target.find('span.icon_indicator');
-		var i_element = icon_indicator.find('i');
-		i_element.removeClass('fa-chevron-right');
-		i_element.addClass('fa-chevron-down');
+		//Munculkan link modul target dan Ubah Icon Indicator Menjadi Chevron Ke Bawah
+		open_link_modul( link_modul_target );
 
 	}else{
 		//Jika link modul aktif, maka hilangkan link modul tersebut jika dia tidak punya menu active 
 		if ( link_menu_activeTarget.length < 1 ) {
-			link_modul_target.removeClass('active');
-					//Ubah Icon Indicator Menjadi Chevron Ke Bawah
-			var icon_indicator = link_modul_target.find('span.icon_indicator');
-			var i_element = icon_indicator.find('i');
-			i_element.removeClass('fa-chevron-down');
-			i_element.addClass('fa-chevron-right');
+
+			close_link_modul( link_modul_target );
+
 		}else{
 			console.log('TIDAK BISA MENUTUP, KARENA ADA MENU YANG SEDANG AKTIF');
 		}
@@ -187,6 +179,25 @@ function load_link_modul( row_modul_header_target ) {
 
 
 }
+function open_link_modul(link_modul_target){
+	link_modul_target.addClass('active');
+	var icon_indicator = link_modul_target.find('span.icon_indicator');
+	var i_element = icon_indicator.find('i');
+	i_element.removeClass('fa-chevron-right');
+	i_element.addClass('fa-chevron-down');
+}
+function close_link_modul(link_modul_target){
+	link_modul_target.removeClass('active');
+	var icon_indicator = link_modul_target.find('span.icon_indicator');
+	var i_element = icon_indicator.find('i');
+	i_element.removeClass('fa-chevron-down');
+	i_element.addClass('fa-chevron-right');
+}
+
+
+
+
+
 //+++++++++++ END OF BASE SPA ASYNCHRONOUS SCRIPT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
