@@ -65,7 +65,27 @@ header{
 	font-weight: bolder;
 	font-family: sora !important;
 }
-.link_menu{
+.row_modul.link_modul{
+	margin-bottom: 10px;
+}
+.link_modul .col_container_menu{
+	max-height: 0;
+	overflow: hidden;
+	transition: .3s;
+}
+.link_modul.active .col_container_menu{
+	max-height: 300px;
+}
+.link_menu.row_menu{
+	/*background: red;*/
+	padding: 10px;
+	padding-right: 0;
+	padding-left: 30px;
+	margin-right: 5px;
+	border-radius: 50px;
+	border-top-left-radius:0;
+	border-bottom-left-radius:0;
+	margin-bottom: 10px;
 	color: #000;
 	text-decoration: none;
 }
@@ -78,17 +98,7 @@ header{
 .link_menu.active *{
 	color: #fff;
 }
-.row_menu{
-	/*background: red;*/
-	padding: 10px;
-	padding-right: 0;
-	padding-left: 30px;
-	margin-right: 5px;
-	border-radius: 50px;
-	border-top-left-radius:0;
-	border-bottom-left-radius:0;
-	margin-bottom: 10px;
-}
+
 .row_menu .menu_logo{
 	padding: 0;
 	text-align: right;
@@ -440,12 +450,6 @@ header .col_content.title_app *{
 .sidebar *{
 	color: #000;
 }
-.link_menu.active .row_menu{
-	background: #007bff !important;
-}
-
-
-
 
 .table_option{
 

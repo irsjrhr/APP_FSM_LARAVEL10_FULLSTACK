@@ -36,38 +36,34 @@ $(document).ready(function() {
 
 	});	
 	//++++++++++ Asynchronous ++++++++++++++++
+	$('.sidebar .link_modul .row_modul_header').on('click', function() {
+		load_link_modul( $(this) );
+	});
 
 	//Event sidebar menu untuk load page spa 
 	$('.sidebar .link_menu').on('click', function() {
 
 		trace();
 
-
+		//Membuka load page dan efek menu sidebar
 		var link_menu = $('.sidebar .link_menu');
 		var link_menu_target = $(this);
 		var data_page = link_menu_target.attr('data-page');
-
 		load_page( data_page ); //Inni ada di route_app.js
+
 	});
+
+
 	
-	//Buka page pertama dashboard untuk setiap SPA
-	// var link_menu_first = $('.sidebar').find('.link_menu').first();
-	// var data_page = link_menu_first.attr('data-page');
-	// load_page( BASE_URL_PAGE + "admin/project", function() {
-		// 	$('#modal_tambah').modal('show');
-		// });
+	//Event .btn_load untuk melakukan load data ke tabel yang ada di main_container pada page yang sedang aktif atau dimuat
+	$('.main_container').on('click', '.btn_load', function() {
+		trace();
 
-
-
-		//Event .btn_load untuk melakukan load data ke tabel yang ada di main_container pada page yang sedang aktif atau dimuat
-		$('.main_container').on('click', '.btn_load', function() {
-			trace();
-
-			// Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
-			load_table_active();
-		});
-
+		// Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
+		load_table_active();
 	});
+
+});
 
 
 function btn_opt_toggle( obj ) {
@@ -152,6 +148,30 @@ function create_animasiLoadPageEl() {
 	parent_table.prepend( new_animasi_loadPage );
 
 }
+
+
+
+function load_link_modul( row_modul_header_target ) {
+	var link_modul_target = row_modul_header_target.parents( '.link_modul.row_modul' );
+	var row_container_menu = link_modul_target.find('.row_container_menu');
+	var link_menu_active = row_container_menu.find('.link_menu.active');
+		
+	if ( link_modul_target.is('.active') == false ) {
+		//Jika link modul tidak aktif dan tidak terlihat, maka aktifkan dan tampilkan
+
+		$('.link_modul').removeClass('active');
+		link_modul_target.addClass('active');
+	}else{
+		//Jika link modul aktif dan terlihat, maka nonaktifkan dan hilangkan
+		if ( link_menu_active.length < 1 ) {
+			link_modul_target.removeClass('active');
+		}else{
+			console.log('TIDAK BISA MENUTUP, KARENA ADA MENU YANG SEDANG AKTIF');
+		}
+	}
+}
+
+
 //FUNGSI CORE UNTUK LOAD PAGE SPA
 function LOAD_PAGE_SPA( target_page = BASE_URL_PAGE, callback = false ) {
 

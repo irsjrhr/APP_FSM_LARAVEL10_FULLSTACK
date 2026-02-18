@@ -69,7 +69,17 @@ const ROUTE = {
 };
 //Helper Function For Route Load
 function load_page( url_route = "path/path2/" ) {
+
 	ROUTE.load( url_route );
+
+	//Membuka parent .link_modul jika link menu punya parent link_modul
+	var link_menu_target = $('.sidebar .link_menu').filter(`[data-page="${url_route}"]`); 
+	var link_modul = link_menu_target.parents('.link_modul');
+	if ( link_modul.length > 0 ) {
+		//Buat object triger
+		var row_modul_header = link_modul.find('.row_modul_header');
+		load_link_modul( row_modul_header );
+	}
 }
 //++++++++++++++++++++++++ END OF BASE ROUTING SCRIPT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

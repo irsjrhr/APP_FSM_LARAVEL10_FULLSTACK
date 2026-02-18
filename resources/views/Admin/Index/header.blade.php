@@ -109,7 +109,7 @@
 						$nama_modul = $row_sidebar['nama_modul'];
 						$data_modul_menu = $row_sidebar['data_modul_menu'];
 						@endphp
-						<div class="row_modul">
+						<div class="row_modul link_modul">
 							{{-- row modul header --}}
 							<div class="row row_modul_header mb-2">
 								<div class="col-1 menu_logo">
