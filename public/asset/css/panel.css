@@ -69,7 +69,7 @@ header{
 	margin-bottom: 10px;
 }
 .link_modul .row_modul_header{
-
+	cursor:pointer;
 }
 .link_modul .row_modul_header i.icon_modul{
 	color: darkcyan;
