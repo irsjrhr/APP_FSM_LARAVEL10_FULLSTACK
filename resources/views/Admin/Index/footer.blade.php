@@ -11,13 +11,21 @@
 <script src="{{asset('')}}asset/js/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/bootstrap.min.js"></script>
+
+{{-- APP CORE --}}
 <script type="text/javascript" src="{{asset('')}}asset/js/app.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/api.js"></script>
+{{-- APP CORE --}}
+
+
+{{-- SPA CORE --}}
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_route.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_table.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/route_app.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/monitoring_lacak.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_monitoring.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/search_filter.js"></script>
+{{-- SPA CORE --}}
+
 
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin/main.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/admin/table.js"></script>
