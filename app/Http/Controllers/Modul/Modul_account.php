@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Modul;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -13,12 +13,12 @@ class Modul_account extends Controller{
     //https://url_app/admin/account 
     public function account(){  
         $data = [];
-        return view( 'Admin/Modul_account/account', $data );
+        return view( 'Modul_account/account', $data );
     }
     //https://url_app/admin/level 
     public function level(){
         $data = [];
-        return view( 'Admin/Modul_account/level', $data);
+        return view( 'Modul_account/level', $data);
     }  
 
 

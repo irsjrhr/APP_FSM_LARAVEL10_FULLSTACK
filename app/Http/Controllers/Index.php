@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Base_model;
@@ -24,7 +23,7 @@ class Index extends Controller{
         $data['data_sidebar'] = $data_sidebar;
 
 
-        return view('Admin/Index/index', $data);
+        return view('Index/index', $data);
     }
 }
 class Menu{
@@ -105,10 +104,20 @@ class Menu{
             [ "menu" => "Atur Pembayaran", "icon" => "fas fa-cash-register", "url" => asset("admin/transaksi_pembayaran") ],
         ]);
 
+
+        self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul Teknisi', [
+            [ "menu" => "List Project", "icon" => "fas fa-filter", "url" => asset("teknisi/project") ],
+            [ "menu" => "Monitoring Project", "icon" => "fas fa-filter", "url" => asset("teknisi/monitoring") ],
+        ]);
+
+        self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul User', [
+            [ "menu" => "List Project", "icon" => "fas fa-filter", "url" => asset("user/project") ],
+            [ "menu" => "Tambah Project", "icon" => "fas fa-filter", "url" => asset("user/tambah_project") ],
+            [ "menu" => "Monitoring Project", "icon" => "fas fa-filter", "url" => asset("user/monitoring") ],
+        ]);
+
         return self::$data_sidebar;
     }
 
 }
-
-
 
