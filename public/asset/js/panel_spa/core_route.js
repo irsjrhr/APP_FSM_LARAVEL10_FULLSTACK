@@ -229,12 +229,16 @@ ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( route ) {
 
 
 //----- ADMIN CONTROLLER ROUTE CALLBACK ----
-//https://url_app_fe/admin/dashboard
-ROUTE.add( BASE_URL_PAGE + 'admin/dashboard', function( route ) {
+//https://url_app_fe/dashboard
+ROUTE.add( BASE_URL_PAGE + 'dashboard', function( route ) {
 	LOAD_PAGE_SPA( route );
 });
-//https://url_app_fe/admin/account
-ROUTE.add( BASE_URL_PAGE + 'admin/account', function( route ) {
+
+
+
+//==================== MODUL ACCOUNT ===================
+//https://url_app_fe/account/account
+ROUTE.add( BASE_URL_PAGE + 'account/account', function( route ) {
 	LOAD_PAGE_SPA( route, function() {
 		//Membuat list select level pada halaman di modal form berdasarkan data API pada modal tambah account
 		get_data( URL_SERVICE_BE + "level", {}, function( response ) {
@@ -249,56 +253,37 @@ ROUTE.add( BASE_URL_PAGE + 'admin/account', function( route ) {
 	});
 
 });
-//https://url_app_fe/admin/level
-ROUTE.add( BASE_URL_PAGE + 'admin/level', function( route ) {
+//https://url_app_fe/account/level
+ROUTE.add( BASE_URL_PAGE + 'account/level', function( route ) {
 	LOAD_PAGE_SPA( route );
 
 });
-//https://url_app_fe/admin/teknisi
-ROUTE.add( BASE_URL_PAGE + 'admin/teknisi', function( route ) {
+
+
+
+
+//==================== MODUL FSM ===================
+//https://url_app_fe/fsm/teknisi
+ROUTE.add( BASE_URL_PAGE + 'fsm/teknisi', function( route ) {
 	LOAD_PAGE_SPA( route );
 
 });
-//https://url_app_fe/admin/produk
-ROUTE.add( BASE_URL_PAGE + 'admin/produk', function( route ) {
+//https://url_app_fe/fsm/produk
+ROUTE.add( BASE_URL_PAGE + 'fsm/produk', function( route ) {
 	LOAD_PAGE_SPA( route );
 
 });
-//https://url_app_fe/admin/project
-ROUTE.add( BASE_URL_PAGE + 'admin/project', function( route ) {
+//https://url_app_fe/fsm/project
+ROUTE.add( BASE_URL_PAGE + 'fsm/project', function( route ) {
 	LOAD_PAGE_SPA( route );
 
 });
-//https://url_app_fe/admin/laporan
-ROUTE.add( BASE_URL_PAGE + 'admin/laporan', function( route ) {
+//https://url_app_fe/fsm/laporan
+ROUTE.add( BASE_URL_PAGE + 'fsm/laporan', function( route ) {
 	LOAD_PAGE_SPA( route );
 });
-//https://url_app_fe/admin/monitoring
-ROUTE.add( BASE_URL_PAGE + 'admin/monitoring', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
-
-	});
-});
-//https://url_app_fe/admin/transaksi_kategori
-ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_kategori', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
-
-	});
-});
-//https://url_app_fe/admin/transaksi_pemasukan
-ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_pemasukan', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
-
-	});
-});
-//https://url_app_fe/admin/transaksi_pengeluaran
-ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_pengeluaran', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
-
-	});
-});
-//https://url_app_fe/admin/transaksi_pembayaran
-ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_pembayaran', function( route ) {
+//https://url_app_fe/fsm/monitoring
+ROUTE.add( BASE_URL_PAGE + 'fsm/monitoring', function( route ) {
 	LOAD_PAGE_SPA( route, function() {
 
 	});
@@ -306,8 +291,36 @@ ROUTE.add( BASE_URL_PAGE + 'admin/transaksi_pembayaran', function( route ) {
 
 
 
+//==================== MODUL ADMIN ===================
+//https://url_app_fe/transaksi/transaksi_kategori
+ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_kategori', function( route ) {
+	LOAD_PAGE_SPA( route, function() {
 
-//----- TEKNISI CONTROLLER ROUTE CALLBACK ----
+	});
+});
+//https://url_app_fe/transaksi/transaksi_pemasukan
+ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pemasukan', function( route ) {
+	LOAD_PAGE_SPA( route, function() {
+
+	});
+});
+//https://url_app_fe/transaksi/transaksi_pengeluaran
+ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pengeluaran', function( route ) {
+	LOAD_PAGE_SPA( route, function() {
+
+	});
+});
+//https://url_app_fe/transaksi/transaksi_pembayaran
+ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pembayaran', function( route ) {
+	LOAD_PAGE_SPA( route, function() {
+
+	});
+});
+
+
+
+
+//==================== MODUL TEKNISI ===================
 //https://url_app_fe/teknisi/dashboard
 ROUTE.add( BASE_URL_PAGE + 'teknisi/dashboard', function( route ) {
 	LOAD_PAGE_SPA( route );
@@ -322,7 +335,7 @@ ROUTE.add( BASE_URL_PAGE + 'teknisi/monitoring', function( route ) {
 });
 
 
-//----- USER CONTROLLER ROUTE CALLBACK ----
+//==================== MODUL USER ===================
 //https://url_app_fe/user/dashboard
 ROUTE.add( BASE_URL_PAGE + 'user/dashboard', function( route ) {
 	LOAD_PAGE_SPA( route );

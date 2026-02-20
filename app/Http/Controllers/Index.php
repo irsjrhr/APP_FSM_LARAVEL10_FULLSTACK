@@ -45,7 +45,7 @@ class Menu{
     */
 
 
-    public static function ADD_ROW_MODULMENU_SIDEBAR( $nama_modul, $data_menuModulParam = [ ["menu"=>"MenuContoh","icon"=>"fas fa-coffee","url"=>""] ], $icon = "fas fa-folder"){
+    public static function ADD_ROW_MODULMENU_SIDEBAR( $nama_modul, $data_menuModulParam = [ ["menu"=>"MenuContoh","icon"=>"fas fa-coffee","url"=>""] ], $icon = "fas fa-folder-open"){
         $row_sidebar = [
             "jenis_modul" => "MODUL",
             "nama_modul" => $nama_modul,
@@ -65,12 +65,9 @@ class Menu{
         $row_sidebar = array_merge(  $row_sidebar, $row_menu );
         self::$data_sidebar[] = $row_sidebar;         
     }
-
     public static function SET_MODAL_MENU(){
         self::$data_modal_menu =  [
-            [ "menu" => "Admin", "icon" => "fas fa-users", "url" => asset("admin/") ],
-            [ "menu" => "Teknisi", "icon" => "fas fa-users", "url" => asset("teknisi/") ],
-            [ "menu" => "User", "icon" => "fas fa-users", "url" => asset("user/") ],
+            [ "menu" => "App", "icon" => "fas fa-users", "url" => asset("app/") ],
             [ "menu" => "Logout", "icon" => "fas fa-sign-out-alt", "url" => asset("auth/logout") ],
         ];
         return self::$data_modal_menu;
@@ -80,40 +77,37 @@ class Menu{
             [ 
                 "menu" => "Dashboard", 
                 "icon" => "fas fa-th-large", 
-                "url" => asset("admin/dashboard") 
+                "url" => asset("/dashboard") 
             ],
         );
         //++++ Menambahkan modul menu account 
         self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul Account', [
-            [ "menu" => "Atur Level", "icon" => "fas fa-key", "url" => asset("admin/level") ],
-            [ "menu" => "Atur Account", "icon" => "fas fa-users", "url" => asset("admin/account") ],
-            [ "menu" => "Atur Teknisi", "icon" => "fas fa-hard-hat", "url" => asset("admin/teknisi") ]
+            [ "menu" => "Atur Level", "icon" => "fas fa-key", "url" => asset("account/level") ],
+            [ "menu" => "Atur Account", "icon" => "fas fa-users", "url" => asset("account/account") ],
         ]);
         //++++ Menambahkan modul menu fsm 
         self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul FSM', [
-            [ "menu" => "Atur Produk", "icon" => "fas fa-box", "url" => asset("admin/produk") ],
-            [ "menu" => "Atur Project", "icon" => "fas fa-tasks", "url" => asset("admin/project") ],
-            [ "menu" => "Atur Laporan", "icon" => "fas fa-file-alt", "url" => asset("admin/laporan") ],
-            [ "menu" => "Monitoring", "icon" => "fas fa-tv", "url" => asset("admin/monitoring") ],
+            [ "menu" => "Atur Teknisi", "icon" => "fas fa-hard-hat", "url" => asset("fsm/teknisi") ],
+            [ "menu" => "Atur Produk", "icon" => "fas fa-box", "url" => asset("fsm/produk") ],
+            [ "menu" => "Atur Project", "icon" => "fas fa-tasks", "url" => asset("fsm/project") ],
+            [ "menu" => "Atur Laporan", "icon" => "fas fa-file-alt", "url" => asset("fsm/laporan") ],
+            [ "menu" => "Monitoring", "icon" => "fas fa-tv", "url" => asset("fsm/monitoring") ],
         ]);
         //++++ Menambahkan modul menu keuangan 
         self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul Transaksi', [
-            [ "menu" => "Atur Transaksi Kategori", "icon" => "fas fa-filter", "url" => asset("admin/transaksi_kategori") ],
-            [ "menu" => "Atur Pemasukan", "icon" => "fas fa-cash-register", "url" => asset("admin/transaksi_pemasukan") ],
-            [ "menu" => "Atur Pengeluaran", "icon" => "fas fa-money-bill", "url" => asset("admin/transaksi_pengeluaran") ],
-            [ "menu" => "Atur Pembayaran", "icon" => "fas fa-cash-register", "url" => asset("admin/transaksi_pembayaran") ],
+            [ "menu" => "Atur Transaksi Kategori", "icon" => "fas fa-filter", "url" => asset("transaksi/transaksi_kategori") ],
+            [ "menu" => "Atur Pemasukan", "icon" => "fas fa-cash-register", "url" => asset("transaksi/transaksi_pemasukan") ],
+            [ "menu" => "Atur Pengeluaran", "icon" => "fas fa-money-bill", "url" => asset("transaksi/transaksi_pengeluaran") ],
+            [ "menu" => "Atur Pembayaran", "icon" => "fas fa-cash-register", "url" => asset("transaksi/transaksi_pembayaran") ],
         ]);
-
-
         self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul Teknisi', [
-            [ "menu" => "List Project", "icon" => "fas fa-filter", "url" => asset("teknisi/project") ],
-            [ "menu" => "Monitoring Project", "icon" => "fas fa-filter", "url" => asset("teknisi/monitoring") ],
+            [ "menu" => "List Project", "icon" => "fas fa-clipboard-list", "url" => asset("teknisi/project") ],
+            [ "menu" => "Monitoring Project", "icon" => "fas fa-map-marked-alt", "url" => asset("teknisi/monitoring") ],
         ]);
-
         self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul User', [
-            [ "menu" => "List Project", "icon" => "fas fa-filter", "url" => asset("user/project") ],
-            [ "menu" => "Tambah Project", "icon" => "fas fa-filter", "url" => asset("user/tambah_project") ],
-            [ "menu" => "Monitoring Project", "icon" => "fas fa-filter", "url" => asset("user/monitoring") ],
+            [ "menu" => "List Project", "icon" => "fas fa-clipboard-list", "url" => asset("user/project") ],
+            [ "menu" => "Tambah Project", "icon" => "fas fa-plus-circle", "url" => asset("user/tambah_project") ],
+            [ "menu" => "Monitoring Project", "icon" => "fas fa-eye", "url" => asset("user/monitoring") ],
         ]);
 
         return self::$data_sidebar;

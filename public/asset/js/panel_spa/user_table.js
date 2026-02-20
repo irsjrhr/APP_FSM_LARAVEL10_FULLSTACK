@@ -1,6 +1,5 @@
 function load_table_project(data = []) {
 
-	alert();
 
 	trace();
 

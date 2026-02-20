@@ -1,12 +1,14 @@
 
 <style type="text/css">
-.btn_back_form{
-	position: absolute;
-	right: 0;
-	top: 0;
-	z-index: 99;
-}
+	.btn_back_form{
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 99;
+	}
 </style>
+<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/tambah_project.css">
+
 <section class="section_content" data-fungsi="tambah_project" style="position:relative;">
 	<div class="header_page">
 		<h1>

@@ -8,54 +8,60 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//+++++++++++++++++++ APLIKASI SPA ADMIN ROUTE  /admin ++++++++++++++++++++
-//Source Folder Aplikasi Layer : App\Http\Controllers\Admin
+
+
 
 //=== route entry controller SPA Modul Aplikasi  =======
 Route::controller(Index::class)->group(function () {
-    Route::get('/admin', 'index' )->name('Admin.index'); 
+    Route::get('/app', 'index' )->name('index'); 
 });
 //=== End Of route entry controller SPA Modul Aplikasi   =======
 
-//==== Route Modul Dashboard
+
+//==== Route Modul Dashboard ( Di menu dianggap sebagai menu fitur )
 //Source Controller Modul : App\Http\Controllers\Modul_dashboard
 //Source View : resource\view\Modul_dashboard
 Route::controller(Modul\Modul_dashboard::class)->group(function () {
     //==== Route Fitur ====
-    Route::get('/admin/dashboard', 'dashboard');
+    Route::get('/dashboard', 'dashboard');
 });
+
 //==== Route Modul Account
 //Source Controller Modul : App\Http\Controllers\Modul_account
 //Source View : resource\view\Modul_account
 Route::controller(Modul\Modul_account::class)->group(function () {
     //==== Route Fitur ====
-    Route::get('/admin/account', 'account');
-    Route::get('/admin/level', 'level');
+    Route::get('/account/level', 'level');
+    Route::get('/account/account', 'account');
 });
 //==== Route Modul FSM
 //Source Controller Modul : App\Http\Controllers\Modul_FSM
 //Source View : resource\view\Modul_FSM
 Route::controller(Modul\Modul_FSM::class)->group(function () {
     //==== Route Fitur ====
-    Route::get('/admin/produk', 'produk');
-    Route::get('/admin/project', 'project');
-    Route::get('/admin/laporan', 'laporan');
-    Route::get('/admin/monitoring', 'monitoring');
-    Route::get('/admin/teknisi', 'teknisi');
+    Route::get('/fsm/teknisi', 'teknisi');
+    Route::get('/fsm/produk', 'produk');
+    Route::get('/fsm/project', 'project');
+    Route::get('/fsm/laporan', 'laporan');
+    Route::get('/fsm/monitoring', 'monitoring');
 
 });
-//==== Route Modul Transaksi
-//Source Controller Modul : App\Http\Controllers\Modul_transaksi
-//Source View : resource\view\Modul_transaksi
+//==== Route Modul Transaksi  
+//Source Controller Modul : App\Http\Controllers\Modul\Modul_transaksi
+//Source View : resource\views\Modul_transaksi
 Route::controller(Modul\Modul_transaksi::class)->group(function () {
     //==== Route Fitur ====
-    Route::get('/admin/transaksi_kategori', 'kategori');
-    Route::get('/admin/transaksi_pemasukan', 'pemasukan');
-    Route::get('/admin/transaksi_pengeluaran', 'pengeluaran');
-    Route::get('/admin/transaksi_pembayaran', 'pembayaran');
+    Route::get('/transaksi/transaksi_kategori', 'kategori');
+    Route::get('/transaksi/transaksi_pemasukan', 'pemasukan');
+    Route::get('/transaksi/transaksi_pengeluaran', 'pengeluaran');
+    Route::get('/transaksi/transaksi_pembayaran', 'pembayaran');
 });
 
 
+
+//==== Route Modul Teknisi  
+//Source Controller Modul : App\Http\Controllers\Modul\Modul_teknisi
+//Source View : resource\views\Modul_teknisi
 Route::controller(Modul\Modul_teknisi::class)->group(function () {
     //==== Route Fitur ====
     Route::get('/teknisi/project', 'project');
@@ -63,9 +69,9 @@ Route::controller(Modul\Modul_teknisi::class)->group(function () {
 });
 
 
-//==== Route Modul General 
-//Source Controller Modul : App\Http\Controllers\User\Modul
-//Source View : resource\view\User\Modul
+//==== Route Modul User  
+//Source Controller Modul : App\Http\Controllers\Modul\Modul_user
+//Source View : resource\views\Modul_user
 Route::controller(Modul\Modul_user::class)->group(function () {
     //==== Route Fitur ====
     Route::get('/user/profile', 'profile');

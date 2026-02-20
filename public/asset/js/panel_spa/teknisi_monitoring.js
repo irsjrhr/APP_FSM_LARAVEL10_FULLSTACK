@@ -1,6 +1,5 @@
-$(document).ready(function() {
+$(document).ready(function(){
 
-	
 	$('body').on('submit', '#form_monitoring', function(e) {
 		e.preventDefault();
 		var input_id_project = $('input[name=monitoring_id_project]');
@@ -20,21 +19,7 @@ $(document).ready(function() {
 			$("#project_lat").text(row_project.project_lat);
 			$("#project_long").text(row_project.project_long);
 
-			//Rendering ke UI  dari row project yang diterima untuk data_teknisi
-			$('#teknisi_nama').text(row_project.teknisi_nama);
-			$('#user_teknisi').text(row_project.user_teknisi);
-			$('#id_user_teknisi').text(row_project.id_user_teknisi);
-			$('#teknisi_long').text(row_project.teknisi_long);
-			$('#teknisi_lat').text(row_project.teknisi_lat);
-			$('#teknisi_status').text(row_project.teknisi_status);
-			$('#teknisi_last_update_lacak').text(row_project.teknisi_last_update_lacak);
-			$('#teknisi_user_pembuat').text(row_project.teknisi_user_pembuat);
-			$('#teknisi_waktu').text(row_project.teknisi_waktu);
-			$('#teknisi_status_data').text(row_project.teknisi_status_data);
 		});
 	});
-
-
-
-
+	
 });
