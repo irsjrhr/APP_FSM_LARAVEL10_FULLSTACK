@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Modul;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -13,27 +13,27 @@ class Modul_FSM extends Controller{
     //https://url_app/admin/produk 
     public function produk(){
         $data = [];
-        return view( 'Admin/Modul_FSM/produk', $data);
+        return view( 'Modul_FSM/produk', $data);
     }
-    //https://url_app/admin/project 
+    //https://url_app/project 
     public function project(){
         $data = [];
-        return view( 'Admin/Modul_FSM/project', $data);
+        return view( 'Modul_FSM/project', $data);
     }
-    //https://url_app/admin/laporan
+    //https://url_app/laporan
     public function laporan(){
         $data = [];
-        return view( 'Admin/Modul_FSM/laporan', $data);
+        return view( 'Modul_FSM/laporan', $data);
     }
-    //https://url_app/admin/monitoring 
+    //https://url_app/monitoring 
     public function monitoring(){
         $data = [];
-        return view( 'Admin/Modul_FSM/monitoring', $data);
+        return view( 'Modul_FSM/monitoring', $data);
     }
-    //https://url_app/admin/teknisi 
+    //https://url_app/teknisi 
     public function teknisi(){
         $data = [];
-        return view( 'Admin/Modul_FSM/teknisi', $data);
+        return view( 'Modul_FSM/teknisi', $data);
     }
 
 }

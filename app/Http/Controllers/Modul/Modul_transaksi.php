@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Modul;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -13,22 +13,22 @@ class Modul_transaksi extends Controller{
     //https://url_app/admin/kategori 
     public function kategori(){  
         $data = [];
-        return view( 'Admin/Modul_transaksi/kategori', $data );
+        return view( 'Modul_transaksi/kategori', $data );
     }
     //https://url_app/admin/pemasukan 
     public function pemasukan(){  
         $data = [];
-        return view( 'Admin/Modul_transaksi/pemasukan', $data );
+        return view( 'Modul_transaksi/pemasukan', $data );
     }
     //https://url_app/admin/pengeluaran 
     public function pengeluaran(){  
         $data = [];
-        return view( 'Admin/Modul_transaksi/pengeluaran', $data );
+        return view( 'Modul_transaksi/pengeluaran', $data );
     }
     //https://url_app/admin/pembayaran 
     public function pembayaran(){  
         $data = [];
-        return view( 'Admin/Modul_transaksi/pembayaran', $data );
+        return view( 'Modul_transaksi/pembayaran', $data );
     }
 
 }
