@@ -64,6 +64,7 @@ Route::controller(Modul\Modul_transaksi::class)->group(function () {
 //Source View : resource\views\Modul_teknisi
 Route::controller(Modul\Modul_teknisi::class)->group(function () {
     //==== Route Fitur ====
+    Route::get('/teknisi/dashboard', 'dashboard');
     Route::get('/teknisi/project', 'project');
     Route::get('/teknisi/monitoring', 'monitoring');
 });
@@ -74,6 +75,7 @@ Route::controller(Modul\Modul_teknisi::class)->group(function () {
 //Source View : resource\views\Modul_user
 Route::controller(Modul\Modul_user::class)->group(function () {
     //==== Route Fitur ====
+    Route::get('/user/dashboard', 'dashboard');
     Route::get('/user/profile', 'profile');
     Route::get('/user/project', 'project');
     Route::get('/user/tambah_project', 'tambah_project');
