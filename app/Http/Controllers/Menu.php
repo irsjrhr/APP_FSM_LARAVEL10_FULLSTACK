@@ -95,7 +95,7 @@ class Menu{
                 "url" => asset("transaksi/transaksi_pembayaran") 
             ],
         ]);
-        self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul Teknisi', [
+        self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul Teknisi ( FSM )', [
             [ 
                 "menu" => "Dashboard", 
                 "icon" => "fas fa-tachometer-alt", 
@@ -111,7 +111,7 @@ class Menu{
                 "icon" => "fas fa-map-marked-alt", 
                 "url" => asset("teknisi/monitoring") ],
             ]);
-        self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul User', [
+        self::ADD_ROW_MODULMENU_SIDEBAR( 'Modul User ( FSM )', [
             [ 
                 "menu" => "Dashboard", 
                 "icon" => "fas fa-tachometer-alt", 
