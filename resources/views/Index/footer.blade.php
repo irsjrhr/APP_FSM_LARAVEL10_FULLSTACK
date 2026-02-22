@@ -25,6 +25,7 @@
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_monitoring.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/search_filter.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/main.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/table.js"></script>
 {{-- SPA CORE --}}
 
 
