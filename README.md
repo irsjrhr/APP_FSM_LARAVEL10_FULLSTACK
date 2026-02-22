@@ -1,126 +1,100 @@
-# ARSITEKTUR ROUTING SISTEM SPA MULTI-ROLE
-**Pendekatan: Aplikasi - Modul - Fitur**
+# ARSITEKTUR SISTEM SPA BERDASARKAN IMPLEMENTASI MODULAR - FITUR
 
-Dokumen ini menjelaskan standar arsitektur routing untuk pengembangan sistem Single Page Application (SPA) berbasis Multi-Role.
-
----
-
-## 1. Konsep Utama
-Sistem ini menggunakan hierarki tiga tingkat untuk memastikan modularitas dan skalabilitas:
-
-> **Aplikasi &rarr; Modul &rarr; Fitur**
-
-**Tujuan Desain:**
-* Mendukung sistem *Multi-Role* secara native.
-* Pengembangan yang modular (*Modular Development*).
-* Kontrol akses (*Permission*) yang granular per fitur.
-* Skalabilitas jangka panjang.
-* Struktur SPA yang terisolasi per role.
+Sistem menggunakan arsitektur SPA dinamis di mana halaman tidak melakukan *reload* penuh. Route tetap dikelola oleh Laravel, namun rendering bersifat SPA dengan konten yang dimuat secara dinamis ke dalam kontainer utama.
 
 ---
 
-## 2. Definisi Terminologi
+## 1. ALUR KERJA SISTEM (FLOW)
 
-### A. Aplikasi (Application Layer)
-* Merupakan **Entry Layer** berbasis role.
-* Memiliki namespace controller sendiri.
-* Bukan sekadar *View*, melainkan segmentasi domain bisnis.
-* **Contoh:** `/admin`, `/teknisi`, `/user`.
-
-### B. Modul
-* Pengelompokan fitur dalam satu aplikasi berdasarkan domain bisnis.
-* **Tujuan:**
-    * Mencegah *Controller Bloat* (Controller terlalu besar).
-    * Membuat permission lebih spesifik.
-
-### C. Fitur
-* Endpoint spesifik di dalam Modul.
-* Direpresentasikan sebagai **Method** di dalam Controller.
-* Dalam konteks ini, fitur bertugas me-load *View Shell* (kerangka tampilan) sebelum data diambil secara *Asynchronous*.
-
-### Format Penamaan (Naming Convention)
-| Tipe | Deskripsi | Contoh Controller |
+| Tahap | Proses / Komponen | Deskripsi |
 | :--- | :--- | :--- |
-| **Index** | Entry point utama untuk SPA View | `App\Http\Controllers\Admin\Index` |
-| **Modul** | Fitur umum (General) | `App\Http\Controllers\Admin\Modul` |
-| **Modul_{Nama}** | Fitur spesifik / kompleks | `App\Http\Controllers\Admin\Modul_account` |
+| **1** | **ENTRY SPA (`/app`)** | Route entry point utama dari aplikasi. |
+| **2** | **Layout Blade Utama** | Meload file `Index/index.blade.php` sebagai Master Layout SPA. |
+| **3** | **Sidebar Modular** | Meload menu navigasi di sisi kiri (dibangun dari backend). |
+| **4** | **Load Page via AJAX** | Menggunakan `core.js` untuk memuat konten tanpa *reload* browser. |
+| **5** | **Modul Controller &rarr; Fitur**| Controller mereturn *partial view* untuk disuntikkan ke tampilan. |
 
 ---
 
-## 3. Struktur Routing & Implementasi
+## 2. STRUKTUR LAYOUT UTAMA (INDEX)
 
-### A. Admin Application
-**Namespace:** `App\Http\Controllers\Admin`
+Layout utama merakit beberapa *blade component* menjadi satu kesatuan:
 
-| Modul | Controller | View Path | Route URL | Deskripsi |
-| :--- | :--- | :--- | :--- | :--- |
-| **SPA Entry** | `Index` | `Admin\Index` | `/admin/index` | Entry point Admin |
-| **General** | `Modul` | `Admin\Modul` | `/admin/dashboard` | Dashboard utama |
-| **Account** | `Modul_account` | `Admin\Modul_account` | `/admin/account` | Manajemen user |
-| **Account** | `Modul_account` | `Admin\Modul_account` | `/admin/level` | Manajemen role |
-| **FSM** | `Modul_fsm` | `Admin\Modul_fsm` | `/admin/fsm` | Logika state/workflow |
-| **FSM** | `Modul_fsm` | `Admin\Modul_fsm` | `/admin/flow` | Konfigurasi alur |
-| **General** | `Modul` | `Admin\Modul` | `/admin/produk` | Master data produk |
-| **General** | `Modul` | `Admin\Modul` | `/admin/project` | Master data project |
-| **General** | `Modul` | `Admin\Modul` | `/admin/laporan` | Reporting |
-| **General** | `Modul` | `Admin\Modul` | `/admin/monitoring` | Monitoring sistem |
-| **General** | `Modul` | `Admin\Modul` | `/admin/teknisi` | Data teknisi |
-
-### B. Teknisi Application
-**Namespace:** `App\Http\Controllers\Teknisi`
-
-| Modul | Controller | View Path | Route URL |
-| :--- | :--- | :--- | :--- |
-| **SPA Entry** | `Index` | `Teknisi\Index` | `/teknisi/index` |
-| **General** | `Modul` | `Teknisi\Index` | `/teknisi/dashboard` |
-| **General** | `Modul` | `Teknisi\Index` | `/teknisi/project` |
-| **General** | `Modul` | `Teknisi\Index` | `/teknisi/monitoring` |
-
-### C. User Application
-**Namespace:** `App\Http\Controllers\User`
-
-| Modul | Controller | View Path | Route URL |
-| :--- | :--- | :--- | :--- |
-| **SPA Entry** | `Index` | `User\Index` | `/user/index` |
-| **General** | `Modul` | `User\Modul` | `/user/dashboard` |
-| **General** | `Modul` | `User\Modul` | `/user/profile` |
-| **General** | `Modul` | `User\Modul` | `/user/project` |
-| **General** | `Modul` | `User\Modul` | `/user/tambah_project` |
-| **General** | `Modul` | `User\Modul` | `/user/monitoring` |
+| Komponen Blade | Elemen HTML Utama | Fungsi |
+| :--- | :--- | :--- |
+| `@include('Index.header')` | `<header>` | Memuat Navbar atas. |
+| `@include('Index.modal_menu')` | `<div class="col_sidebar">` | Memuat Sidebar modular. |
+| *(Dinamis via AJAX)* | `<main class="main_container">` | Area *mounting* konten utama SPA. |
+| `@include('template.alert_flasher')` | - | Menampilkan notifikasi/alert. |
+| `@include('Index.footer')` | `<footer>` | Memuat bagian bawah aplikasi. |
+| `@include('File.modal_select_file')`| - | Komponen modal global untuk file. |
 
 ---
 
-## 4. Filosofi Desain
+## 3. MEKANISME LOAD DINAMIS SPA
 
-### 1. Tidak Menggunakan Global Route Prefix Group
-* **Alasan:**
-    * Fleksibilitas struktur (tidak terkunci satu pola).
-    * Eksplisit saat debugging (memudahkan pencarian route).
-    * Memungkinkan variasi URL lintas modul jika diperlukan.
+Konten halaman tidak dirender langsung oleh route, melainkan dikendalikan oleh **`core.js`** dan **`core_route.js`**. 
 
-### 2. Aplikasi Bukan Layer View
-* Admin, Teknisi, dan User dipisahkan secara keras (*Hard Separation*) di level Controller dan Namespace untuk keamanan dan kejelasan konteks bisnis.
-
-### 3. Permission Granular Per Fitur
-* Menu hanyalah representasi UI.
-* **Permission** (Hak Akses) diletakkan pada level Controller/Method.
-* Struktur Permission mengikuti alur: `Aplikasi.Modul.Fitur`.
+**Alur Eksekusi (Klik Menu ke Render):**
+1. Klik Menu Sidebar.
+2. JS membaca atribut `data-page` (Contoh: `data-page="https://[URL]/fsm/project"`).
+3. Fungsi `load_page(url)` dijalankan.
+4. Terjadi AJAX GET ke route Laravel (Contoh: `/fsm/project`).
+5. *View* modul diterima dan dimasukkan ke `<main class="main_container">`.
 
 ---
 
-## 5. Model Interaksi (Interaction Model)
+## 4. STRUKTUR SIDEBAR MODULAR
 
-Arsitektur ini berfokus pada **Frontend Routing & View Orchestration**.
+Sidebar dibangun dari class `Menu` (`controllers/Menu.php`) dan diimplementasikan di `Index.php`. Data dibagi menjadi 2 jenis:
 
-1.  **Request:** User mengakses URL (misal: `/admin/produk`).
-2.  **Controller:** Memvalidasi akses dan mengembalikan **View Shell** (HTML kerangka).
-3.  **Client-Side:** Browser merender View Shell.
-4.  **Async Data:** JavaScript pada View Shell melakukan request ke **Backend API** untuk mengambil dan menampilkan data (CRUD).
+| Jenis | Perilaku (Behavior) |
+| :--- | :--- |
+| **MODUL** | Menampilkan *header* modul yang bisa di-expand/collapse, berisi sub-fitur. |
+| **MENU** | Langsung menjadi *link* eksekusi fitur tunggal (memiliki `data-page`). |
 
 ---
 
-## 6. Kelebihan Arsitektur
-* ✅ **Scalability:** Mudah dikembangkan tanpa merusak struktur lama.
-* ✅ **Clarity:** Pemisahan yang jelas antara Role dan Modul.
-* ✅ **API-Ready:** Sangat mudah dikonversi menjadi API-based SPA karena Controller hanya me-return View.
-* ✅ **Multi-Tenant Friendly:** Struktur role yang terpisah memudahkan adaptasi ke sistem multi-tenant.
+## 5. STRUKTUR MODULAR CONTROLLER & ROUTING
+
+Controller disimpan di `App\Http\Controllers\Modul\`. Pola routing yang terbentuk adalah `/{modul}/{fitur}`.
+
+| Modul Aktif | Contoh Route URL yang Dihasilkan |
+| :--- | :--- |
+| `Modul_dashboard` | `/dashboard` |
+| `Modul_account` | `/account/level` |
+| `Modul_FSM` | `/fsm/project` |
+| `Modul_transaksi` | `/transaksi/transaksi_pengeluaran` |
+| `Modul_teknisi` | `/teknisi/monitoring` |
+| `Modul_user` | `/user/tambah_project` |
+
+---
+
+## 6. ARSITEKTUR JAVASCRIPT SPA
+
+Layer JS terbagi menjadi dua kategori utama agar rapi:
+
+| Kategori | File JS | Fungsi / Tanggung Jawab |
+| :--- | :--- | :--- |
+| **APP CORE** | `app.js` | Logika dan konfigurasi utama aplikasi. |
+| **APP CORE** | `api.js` | Tempat *base asynchronous* (URL Route & Request method SPA). |
+| **SPA CORE** | `core.js` | Sistem utama *load* halaman (AJAX core). |
+| **SPA CORE** | `core_route.js` | Mapping route SPA di sisi *client*. |
+| **SPA CORE** | `core_table.js` | Fungsionalitas tabel dinamis. |
+| **SPA CORE** | `core_monitoring.js`| Fungsionalitas spesifik untuk monitoring. |
+| **SPA CORE** | `search_filter.js` | Mesin pencari dan filter SPA. |
+| **SPA CORE** | `main.js` | *Entry script* SPA dan penempatan *event listener* utama. |
+
+---
+
+## 7. ANIMASI LOAD & FILOSOFI
+
+**Sistem Animasi:**
+Menggunakan class `.animasi_loadPage` untuk menampilkan efek *loading* saat AJAX berjalan dan menyembunyikan konten lama sebelum render selesai.
+
+**Filosofi Arsitektur:**
+1. **Single Layout SPA:** Semua modul berbagi satu layout utama.
+2. **Modular Controller:** Domain bisnis dipisah rapi.
+3. **AJAX-based Navigation:** Tanpa *reload* browser.
+4. **Dynamic Sidebar:** Menu dirender dari data *backend*.
+5. **Role & Permission:** Hak akses dikontrol via filter Sidebar + *Permission* per route.
