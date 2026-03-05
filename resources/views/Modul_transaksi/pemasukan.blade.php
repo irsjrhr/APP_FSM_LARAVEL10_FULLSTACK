@@ -108,7 +108,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form class="form_file_upload" method="post" action="transaksi_pemasukan" style="overflow: auto;max-height: 500px;padding-bottom: 100px;">
+					<form class="form_file_upload" method="post" action="{{env('URL_SERVICE_BE') . "transaksi_pemasukan/post_tambah_data"}}" style="overflow: auto;max-height: 500px;padding-bottom: 100px;">
 
 						<!-- <div class="field_upload_custom" data-name-idFile="id_file_custom" data-name-sourceFile="source_file_custom"></div> -->
 

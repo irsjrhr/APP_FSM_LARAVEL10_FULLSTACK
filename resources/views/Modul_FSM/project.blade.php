@@ -1,5 +1,5 @@
 
-<section class="section_content" data-fungsi="project">
+<section class="section_content">
 	<div class="header_page">
 		<h1>
 			Atur Project

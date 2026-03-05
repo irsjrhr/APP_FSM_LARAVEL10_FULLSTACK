@@ -2,8 +2,13 @@
 
 var ENV = window.ENV;//DIAMBIL DARI .env laravel di passing ke variabel global window pada footer di index SPA template
 
-const BASE_URL_PAGE = ENV.BASE_URL_PAGE; 
+console.group('DEBUG ENV');
 
+console.log(ENV);
+
+console.groupEnd('+++++++');
+
+const BASE_URL_PAGE = ENV.BASE_URL_PAGE; 
 
 // ++++++++++++ CONSTANT REQUEST API SERVICE ++++++++
 // UNTUK URL APP BE TERKAIT SERVICE BE DENGAN CI
@@ -213,18 +218,18 @@ function cv_json_obj(json) {
 	//+++++++ Untuk melakukan POST data ke API   ++++++++++++++++++++++++++
 
 	//FUNGSI INI BANYAK DIGUNAKAN OLEH FITUR DI ADMIN
-	function post_dataForm( endpoint_action_form, form_data, callback ) {
-		// FUNGSI INI DIGUNAKAN DI FITUR MODUL ADMIN
-		// form_data bisa berbentun hasil serialize form atau dari FormData
-		// endpoint_action_form diambil dari action pada setiap form yang berisi nama servicdnya
+	// function post_dataForm( endpoint_action_form, form_data, callback ) {
+	// 	// FUNGSI INI DIGUNAKAN DI FITUR MODUL ADMIN
+	// 	// form_data bisa berbentun hasil serialize form atau dari FormData
+	// 	// endpoint_action_form diambil dari action pada setiap form yang berisi nama servicdnya
 
-		//Endppoint ini disarankan nilai yang diambil dari atribut action form 
-		console.log("Menjalankan fungsi post_dataForm", form_data);
+	// 	//Endppoint ini disarankan nilai yang diambil dari atribut action form 
+	// 	console.log("Menjalankan fungsi post_dataForm", form_data);
 
-		//hasil : https://URL_SERVICE/endpoint_service
-		var url_endpoint = URL_SERVICE_BE + endpoint_action_form;
-		post_tambah_data( url_endpoint, form_data, callback );
-	}
+	// 	//hasil : https://URL_SERVICE/endpoint_service
+	// 	var url_endpoint = URL_SERVICE_BE + endpoint_action_form;
+	// 	post_tambah_data( url_endpoint, form_data, callback );
+	// }
 	//Contoh : https://url_service/endpoint_service/post_update_data  POST 
 	function post_update_data( url_endpoint = "https://URL_SERVICE/endpoint_service", data_param_url="?id_data_kolom=nilai", data_post, callback ) {
 
@@ -237,13 +242,12 @@ function cv_json_obj(json) {
 	}
 
 	//Contoh : https://url_service/endpoint_service/tambah_data  POST 
-	function post_tambah_data( url_endpoint = "https://URL_SERVICE/endpoint_service", data_post, callback ) {
+	function post_tambah_data( url_endpoint = "https://URL_SERVICE/endpoint_service/method_post", data_post, callback ) {
 
 		//Endppoint ini disarankan nilai yang diambil dari atribut action form 
 		console.log("Menjalankan fungsi post_tambah_data", data_post);
 
 		//hasil => https://URL_SERVICE/endpoint_service/post_tambah_data
-		url_endpoint = url_endpoint + "/post_tambah_data";
 		post_API( url_endpoint, data_post, callback );
 	}
 	function post_API( url_endpoint, data = {}, callback = false ) {

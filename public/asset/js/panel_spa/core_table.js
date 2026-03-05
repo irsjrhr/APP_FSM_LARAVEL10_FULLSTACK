@@ -78,13 +78,13 @@ function validasi_data( row_struktur, data_reponse ) {
 // +++++++++++++++++ Fungsi Untuk Melakukan Load Data Ke Table Berdasarkan data-fungsi yang ada pada section_content ++++++++++++++
 
 // Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
-function load_table_active( btn_load ) {	
+function load_table_active() {	
 	trace();
 
 	//Event ini akan membuat fungsi load yang di ambil dari data-fungsi dan fungsinya yang sudah dibuat 
 	//Contoh melakukan load di section_content dengan data-fungsi "course" dan maka course tersebut dijadikan string load_content_course dan dijadikan fungsi kemudian dijalankan. Fungsi load_content_course itu sudah ada sebelumnya
 
-	var table_data_container = btn_load.parents('.table_data_container');
+	var table_data_container = $('.table_data_container');
 	var table_data = table_data_container.find('.table_data');
 
 	//Hasil yang diharapkan {URL_SERVICE_BE}/{data_fungsi}

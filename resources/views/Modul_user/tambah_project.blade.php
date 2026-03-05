@@ -23,7 +23,7 @@
 		<div class="loader_page loader_tambah_project"></div>
 		{{-- Ada di folder resource/view/template/form_tambah_project.blade.php --}}
 		{{-- Form Submit --}}
-		<form method="post" class="form_file_upload" id="form_tambah_project" action="project" style="position:relative">
+		<form method="post" class="form_file_upload" id="form_tambah_project" action="{{env('URL_SERVICE_BE') . "project/post_tambah_data"}}" style="position:relative">
 
 			<div class="header_content_form">
 				Form Project

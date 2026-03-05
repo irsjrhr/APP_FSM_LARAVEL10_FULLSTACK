@@ -139,8 +139,7 @@
 				</div>
 				<div class="modal-body">
 
-
-					<form action="account" method="post">
+					<form action="{{env('URL_SERVICE_BE') . "account/post_tambah_data"}}" method="post">
 
 						<div class="form-group">
 							<label> Name : </label>

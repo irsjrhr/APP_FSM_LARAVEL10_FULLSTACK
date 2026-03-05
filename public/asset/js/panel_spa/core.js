@@ -41,15 +41,8 @@ $(document).ready(function() {
 		trace();
 
 		// Melakukan load table pada section_content yang sedang aktif berdasarkan data-fungsi 
-		load_table_active( $(this) );
+		load_table_active();
 	});
-
-	//Membuka halaman pertama dari menu yang paling awal yaitu dashboard 
-	var link_menu_first = $('.sidebar').find('.link_menu').first();
-	var data_page = link_menu_first.attr('data-page');
-	load_page( BASE_URL_PAGE + "account/account", function() {
-
-	});	
 	
 	//+++++++++++++++++ Method Event Terkait Account ++++++++++++
 	//Event pemindahan data ke modal form update dari tabel row data yang dipilih

@@ -109,7 +109,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form method="post" action="transaksi_kategori">
+					<form method="post" action="{{env('URL_SERVICE_BE') . "transaksi_kategori/post_tambah_data"}}">
 						<div class="form-group">
 							<label> Nama Transaksi Kategori : </label>
 							<input autosave type="text" name="nama_transaksi_kategori" class="form-control" required placeholder="Nama Transaksi Kategori">

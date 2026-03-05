@@ -109,7 +109,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form class="form_file_upload" method="post" action="transaksi_pengeluaran" style="overflow: auto;max-height: 500px;padding-bottom: 100px;">
+					<form class="form_file_upload" method="post" action="{{env('URL_SERVICE_BE') . "transaksi_pengeluaran/post_tambah_data"}}" style="overflow: auto;max-height: 500px;padding-bottom: 100px;">
 
 						<div class="form-group">
 							<label> Transaksi Kategori : </label>

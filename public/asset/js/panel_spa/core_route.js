@@ -4,6 +4,12 @@
 
 var EVENT_NAMESPACE = '.eventSPA';
 $(document).ready(function(e) {
+
+	//Membuka halaman pertama dari menu yang paling awal yaitu dashboard 
+	var link_menu_first = $('.sidebar').find('.link_menu').first();
+	var data_page = link_menu_first.attr('data-page');
+	load_page( BASE_URL_PAGE + "account/level" );
+
 	$('.sidebar .link_modul .row_modul_header').on('click', function() {
 		load_link_modul( $(this) );
 	});
@@ -93,6 +99,29 @@ const ROUTE = {
 
 
 //+++++++++++  BASE SPA ASYNCHRONOUS SCRIPT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+function form_tambah_data( form_obj_this, callback = false ) {
+
+	//Handling callback 
+	if ( callback == false ) {
+		callback = function() {
+			return 1;
+		}
+	}
+
+	var form = $(form_obj_this);
+	var form_data = form.serialize();
+	var url_endpoint = form.attr('action');
+	post_tambah_data( url_endpoint, form_data, function( response ) {
+		console.log(response);
+		var msg = response.msg;
+		Swal.fire( msg );
+		//Refresh data di table load 
+		callback( response );
+	});
+
+}
+
 
 //Helper Function For Route to Load SPA
 function load_page( url_route = "path/path2/" ) {
@@ -270,22 +299,14 @@ ROUTE.add( BASE_URL_PAGE + 'dashboard', function( route ) {
 //==================== MODUL ACCOUNT ===================
 //https://url_app_fe/account/account
 ROUTE.add( BASE_URL_PAGE + 'account/account', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
 
-		// Method event untMenambahkan data secara asynchronous
+		// Method event Menambahkan data secara asynchronous
 		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
-
-			var form = $(this);
-			var form_data = form.serialize();
-			var url_endpoint = URL_SERVICE_BE + "account";
-			post_tambah_data( url_endpoint, form_data, function( response ) {
-				console.log(response);
-				var msg = response.msg;
-				Swal.fire( msg );
-				//Refresh data di table load 
+			form_tambah_data( this, function( response ) {
 				load_table_active();
-			} );
+			});
 		});
 		//Membuat list select level pada halaman di modal form berdasarkan data API pada modal tambah account
 		get_data( URL_SERVICE_BE + "level", {}, function( response ) {
@@ -303,21 +324,15 @@ ROUTE.add( BASE_URL_PAGE + 'account/account', function( route ) {
 });
 //https://url_app_fe/account/level
 ROUTE.add( BASE_URL_PAGE + 'account/level', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
 		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
-
-			var form = $(this);
-			var form_data = form.serialize();
-			var url_endpoint = URL_SERVICE_BE + "level";
-			post_tambah_data( url_endpoint, form_data, function( response ) {
-				console.log(response);
-				var msg = response.msg;
-				Swal.fire( msg );
-				//Refresh data di table load 
+			form_tambah_data( this, function( response ) {
 				load_table_active();
-			} );
+
+			});
+
 		});
 	});
 });
@@ -328,26 +343,56 @@ ROUTE.add( BASE_URL_PAGE + 'account/level', function( route ) {
 //==================== MODUL FSM ===================
 //https://url_app_fe/fsm/teknisi
 ROUTE.add( BASE_URL_PAGE + 'fsm/teknisi', function( route ) {
-	LOAD_PAGE_SPA( route );
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+		// Method event untMenambahkan data secara asynchronous
+		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+			e.preventDefault(); //Menghentikan laju fungsi submit pada form
+			form_tambah_data( this, function( response ) {
+				load_table_active();
+			});
+
+		});
+	} );
 
 });
 //https://url_app_fe/fsm/produk
 ROUTE.add( BASE_URL_PAGE + 'fsm/produk', function( route ) {
-	LOAD_PAGE_SPA( route );
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+		// Method event untMenambahkan data secara asynchronous
+		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+			e.preventDefault(); //Menghentikan laju fungsi submit pada form
+
+			form_tambah_data( this, function( response ) {
+				load_table_active();
+			});
+
+		});
+	});
 
 });
 //https://url_app_fe/fsm/project
 ROUTE.add( BASE_URL_PAGE + 'fsm/project', function( route ) {
-	LOAD_PAGE_SPA( route );
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+		// Method event untMenambahkan data secara asynchronous
+		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+			e.preventDefault(); //Menghentikan laju fungsi submit pada form
+			form_tambah_data( this, function( response ) {
+				load_table_active();
+			});
+
+		});
+	});
 
 });
 //https://url_app_fe/fsm/laporan
 ROUTE.add( BASE_URL_PAGE + 'fsm/laporan', function( route ) {
-	LOAD_PAGE_SPA( route );
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+
+	});
 });
 //https://url_app_fe/fsm/monitoring
 ROUTE.add( BASE_URL_PAGE + 'fsm/monitoring', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
 
 	});
 });
@@ -357,26 +402,54 @@ ROUTE.add( BASE_URL_PAGE + 'fsm/monitoring', function( route ) {
 //==================== MODUL ADMIN ===================
 //https://url_app_fe/transaksi/transaksi_kategori
 ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_kategori', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+		// Method event untMenambahkan data secara asynchronous
+		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+			e.preventDefault(); //Menghentikan laju fungsi submit pada form
+			form_tambah_data( this, function( response ) {
+				load_table_active();
+			});
 
+		});
 	});
 });
 //https://url_app_fe/transaksi/transaksi_pemasukan
 ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pemasukan', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+		// Method event untMenambahkan data secara asynchronous
+		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+			e.preventDefault(); //Menghentikan laju fungsi submit pada form
+			form_tambah_data( this, function( response ) {
+				load_table_active();
+			});
 
+		});
 	});
 });
 //https://url_app_fe/transaksi/transaksi_pengeluaran
 ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pengeluaran', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+		// Method event untMenambahkan data secara asynchronous
+		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+			e.preventDefault(); //Menghentikan laju fungsi submit pada form
+			form_tambah_data( this, function( response ) {
+				load_table_active();
+			});
 
+		});
 	});
 });
 //https://url_app_fe/transaksi/transaksi_pembayaran
 ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pembayaran', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+		// Method event untMenambahkan data secara asynchronous
+		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+			e.preventDefault(); //Menghentikan laju fungsi submit pada form
+			form_tambah_data( this, function( response ) {
+				load_table_active();
+			});
 
+		});
 	});
 });
 
@@ -390,7 +463,16 @@ ROUTE.add( BASE_URL_PAGE + 'teknisi/dashboard', function( route ) {
 });
 //https://url_app_fe/teknisi/project
 ROUTE.add( BASE_URL_PAGE + 'teknisi/project', function( route ) {
-	LOAD_PAGE_SPA( route );
+	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+		// Method event untMenambahkan data secara asynchronous
+		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+			e.preventDefault(); //Menghentikan laju fungsi submit pada form
+
+			form_tambah_data( this, function( response ) {
+				load_table_active();
+			});
+		});
+	});
 });
 //https://url_app_fe/teknisi/monitoring
 ROUTE.add( BASE_URL_PAGE + 'teknisi/monitoring', function( route ) {
@@ -516,7 +598,7 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 		});
 
 		// Submit Form Tambah Project dan Pilih Teknisi Berdasarkan Rekomendasi Teknisi Haversine
-		$('body').on('submit', '#form_tambah_project', function(e) {
+		$('body').on('submit'+EVENT_NAMESPACE, '#form_tambah_project', function(e) {
 
 			trace();
 
@@ -551,21 +633,10 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 				//Ambil user_login untuk jadi user_client karena kan user yang melakukan tambah project ini di Controller User dan sudah pasti terdaftara dan rolenya user. Kemudian tambahkan isinya di form input hidden dengan name user_client
 				var user_client = DATA_AUTH.user_login; 
 				form.find('input[name=user_client]').val( user_client );
-				var form_data = form.serialize();
-				var action = form.attr('action');
 				// loader_page( 'show',  loader_tambah_project, "Membuat Project Baru ......");
-				post_dataForm( action, form_data, function( response ) {
-
-					console.log(response);
-					var msg = response.msg;
-					Swal.fire( msg );
-
-					//Setelah berhasil langsung arahkan ke list project user
+				form_tambah_data( this, function( response ) {
 					load_page( BASE_URL_PAGE + "user/project"); 
-
 				});
-
-
 			}else{
 				//Jika ada input belum terisi atau ada lokasi atau teknisi yng masih ernilai none
 				if ( lat == "none" || long == "none" ) {
@@ -722,7 +793,7 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 ROUTE.add( BASE_URL_PAGE + 'user/monitoring', function(route) {
 	LOAD_PAGE_SPA( route, function() {
 
-		$('body').on('submit', '#form_monitoring', function(e) {
+		$('body').on('submit'+EVENT_NAMESPACE, '#form_monitoring', function(e) {
 
 			e.preventDefault();
 

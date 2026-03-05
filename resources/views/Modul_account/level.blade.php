@@ -105,7 +105,7 @@
 				<div class="modal-body">
 
 
-					<form action="level" method="post">
+					<form action="{{ env('URL_SERVICE_BE') . "level/post_tambah_data" }}" method="post">
 
 						<div class="form-group">
 							<label> Nama Level : </label>

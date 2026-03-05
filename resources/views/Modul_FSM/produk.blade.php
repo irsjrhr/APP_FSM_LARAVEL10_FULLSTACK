@@ -1,6 +1,6 @@
 
 
-<section class="section_content" data-fungsi="produk">
+<section class="section_content">
 	<div class="header_page">
 		<h1>
 			Atur Produk
@@ -110,7 +110,7 @@
 				</div>
 				<div class="modal-body">
 
-					<form action="produk" method="post" class="form_file_upload">
+					<form action="{{env('URL_SERVICE_BE') . "produk/post_tambah_data"}}" method="post" class="form_file_upload">
 
 						<div class="form-group">
 							<label>Upload Thumbnail:</label>

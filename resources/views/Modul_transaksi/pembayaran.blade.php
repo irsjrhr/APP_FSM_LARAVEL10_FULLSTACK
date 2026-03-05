@@ -197,7 +197,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form method="post" action="transaksi_pembayaran" style="overflow: auto;max-height: 500px;padding-bottom: 100px;">
+					<form method="post" action="{{env('URL_SERVICE_BE') . "transaksi_pembayaran/post_tambah_data"}}" style="overflow: auto;max-height: 500px;padding-bottom: 100px;">
 
 						<div class="form-group">
 							<label> Nama Item : </label>

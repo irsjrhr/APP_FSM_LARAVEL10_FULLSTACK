@@ -1,6 +1,6 @@
 
 
-<section class="section_content" data-fungsi="teknisi">
+<section class="section_content">
 	<div class="header_page">
 		<h1>
 			Atur Teknisi
@@ -111,7 +111,7 @@
 				</div>
 
 				<div class="modal-body">
-					<form action="teknisi" method="post">
+					<form action="{{env('URL_SERVICE_BE') . "teknisi/post_tambah_data"}}" method="post">
 
 						<div class="form-group">
 							<label>User</label>
