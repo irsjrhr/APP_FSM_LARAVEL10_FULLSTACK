@@ -26,6 +26,7 @@ Route::controller(Modul\Modul_dashboard::class)->group(function () {
     Route::get('/dashboard', 'dashboard');
 });
 
+
 //==== Route Modul Account
 //Source Controller Modul : App\Http\Controllers\Modul_account
 //Source View : resource\view\Modul_account

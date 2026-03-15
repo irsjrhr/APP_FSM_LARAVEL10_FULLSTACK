@@ -151,18 +151,12 @@ header{
 }
 
 /*Sub Modul*/
-.link_modul.active .link_modul .col_container_menu{
+.link_modul.active .link_modul.sub_modul .col_container_menu{
 	max-height: 0px !important;
 }
-.link_modul.active .link_modul.active .col_container_menu{
+.link_modul.active .link_modul.sub_modul.active .col_container_menu{
 	max-height: var(--main-height_active) !important;
 }
-
-
-
-
-
-
 
 
 

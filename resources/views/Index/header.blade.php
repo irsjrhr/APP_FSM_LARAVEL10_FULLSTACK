@@ -158,7 +158,7 @@
 												<i class="fas fa-folder-open icon_modul"></i>
 											</div>
 											<div class="col menu_text">
-												Sub Modul
+												Sub Modul 1
 												<span class="icon_indicator">
 													<i class="fas fa-chevron-down"></i>
 												</span>
@@ -171,7 +171,7 @@
 											<div class="col-12 col_container_menu">
 
 												{{-- Row Menu - Link Menu --}}
-												<div class="row row_menu link_menu" data-page="{{asset('sub_modu/fitur')}}">
+												<div class="row row_menu link_menu" data-page="{{asset('sub_modul1/fitur')}}">
 													<div class="col-1 menu_logo">
 														<i class="fas fa-users"></i>
 													</div>
@@ -209,7 +209,7 @@
 											<div class="col-12 col_container_menu">
 
 												{{-- Row Menu - Link Menu --}}
-												<div class="row row_menu link_menu" data-page="{{asset('sub_modu/fitur')}}">
+												<div class="row row_menu link_menu" data-page="{{asset('sub_modul2/fitur')}}">
 													<div class="col-1 menu_logo">
 														<i class="fas fa-users"></i>
 													</div>

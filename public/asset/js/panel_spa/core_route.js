@@ -8,7 +8,7 @@ $(document).ready(function(e) {
 	//Membuka halaman pertama dari menu yang paling awal yaitu dashboard 
 	var link_menu_first = $('.sidebar').find('.link_menu').first();
 	var data_page = link_menu_first.attr('data-page');
-	load_page( BASE_URL_PAGE + "account/level" );
+	load_page( BASE_URL_PAGE + "dashboard" );
 
 	$('.sidebar .link_modul .row_modul_header').on('click', function() {
 		load_link_modul( $(this) );
@@ -22,7 +22,7 @@ $(document).ready(function(e) {
 		var link_menu = $('.sidebar .link_menu');
 		var link_menu_target = $(this);
 		var data_page = link_menu_target.attr('data-page');
-		load_page( data_page ); //Inni ada di route_app.js
+		load_page( data_page ); //Inni ada di core_route.js
 
 	});
 }); 
@@ -89,7 +89,7 @@ const ROUTE = {
 
 
 		}else{
-			var msg_error = 'TIDAK DITEMUKAN ATAU BELUM DIDAFTARKAN ROUTENYA DI route_app.js DENGAN URL ROUTE ' + url_route_target;
+			var msg_error = 'TIDAK DITEMUKAN ATAU BELUM DIDAFTARKAN ROUTENYA DI core_route.js DENGAN URL ROUTE ' + url_route_target;
 			Swal.fire(msg_error);
 			console.error( msg_error );
 		}
@@ -255,7 +255,7 @@ function load_link_modul( row_modul_header_target ) {
 
 		}else{
 			console.log('Link Modul Adalah Sub Modul');
-			link_modul_close = link_modul_target.closest('.link_modul');
+			link_modul_close = link_modul_target.parents('.link_modul').first().find('.link_modul');
 			kriteria_notClose = [
 			link_modul_target,
 			link_modul_close.find('.link_menu.active').closest('.link_modul'),
@@ -280,19 +280,28 @@ function load_link_modul( row_modul_header_target ) {
 	}
 }
 function open_link_modul(link_modul_target){
+
 	link_modul_target.addClass('active');
-	var icon_indicator = link_modul_target.find('span.icon_indicator');
-	var i_element = icon_indicator.find('i');
-	i_element.removeClass('fa-chevron-right');
-	i_element.addClass('fa-chevron-down');
+
+	var i_element = link_modul_target
+		.children('.row_modul_header')
+		.find('.icon_indicator i');
+
+	i_element.removeClass('fa-chevron-right')
+	         .addClass('fa-chevron-down');
 
 }
 function close_link_modul(link_modul_target){
+
 	link_modul_target.removeClass('active');
-	var icon_indicator = link_modul_target.find('span.icon_indicator');
-	var i_element = icon_indicator.find('i');
-	i_element.removeClass('fa-chevron-down');
-	i_element.addClass('fa-chevron-right');
+
+	var i_element = link_modul_target
+		.children('.row_modul_header')
+		.find('.icon_indicator i');
+
+	i_element.removeClass('fa-chevron-down')
+	         .addClass('fa-chevron-right');
+
 }
 
 
@@ -334,7 +343,6 @@ ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( route ) {
 ROUTE.add( BASE_URL_PAGE + 'dashboard', function( route ) {
 	LOAD_PAGE_SPA( route );
 });
-
 
 //==================== MODUL ACCOUNT ===================
 //https://url_app_fe/account/account
