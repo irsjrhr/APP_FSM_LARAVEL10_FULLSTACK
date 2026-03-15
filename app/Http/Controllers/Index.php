@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Base_model;
 
 
-// INDEX APLIKASI ENTRY Admin
 class Index extends Controller{
 
     //Method View Untuk Masuk Modul Aplikasi 

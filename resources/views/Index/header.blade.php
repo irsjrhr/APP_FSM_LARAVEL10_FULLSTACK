@@ -16,7 +16,7 @@
 	<body>
 
 		<style type="text/css">	
-		.col_content .nav_header .col_left{
+		.content .nav_header .col_left{
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -84,9 +84,9 @@
 	</header>
 
 	<!-- Container page -->
-	<div class="container_page">
+	<div class="container-fluid container_page">
 		<!-- Row page -->
-		<div class="row_page" style="display:flex">
+		<div class="row row_page">
 			<!-- Sidebar -->
 			<div class="col_sidebar">
 				<div class="sidebar">
@@ -178,7 +178,7 @@
 			</div>
 			<!-- End Of Sidebar -->
 			<!-- Content -->
-			<div class="content content_page">
+			<div class="col content">
 
 				<!-- Load animasi - akan muncul dan menghilang sesuai dengan perilaku load_page  -->
 				<div class="animasi_loadPage">
