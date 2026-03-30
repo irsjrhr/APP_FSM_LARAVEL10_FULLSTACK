@@ -51,7 +51,7 @@
 								</div>
 								<div class="col_content title_app">
 									<h4> 
-										FSM - Admin
+										Portal Apps 
 									</h4>
 								</div>
 							</div>
@@ -98,7 +98,7 @@
 					<div class="container-fluid container_modul_menu">
 
 						{{-- Row Menu - Link Menu --}}
-						<div class="row row_menu link_menu" data-page="{{asset('dashboard')}}">
+						<div class="row row_menu link_menu" data-page="/dashboard/">
 							<div class="col-1 menu_logo">
 								<i class="fas fa-th-large"></i>
 							</div>
@@ -129,7 +129,7 @@
 								<div class="col-12 col_container_menu">
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu active" data-page="{{asset('account/level')}}">
+									<div class="row row_menu link_menu active" data-page="/account/level/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-key"></i>
 										</div>
@@ -139,7 +139,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('account/account')}}">
+									<div class="row row_menu link_menu" data-page="/account/account/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-users"></i>
 										</div>
@@ -160,7 +160,7 @@
 											<div class="col menu_text">
 												Sub Modul 1
 												<span class="icon_indicator">
-													<i class="fas fa-chevron-down"></i>
+													<i class="fas fa-chevron-right"></i>
 												</span>
 											</div>
 										</div>
@@ -171,7 +171,7 @@
 											<div class="col-12 col_container_menu">
 
 												{{-- Row Menu - Link Menu --}}
-												<div class="row row_menu link_menu" data-page="{{asset('sub_modul1/fitur')}}">
+												<div class="row row_menu link_menu" data-page="/sub_modul1/fitur/">
 													<div class="col-1 menu_logo">
 														<i class="fas fa-users"></i>
 													</div>
@@ -198,7 +198,7 @@
 											<div class="col menu_text">
 												Sub Modul 2
 												<span class="icon_indicator">
-													<i class="fas fa-chevron-down"></i>
+													<i class="fas fa-chevron-right"></i>
 												</span>
 											</div>
 										</div>
@@ -209,7 +209,7 @@
 											<div class="col-12 col_container_menu">
 
 												{{-- Row Menu - Link Menu --}}
-												<div class="row row_menu link_menu" data-page="{{asset('sub_modul2/fitur')}}">
+												<div class="row row_menu link_menu" data-page="/sub_modul2/fitur/">
 													<div class="col-1 menu_logo">
 														<i class="fas fa-users"></i>
 													</div>
@@ -255,7 +255,7 @@
 								<div class="col-12 col_container_menu">
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('fsm/teknisi')}}">
+									<div class="row row_menu link_menu" data-page="/fsm/teknisi/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-hard-hat"></i>
 										</div>
@@ -265,7 +265,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('fsm/produk')}}">
+									<div class="row row_menu link_menu" data-page="/fsm/produk/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-box"></i>
 										</div>
@@ -275,7 +275,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('fsm/project')}}">
+									<div class="row row_menu link_menu" data-page="/fsm/project/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-tasks"></i>
 										</div>
@@ -285,7 +285,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('fsm/laporan')}}">
+									<div class="row row_menu link_menu" data-page="/fsm/laporan/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-file-alt"></i>
 										</div>
@@ -295,7 +295,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('fsm/monitoring')}}">
+									<div class="row row_menu link_menu" data-page="/fsm/monitoring/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-tv"></i>
 										</div>
@@ -335,7 +335,7 @@
 								<div class="col-12 col_container_menu">
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('transaksi/transaksi_kategori')}}">
+									<div class="row row_menu link_menu" data-page="/transaksi/transaksi_kategori/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-filter"></i>
 										</div>
@@ -345,7 +345,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('transaksi/transaksi_pemasukan')}}">
+									<div class="row row_menu link_menu" data-page="/transaksi/transaksi_pemasukan/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-cash-register"></i>
 										</div>
@@ -355,7 +355,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('transaksi/transaksi_pengeluaran')}}">
+									<div class="row row_menu link_menu" data-page="/transaksi/transaksi_pengeluaran/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-money-bill"></i>
 										</div>
@@ -365,7 +365,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('transaksi/transaksi_pembayaran')}}">
+									<div class="row row_menu link_menu" data-page="/transaksi/transaksi_pembayaran">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-cash-register"></i>
 										</div>
@@ -405,7 +405,7 @@
 								<div class="col-12 col_container_menu">
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('teknisi/dashboard')}}">
+									<div class="row row_menu link_menu" data-page="/teknisi/dashboard/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-tachometer-alt"></i>
 										</div>
@@ -415,7 +415,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('teknisi/project')}}">
+									<div class="row row_menu link_menu" data-page="/teknisi/project/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-clipboard-list"></i>
 										</div>
@@ -425,7 +425,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('teknisi/monitoring')}}">
+									<div class="row row_menu link_menu" data-page="/teknisi/project/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-map-marked-alt"></i>
 										</div>
@@ -464,7 +464,7 @@
 								<div class="col-12 col_container_menu">
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('user/dashboard')}}">
+									<div class="row row_menu link_menu" data-page="/user/dashboard/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-tachometer-alt"></i>
 										</div>
@@ -474,7 +474,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('user/project')}}">
+									<div class="row row_menu link_menu" data-page="/user/project/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-clipboard-list"></i>
 										</div>
@@ -484,7 +484,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('user/tambah_project')}}">
+									<div class="row row_menu link_menu" data-page="/user/tambah_project/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-plus-circle"></i>
 										</div>
@@ -494,7 +494,7 @@
 									</div>
 									
 									{{-- Row Menu - Link Menu --}}
-									<div class="row row_menu link_menu" data-page="{{asset('user/monitoring')}}">
+									<div class="row row_menu link_menu" data-page="/user/monitoring/">
 										<div class="col-1 menu_logo">
 											<i class="fas fa-eye"></i>
 										</div>

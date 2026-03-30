@@ -1,29 +1,7 @@
-// UNTUK URL APP BE TERKAIT SERVICE BE BISNIS 
-
-var ENV = window.ENV;//DIAMBIL DARI .env laravel di passing ke variabel global window pada footer di index SPA template
-
-console.group('DEBUG ENV');
-
-console.log(ENV);
-
-console.groupEnd('+++++++');
-
-const BASE_URL_PAGE = ENV.BASE_URL_PAGE; 
-
-// ++++++++++++ CONSTANT REQUEST API SERVICE ++++++++
-// UNTUK URL APP BE TERKAIT SERVICE BE DENGAN CI
-const URL_SERVICE_CI = ENV.URL_SERVICE_CI;
-// UNTUK URL APP BE TERKAIT SERVICE BE DENGAN LARAVEL
-const URL_SERVICE_BE = ENV.URL_SERVICE_BE;
-
-// UNTUK URL APP BE TERKAIT SERVICE BE FILE
-const URL_SERVICE_FILE = ENV.URL_SERVICE_FILE;
-
-//Untuk menghandle debug fungsi trace di seluruh fungsi dengan trace ada di core.js
-//Jadikan false jika ingin debug trace dimatikan dan dissarankkan untuk melakukn itu ketika masuk ke prod agar tidak memberatkan server prod
-const DEBUG_CONSOLE_TRACE = true;
-
-// ++++++++++++ CONSTANT REQUEST API SERVICE ++++++++
+/*
+INGAT!! SCRIPT INI HARUS TERHUBUNG DENGAN BEBERAPA SUMBER SEBAGAI NILAI KONFIGNYA, SEPERTI :
+- File Script config.js ( PENTING )
+*/
 
 //Loaader Page
 function loader_page( param_visible = 'show', selector_loader_page = null, caption = "Certara - Learning Management System") {
@@ -38,9 +16,6 @@ function loader_page( param_visible = 'show', selector_loader_page = null, capti
 		el_loader_page = el_loader_page.filter(selector_loader_page );
 
 	}
-
-
-
 
 	el_loader_page.html(" ");
 	el_loader_page.append(`<div class="content">

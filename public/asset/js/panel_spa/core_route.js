@@ -1,14 +1,16 @@
 //++++++++++++++++++++++++ BASE ROUTING SCRIPT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//INGAT!! INI HARUS TERHUBUNG ATAU DIBARENGI DENGAN core.js dan api.js
-// Kemudian route yang ada disini merupkan callback triger dari pada load page yang di panggil di menu sidebar 
+/*INGAT!! INI HARUS TERHUBUNG DENGAN BEBERAPA SUMBER SEBAGAI NILAI KONFIGNYA, SEPERTI :
+- File Script config.js ( PENTING )
+- File Script core.js dan api.js
+*/
 
-var EVENT_NAMESPACE = '.eventSPA';
+
 $(document).ready(function(e) {
 
 	//Membuka halaman pertama dari menu yang paling awal yaitu dashboard 
 	var link_menu_first = $('.sidebar').find('.link_menu').first();
 	var data_page = link_menu_first.attr('data-page');
-	load_page( BASE_URL_PAGE + "dashboard" );
+	load_page( "/dashboard/" );
 
 	$('.sidebar .link_modul .row_modul_header').on('click', function() {
 		load_link_modul( $(this) );
@@ -27,18 +29,20 @@ $(document).ready(function(e) {
 	});
 }); 
 
-function CLEANUP_EVENT_NAMESPACE( route ) {
-	console.warn(`EVENT NAME SPACE ${EVENT_NAMESPACE} URL ROUTE!
+function CLEANUP_SPA_EVENT_NAMESPACE( route ) {
+	console.warn(`EVENT NAME SPACE ${SPA_EVENT_NAMESPACE} URL ROUTE!
 		${ route } DIHAPUS!!!
 		`);
-	$(document).off(EVENT_NAMESPACE);
-	$('body ').off(EVENT_NAMESPACE);
+	$(document).off(SPA_EVENT_NAMESPACE);
+	$('body ').off(SPA_EVENT_NAMESPACE);
 }
 
 // const BASE_URL_PAGE = "http://127.0.0.1:8000/"; ---> INI ADA DI api.js
 function ROUTE_INIT( route, load_spa = false ) {
-	this.route = route;
+	this.route = route; //Ini route asli dari UI Menu 
+	this.route_spa = BASE_URL_PAGE + SPA_ROUTE_PREFIX_KEYWORD + route; //Route SPA untuk melakuka load spa 
 	this.callback_route = false; //Fungsi callback
+	//Membuat route spa 
 }
 const ROUTE = {
 	QUE_ROUTE : [],   
@@ -52,14 +56,15 @@ const ROUTE = {
 		}
 
 		//++++++++ Build Object Route With Callback Triger +++++++
-		var page = new ROUTE_INIT( route, load_spa );
+		var route_obj = new ROUTE_INIT( route, load_spa );
+
 		// Buat perilaku page ketika di triger dari method callback yang di daftarkan berdasarkan routenya
-		page.callback_route = function() {
-			callback( route );
+		route_obj.callback_route = function() {
+			callback( route_obj );
 		};
 
 		//++++++++ Sign Object Route Yang Sudah Di Buil +++++++
-		this.QUE_ROUTE.push( page );
+		this.QUE_ROUTE.push( route_obj );
 	},
 
 	//MEMANGGIL ROUTE BERDASARKAN TRIGER ROUTE AARGUMENNYA 
@@ -81,7 +86,7 @@ const ROUTE = {
 
 			//Handling Type Callback
 			if (typeof ROUTE_INIT_EXIST.callback_route === 'function') {
-				///Panggil Routenya
+				///Panggil method perilaku Routenya
 				ROUTE_INIT_EXIST.callback_route();
 			}else{
 				console.error('ROUTE URL ROUTE ' + url_route_target +  "TIDAK MEMILIKI CALLBACK FUNCTION");
@@ -99,44 +104,6 @@ const ROUTE = {
 
 
 //+++++++++++  BASE SPA ASYNCHRONOUS SCRIPT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-function form_tambah_data( form_obj_this, callback = false ) {
-
-	//Handling callback 
-	if ( callback == false ) {
-		callback = function() {
-			return 1;
-		}
-	}
-
-	var form = $(form_obj_this);
-	var form_data = form.serialize();
-	var url_endpoint = form.attr('action');
-	post_tambah_data( url_endpoint, form_data, function( response ) {
-		console.log(response);
-		var msg = response.msg;
-		Swal.fire( msg );
-		//Refresh data di table load 
-		callback( response );
-	});
-
-}
-
-
-//Helper Function For Route to Load SPA
-function load_page( url_route = "path/path2/" ) {
-
-	ROUTE.load( url_route );
-
-	// Membuka parent .link_modul jika link menu yang aktif terbuka berdasarkan yang di load punya parent link_modul
-	var link_menu_activePage = $('.sidebar .link_menu').filter(`[data-page="${url_route}"]`); 
-
-
-	var link_modul_activePage= link_menu_activePage.parents('.link_modul');
-	if ( link_modul_activePage.length > 0 ) {
-		open_link_modul( link_modul_activePage );
-	}
-}
 //FUNGSI CORE UNTUK LOAD PAGE SPA
 function LOAD_PAGE_SPA( target_page = BASE_URL_PAGE, callback = false ) {
 	//SET DEBUG URL ACTIVE
@@ -181,7 +148,7 @@ function LOAD_PAGE_SPA( target_page = BASE_URL_PAGE, callback = false ) {
 
 
 		//Membersihkan event SPA Khusus Fitur yang memiliki namespace .eventSPA
-		CLEANUP_EVENT_NAMESPACE();
+		CLEANUP_SPA_EVENT_NAMESPACE();
 
 		//Ini letaknya ada di file.js untuk menambahkan elemen untuk melakukan select file
 		//Mengecek dan menambahkan tombol untuk memanggil modal select file apabila ada elemen form yang memiliki class .form_file_upload 
@@ -191,13 +158,12 @@ function LOAD_PAGE_SPA( target_page = BASE_URL_PAGE, callback = false ) {
 		//Menambahan element animasi load page pada table
 		create_animasiLoadPageEl();
 
-
-		//++++++++++ Memberikan tanda efek ke .link_menu yang punya nilai data-page seperti target_page
-		var link_menu = $('.sidebar .link_menu');
-		var link_menu_target = link_menu.filter(`.link_menu[data-page="${target_page}"]`);
-		//+++++ Tandai elemen link menu yang aktif 
-		link_menu.removeClass('active');
-		link_menu_target.addClass('active');
+		// //++++++++++ Memberikan tanda efek ke .link_menu yang punya nilai data-page seperti target_page
+		// var link_menu = $('.sidebar .link_menu');
+		// var link_menu_target = link_menu.filter(`.link_menu[data-page="${target_page}"]`);
+		// //+++++ Tandai elemen link menu yang aktif 
+		// link_menu.removeClass('active');
+		// link_menu_target.addClass('active');
 
 		//Memanggil callback
 		callback( responseText, statusText, xhr );
@@ -210,6 +176,27 @@ function LOAD_PAGE_SPA( target_page = BASE_URL_PAGE, callback = false ) {
 
 	console.groupEnd('++++ END OF LOAD_PAGE_SPA with route ${ LOAD_PAGE_URL  } +++++');
 
+}
+
+//Helper Function For Route to Load SPA
+function load_page( url_route = "path/path2/" ) {
+
+	//++++++ Memanggil callback route berdasarkan url routenya 
+	ROUTE.load( url_route );
+
+	//++++++++++ Memberikan tanda efek ke .link_menu yang punya nilai data-page seperti target_page
+	var link_menu = $('.sidebar .link_menu');
+	var link_menu_target = link_menu.filter(`.link_menu[data-page="${url_route}"]`);
+
+	//Tandai elemen link menu yang aktif 
+	link_menu.removeClass('active');
+	link_menu_target.addClass('active');
+
+	//++++ Membuka parent .link_modul jika link menu yang aktif terbuka berdasarkan yang di load punya parent link_modul
+	var link_menu_activePage = $('.sidebar .link_menu').filter(`[data-page="${url_route}"]`); 
+	var link_modul_activePage = link_menu_activePage.closest('.link_modul');
+	var row_modul_header_target = link_modul_activePage.children('.row_modul_header'); //row_modul_header pertama milik si modul saja
+	load_link_modul( row_modul_header_target );
 }
 
 /*
@@ -228,67 +215,48 @@ function LOAD_PAGE_SPA( target_page = BASE_URL_PAGE, callback = false ) {
 */
 function load_link_modul( row_modul_header_target ) {
 
-
 	var link_modul_target = row_modul_header_target.closest( '.link_modul.row_modul' ); //Ini sama seperti cara kerja parents cuman hanya akan memilih parent sselector yang paling awal ditemui aja bukan seluruhnya
-	var row_container_menu = link_modul_target.find('.row_container_menu');
-	var link_menu_activeTarget = row_container_menu.find('.link_menu.active');
-	var link_modul_icon = link_menu_activeTarget.find('i');
 
 	if ( link_modul_target.is('.active') == false ) {
-		//Jika link modul tidak aktif dan tidak terlihat, maka aktifkan dan tampilkan
-
-
-		open_link_modul( link_modul_target );
-
-		var kriteria_notClose = [];
-		var link_modul_close;
-
-		if ( link_modul_target.is('.sub_modul') == false ) {
-			console.log('Link Modul Bukan Sub Modul');
-
-			link_modul_close = $('.link_modul').not('.sub_modul');
-			kriteria_notClose = [
-			link_modul_target, //Link modul yang menjadi target
-			link_modul_close.find('.link_menu.active').closest('.link_modul'), //link modul bukan sub modul yang punya menu aktif 
-			link_modul_close.find('.link_menu.active').closest('.link_modul').find('.link_modul') //link modul bukan sub modul yang punya menu aktif 
-			];
-
-		}else{
-			console.log('Link Modul Adalah Sub Modul');
-			link_modul_close = link_modul_target.parents('.link_modul').first().find('.link_modul');
-			kriteria_notClose = [
-			link_modul_target,
-			link_modul_close.find('.link_menu.active').closest('.link_modul'),
-			];
-		}
-
-		for (var i = 0; i < kriteria_notClose.length; i++) {
-			link_modul_close = link_modul_close.not(kriteria_notClose[i]);
-		}
-		close_link_modul( link_modul_close );
-
-
-	}else{	
-		//Jika link modul aktif dan tidak punya menu active, maka hilangkan link modul tersebut
-		if ( link_menu_activeTarget.length < 1 ) {
-
-			close_link_modul( link_modul_target );
-
-		}else{
-			console.log('TIDAK BISA MENUTUP, KARENA ADA MENU YANG SEDANG AKTIF');
-		}
+		open_link_modul(link_modul_target);
+	}else{
+		close_link_modul(link_modul_target);
 	}
+
+	//Pertahankan link modul yang punya menu aktif agar selalu terbuka baik modul ataupun dsub modul
+	var link_menu_active = $('.link_menu').filter('.active');
+	var link_modul_hasMenuActive = link_menu_active.parents('.link_modul'); //akan seleksi link modul jiks sub modul targetnya juga 
+	open_link_modul( link_modul_hasMenuActive );
+
+
+	//Handing Apabila link modul target itu sub modul atau 
+
+	if ( link_modul_target.is('.sub_modul') ) {
+		//Jika link modul target itu adalah sub modul
+		console.warn('Modul Target adalah sub modul');
+		var link_modul_rootSub = link_modul_target.parents('.link_modul'); 
+		var link_modul_sub = link_modul_rootSub.find('.sub_modul')
+		.not( link_modul_target )
+		.not( link_modul_hasMenuActive );
+		close_link_modul(link_modul_sub);
+	}else{
+		//Jika link modul target itu bukan sub modul 
+		console.warn('Modul Target bukan sub modul');
+		var link_modul_rootNotTargetActive = $('.link_modul').not('.sub_modul').not( link_modul_target ).not( link_modul_hasMenuActive );
+		close_link_modul(link_modul_rootNotTargetActive);
+	}
+
 }
 function open_link_modul(link_modul_target){
 
 	link_modul_target.addClass('active');
 
 	var i_element = link_modul_target
-		.children('.row_modul_header')
-		.find('.icon_indicator i');
+	.children('.row_modul_header')
+	.find('.icon_indicator i');
 
 	i_element.removeClass('fa-chevron-right')
-	         .addClass('fa-chevron-down');
+	.addClass('fa-chevron-down');
 
 }
 function close_link_modul(link_modul_target){
@@ -296,14 +264,37 @@ function close_link_modul(link_modul_target){
 	link_modul_target.removeClass('active');
 
 	var i_element = link_modul_target
-		.children('.row_modul_header')
-		.find('.icon_indicator i');
+	.children('.row_modul_header')
+	.find('.icon_indicator i');
 
 	i_element.removeClass('fa-chevron-down')
-	         .addClass('fa-chevron-right');
+	.addClass('fa-chevron-right');
 
 }
 
+function form_tambah_data( form_obj_this, callback = false ) {
+
+	trace();
+
+	//Handling callback 
+	if (  typeof callback !=  "function"  ) {
+		callback = function() {
+			return 1;
+		};
+	}
+
+	var form = $(form_obj_this);
+	var form_data = form.serialize();
+	var url_endpoint = form.attr('action');
+	post_tambah_data( url_endpoint, form_data, function( response ) {
+		console.log(response);
+		var msg = response.msg;
+		Swal.fire( msg );
+		//Refresh data di table load 
+		callback( response );
+	});
+
+}
 
 
 
@@ -320,18 +311,18 @@ function close_link_modul(link_modul_target){
 
 /*
 // === CONTOH MENDAFTARKAN ROUTE SPA CALLBACK BASIC 
-ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( route ) {
+ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( RouteObj ) {
 	alert('EVENT TRIGER CALLBACK');
 });
 
 // === CONTOH MENDAFTARKAN ROUTE SPA CALLBACK DENGAN LOAD SPA 
-ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( route ) {
+ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( RouteObj ) {
 	LOAD_PAGE_SPA( route );
 });
 
 // === CONTOH MENDAFTARKAN ROUTE SPA CALLBACK DENGAN LOAD SPA BER CALLBACK 
-ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr  ){
+ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr  ){
 		alert('EVENT CALLBACK SETELAH LOAD SPA');
 	});
 });
@@ -340,17 +331,17 @@ ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( route ) {
 
 //----- ADMIN CONTROLLER ROUTE CALLBACK ----
 //https://url_app_fe/dashboard
-ROUTE.add( BASE_URL_PAGE + 'dashboard', function( route ) {
-	LOAD_PAGE_SPA( route );
+ROUTE.add( '/dashboard/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa );
 });
 
 //==================== MODUL ACCOUNT ===================
 //https://url_app_fe/account/account
-ROUTE.add( BASE_URL_PAGE + 'account/account', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/account/account/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 
 		// Method event Menambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 			form_tambah_data( this, function( response ) {
 				load_table_active();
@@ -371,10 +362,10 @@ ROUTE.add( BASE_URL_PAGE + 'account/account', function( route ) {
 
 });
 //https://url_app_fe/account/level
-ROUTE.add( BASE_URL_PAGE + 'account/level', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/account/level/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 			form_tambah_data( this, function( response ) {
 				load_table_active();
@@ -390,10 +381,10 @@ ROUTE.add( BASE_URL_PAGE + 'account/level', function( route ) {
 
 //==================== MODUL FSM ===================
 //https://url_app_fe/fsm/teknisi
-ROUTE.add( BASE_URL_PAGE + 'fsm/teknisi', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/fsm/teknisi/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 			form_tambah_data( this, function( response ) {
 				load_table_active();
@@ -404,10 +395,10 @@ ROUTE.add( BASE_URL_PAGE + 'fsm/teknisi', function( route ) {
 
 });
 //https://url_app_fe/fsm/produk
-ROUTE.add( BASE_URL_PAGE + 'fsm/produk', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/fsm/produk/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 
 			form_tambah_data( this, function( response ) {
@@ -419,10 +410,10 @@ ROUTE.add( BASE_URL_PAGE + 'fsm/produk', function( route ) {
 
 });
 //https://url_app_fe/fsm/project
-ROUTE.add( BASE_URL_PAGE + 'fsm/project', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/fsm/project/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 			form_tambah_data( this, function( response ) {
 				load_table_active();
@@ -433,14 +424,14 @@ ROUTE.add( BASE_URL_PAGE + 'fsm/project', function( route ) {
 
 });
 //https://url_app_fe/fsm/laporan
-ROUTE.add( BASE_URL_PAGE + 'fsm/laporan', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/fsm/laporan/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 
 	});
 });
 //https://url_app_fe/fsm/monitoring
-ROUTE.add( BASE_URL_PAGE + 'fsm/monitoring', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/fsm/monitoring/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 
 	});
 });
@@ -449,10 +440,10 @@ ROUTE.add( BASE_URL_PAGE + 'fsm/monitoring', function( route ) {
 
 //==================== MODUL ADMIN ===================
 //https://url_app_fe/transaksi/transaksi_kategori
-ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_kategori', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/transaksi/transaksi_kategori', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 			form_tambah_data( this, function( response ) {
 				load_table_active();
@@ -462,10 +453,10 @@ ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_kategori', function( route ) {
 	});
 });
 //https://url_app_fe/transaksi/transaksi_pemasukan
-ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pemasukan', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/transaksi/transaksi_pemasukan', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 			form_tambah_data( this, function( response ) {
 				load_table_active();
@@ -475,10 +466,10 @@ ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pemasukan', function( route ) {
 	});
 });
 //https://url_app_fe/transaksi/transaksi_pengeluaran
-ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pengeluaran', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/transaksi/transaksi_pengeluaran', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 			form_tambah_data( this, function( response ) {
 				load_table_active();
@@ -488,10 +479,10 @@ ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pengeluaran', function( route ) 
 	});
 });
 //https://url_app_fe/transaksi/transaksi_pembayaran
-ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pembayaran', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/transaksi/transaksi_pembayaran', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 			form_tambah_data( this, function( response ) {
 				load_table_active();
@@ -506,14 +497,14 @@ ROUTE.add( BASE_URL_PAGE + 'transaksi/transaksi_pembayaran', function( route ) {
 
 //==================== MODUL TEKNISI ===================
 //https://url_app_fe/teknisi/dashboard
-ROUTE.add( BASE_URL_PAGE + 'teknisi/dashboard', function( route ) {
-	LOAD_PAGE_SPA( route );
+ROUTE.add( '/teknisi/dashboard', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa );
 });
 //https://url_app_fe/teknisi/project
-ROUTE.add( BASE_URL_PAGE + 'teknisi/project', function( route ) {
-	LOAD_PAGE_SPA( route, function( responseText, statusText, xhr ) {
+ROUTE.add( '/teknisi/project/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function( responseText, statusText, xhr ) {
 		// Method event untMenambahkan data secara asynchronous
-		$('body').on('submit'+EVENT_NAMESPACE , '#modal_tambah form', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE , '#modal_tambah form', function(e) {
 			e.preventDefault(); //Menghentikan laju fungsi submit pada form
 
 			form_tambah_data( this, function( response ) {
@@ -523,10 +514,10 @@ ROUTE.add( BASE_URL_PAGE + 'teknisi/project', function( route ) {
 	});
 });
 //https://url_app_fe/teknisi/monitoring
-ROUTE.add( BASE_URL_PAGE + 'teknisi/monitoring', function( route ) {
-	LOAD_PAGE_SPA( route, function() {	
+ROUTE.add( '/teknisi/monitoring/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function() {	
 
-		$('body').on('submit'+EVENT_NAMESPACE, '#form_monitoring', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE, '#form_monitoring', function(e) {
 			e.preventDefault();
 			var input_id_project = $('input[name=monitoring_id_project]');
 			var id_project = input_id_project.val();
@@ -554,12 +545,12 @@ ROUTE.add( BASE_URL_PAGE + 'teknisi/monitoring', function( route ) {
 
 //==================== MODUL USER ===================
 //https://url_app_fe/user/dashboard
-ROUTE.add( BASE_URL_PAGE + 'user/dashboard', function( route ) {
-	LOAD_PAGE_SPA( route );
+ROUTE.add( '/user/dashboard/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa );
 });
 //https://url_app_fe/user/profile
-ROUTE.add( BASE_URL_PAGE + 'user/profile', function( route ){
-	LOAD_PAGE_SPA( route, function() {
+ROUTE.add( '/user/profile/', function( RouteObj ){
+	LOAD_PAGE_SPA( RouteObj.route_spa, function() {
 		//Menampilkan profile pada card profile 
 		get_row(URL_SERVICE_BE + "account", { by_user : get_userLogin() }, function(response ) {
 			// ===============================
@@ -596,12 +587,12 @@ ROUTE.add( BASE_URL_PAGE + 'user/profile', function( route ){
 	});
 });
 //https://url_app_fe/user/project
-ROUTE.add( BASE_URL_PAGE + 'user/project', function(route) {
-	LOAD_PAGE_SPA( route );
+ROUTE.add( '/user/project/', function(RouteObj) {
+	LOAD_PAGE_SPA( RouteObj.route_spa );
 });
 //https://url_app_fe/user/tambah_project
-ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
-	LOAD_PAGE_SPA( route, function() {
+ROUTE.add( '/user/tambah_project/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function() {
 		//Menampilkan list produk pada option di form tambah project pada form 
 		var form_tambah_project = $('#form_tambah_project'); 
 		var select_option_produk = form_tambah_project.find('select[name=id_produk]');
@@ -622,7 +613,7 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 		maps_update();
 
 		//Button ambil lokasi user saat tambah project 
-		$('body').on('click'+EVENT_NAMESPACE, '.btn_ambil_lokasi', function() {
+		$('body').on('click'+SPA_EVENT_NAMESPACE, '.btn_ambil_lokasi', function() {
 
 			trace();
 
@@ -646,7 +637,7 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 		});
 
 		// Submit Form Tambah Project dan Pilih Teknisi Berdasarkan Rekomendasi Teknisi Haversine
-		$('body').on('submit'+EVENT_NAMESPACE, '#form_tambah_project', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE, '#form_tambah_project', function(e) {
 
 			trace();
 
@@ -683,7 +674,7 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 				form.find('input[name=user_client]').val( user_client );
 				// loader_page( 'show',  loader_tambah_project, "Membuat Project Baru ......");
 				form_tambah_data( this, function( response ) {
-					load_page( BASE_URL_PAGE + "user/project"); 
+					load_page( "/user/project"); 
 				});
 			}else{
 				//Jika ada input belum terisi atau ada lokasi atau teknisi yng masih ernilai none
@@ -703,7 +694,7 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 
 		});
 		// Event Pilih Teknisi
-		$('body').on('click'+EVENT_NAMESPACE, '.btn_pilih_teknisi', function() {
+		$('body').on('click'+SPA_EVENT_NAMESPACE, '.btn_pilih_teknisi', function() {
 			trace();
 
 
@@ -722,7 +713,7 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 
 
 		//Event btn back to form input
-		$('body').on('click'+EVENT_NAMESPACE, '.btn_back_form', function() {
+		$('body').on('click'+SPA_EVENT_NAMESPACE, '.btn_back_form', function() {
 			trace();
 			//Event ini biss bekerja jika content form yang actve itu adalah yang form rekom
 			if ( $('.content_form').filter('#form_rekom_teknisi').filter('.active').length > 0 ) {
@@ -838,10 +829,10 @@ ROUTE.add( BASE_URL_PAGE + 'user/tambah_project', function( route ) {
 
 });
 //https://url_app_fe/user/monitoring
-ROUTE.add( BASE_URL_PAGE + 'user/monitoring', function(route) {
-	LOAD_PAGE_SPA( route, function() {
+ROUTE.add( '/user/monitoring/', function(RouteObj) {
+	LOAD_PAGE_SPA( RouteObj.route_spa, function() {
 
-		$('body').on('submit'+EVENT_NAMESPACE, '#form_monitoring', function(e) {
+		$('body').on('submit'+SPA_EVENT_NAMESPACE, '#form_monitoring', function(e) {
 
 			e.preventDefault();
 
@@ -880,6 +871,7 @@ ROUTE.add( BASE_URL_PAGE + 'user/monitoring', function(route) {
 
 	});
 });
+
 
 
 

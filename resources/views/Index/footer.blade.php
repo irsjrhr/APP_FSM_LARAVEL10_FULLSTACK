@@ -13,6 +13,7 @@
 <script type="text/javascript" src="{{asset('')}}asset/js/bootstrap.min.js"></script>
 
 {{-- APP CORE --}}
+<script type="text/javascript" src="{{asset('')}}asset/js/config.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/app.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/api.js"></script>
 {{-- APP CORE --}}
