@@ -12,22 +12,26 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/bootstrap.min.js"></script>
 
-{{-- APP CORE --}}
+{{-- +++++++++++ APP CORE +++++++++++  --}}
 <script type="text/javascript" src="{{asset('')}}asset/js/config.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/app.js"></script>
+<script type="text/javascript" src="{{asset('')}}asset/js/chart_main.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/api.js"></script>
-{{-- APP CORE --}}
+
+{{-- +++++++++++ END OF APP CORE  +++++++++++ --}}
 
 
-{{-- SPA CORE --}}
+{{-- +++++++++++ SPA CORE +++++++++++ --}}
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_route.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_table.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/core_monitoring.js"></script>
-<script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/search_filter.js"></script>
+{{-- <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/search_filter.js"></script> --}}
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/main.js"></script>
 <script type="text/javascript" src="{{asset('')}}asset/js/panel_spa/table.js"></script>
-{{-- END OF SPA CORE --}}
+
+
+{{-- +++++++++++ END OF SPA CORE +++++++++++ --}}
 
 
 

@@ -96,25 +96,66 @@ $data_box_dashboard = [
 		</div>
 
 
-		<!-- Row Grafik -->
+		<!-- Row Grafik Chart -->
 		<div class="row">
-			<div class="col-12" style="padding: 0;">
+			{{-- Stacked Bar Chart --}}
+			<div class="col-sm-4 mb-3" style="padding: 0;">
 				<div class="card p-3">
-					<h4>Stats Bill Revenue</h4>
+					<h4 class="mb-3">Stats Bill Revenue</h4>
 					<canvas id="chartTaskProgress" height="150"></canvas>
 				</div>
 			</div>
+			{{-- Pie Chart --}}
+			<div class="col-sm mb-3">
+				<div class="card p-3">
+					<h4 class="mb-3"> Summary Payment Type </h4>
+					<div class="chart_wrapper_pie" style="width:400px;height:400px;position: relative">
+						<canvas id="pieChart"></canvas>
+					</div>
+				</div>
+			</div>
 		</div>
+		<!-- End Of Row Grafik Chart -->
+
+
+
 	</div>
 </section>
 
-<!-- Chart.js -->
-<script type="text/javascript">
+
+<script>
+	var datasets_pie_ex = [
+		{
+			percent_amount: "20.029666319264795",
+			confirmed_amount: "73480666921.0",
+			ordertype: "TOP",
+			paymenttype: "Cash", 
+			label: "Cash",
+		},
+		{
+			percent_amount: "20.029666319264795",
+			confirmed_amount: "73480666921.0",
+			ordertype: "TOP",
+			paymenttype: "Giro", 
+			label: "Giro",
+			color_label : "#00aba9"
+		},
+		{
+			percent_amount: "20.029666319264795",
+			confirmed_amount: "73480666921.0",
+			ordertype: "TOP",
+			paymenttype: "Transfer",
+			label: "Transfer",
+
+		},
+	] 
+
+
 	$(document).ready(function() {
 		const data_bulan = [
-		'Januari', 'Februari', 'Maret', 'April',
-		'Mei', 'Juni', 'Juli', 'Agustus',
-		'September', 'Oktober', 'November', 'Desember'
+			'Januari', 'Februari', 'Maret', 'April',
+			'Mei', 'Juni', 'Juli', 'Agustus',
+			'September', 'Oktober', 'November', 'Desember'
 		];
 
 		const data_tugas_selesai = [3000, 4000, 5000, 6000, 7000, 9000, 1000, 9000, 900, 1000, 5000, 0];
@@ -137,5 +178,23 @@ $data_box_dashboard = [
 				scales: { y: { beginAtZero: true } }
 			}
 		});
+
+
+
+		buildPieChart({
+			el: document.getElementById('pieChart'),
+			datasets: datasets_pie_ex,
+			key_value: "confirmed_amount",
+			label_color: {},
+			caption_callback : function( data ){
+				return [
+					'Total Of : ' + data.value,
+					'Percent of total : ' + formatPercent(data.percent)
+				]
+			}
+		});
+
 	});
+
 </script>
+

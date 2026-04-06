@@ -192,7 +192,7 @@ header{
 	width: 100%;
 	height: auto;
 	overflow: auto;
-	max-width: 80%;
+	max-width: 100%;
 	/*background: red;*/
 }
 
@@ -578,6 +578,7 @@ iframe{
 }
 .scroll_dashboard{
 	width: 800px;
+	/*display: none;*/
 	overflow: auto;
 }
 .card_project .section_btn{
