@@ -5,6 +5,9 @@
 }
 </style>
 
+	
+<link rel="stylesheet" type="text/css" href="{{ asset('') }}asset/css/profile.css">
+
 <section class="section_content" data-fungsi="profile">
 	<div class="header_page">
 		<h1>

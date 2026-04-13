@@ -338,8 +338,17 @@ ROUTE.add( '{URL_PATH_TERDAFTAR_DI_CONTROLLER}/path', function( RouteObj ) {
 
 
 //----- ADMIN CONTROLLER ROUTE CALLBACK ----
+
+
+//==================== MODUL DASHBOARD ===================
 //https://url_app_fe/dashboard
 ROUTE.add( '/dashboard/', function( RouteObj ) {
+	LOAD_PAGE_SPA( RouteObj.route_spa );
+});
+
+//==================== MODUL PROFILE ===================
+//https://url_app_fe/profile
+ROUTE.add( '/profile/', function( RouteObj ) {
 	LOAD_PAGE_SPA( RouteObj.route_spa );
 });
 

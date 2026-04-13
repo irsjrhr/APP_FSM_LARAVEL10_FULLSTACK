@@ -1,22 +1,22 @@
 
 <!doctype html>
-	<html lang="en">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/style.css">
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/chart_main.css">
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel.css">
-		<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel_admin.css">
-		<title> Admin Panel </title>
-	</head>
-	<body>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/style.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/chart_main.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('')}}asset/css/panel_admin.css">
+	<title> Admin Panel </title>
+</head>
+<body>
 
-		<style type="text/css">	
+	<style type="text/css">	
 		.content .nav_header .col_left{
 			display: flex;
 			flex-direction: column;
@@ -107,6 +107,17 @@
 								Dashboard
 							</div>
 						</div>
+
+
+						{{-- Row Menu - Link Menu --}}
+						<div class="row row_menu link_menu" data-page="/profile/">
+							<div class="col-1 menu_logo">
+								<i class="fas fa-user"></i>
+							</div>
+							<div class="col menu_text">
+								Profile
+							</div>
+						</div>
 						
 						{{--  Row Modul - Modul Account --}}
 						<div class="row_modul link_modul">
@@ -129,6 +140,8 @@
 								{{-- Col Container Menu --}}
 								<div class="col-12 col_container_menu">
 									
+
+
 									{{-- Row Menu - Link Menu --}}
 									<div class="row row_menu link_menu active" data-page="/account/level/">
 										<div class="col-1 menu_logo">
@@ -138,6 +151,7 @@
 											Atur Level
 										</div>
 									</div>
+									
 									
 									{{-- Row Menu - Link Menu --}}
 									<div class="row row_menu link_menu" data-page="/account/account/">

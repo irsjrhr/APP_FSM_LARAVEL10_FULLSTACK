@@ -27,12 +27,21 @@ user akan selalu diarahkan ke view index() pada class controller Index untuk rou
 //============================ SPA VIEW ROUTE ===========================
 // https://localhost/spa/{endpoint_fitur}
 Route::prefix( $SPA_ROUTE_PREFIX_KEYWORD )->group(function(){
+
     //==== Route Modul Dashboard ( Di menu dianggap sebagai menu fitur )
     //Source Controller Modul : App\Http\Controllers\Modul_dashboard
     //Source View : resource\view\Modul_dashboard
     Route::controller(Modul\Modul_dashboard::class)->group(function () {
     //==== Route Fitur ====
         Route::get('/dashboard', 'dashboard');
+    });
+
+    //==== Route Modul Profile
+    //Source Controller Modul : App\Http\Controllers\Modul_profile
+    //Source View : resource\view\Modul_profile
+    Route::controller(Modul\Modul_profile::class)->group(function () {
+    //==== Route Fitur ====
+        Route::get('/profile', 'index');
     });
 
     //==== Route Modul Account
