@@ -385,39 +385,51 @@ ROUTE.add( '/log/log_frontend', function( RouteObj ) {
 
 	function load_data_table(){
 
+
+
 		//+++++ Render Table 
-		var FILTER = build_filterData();
-		var data_log_filter = get_dataLogFilter( FILTER );
-		console.log( data_log_filter );
+		update_filterStateByUI();
+		var data_log_filter = get_dataLogByFilter();
 		render_tableLog(data_log_filter);
 
-		// ++++ Render Type Log
-		var data_typeLog = get_dataTypeLog()
-		render_typeLog( data_typeLog );
+		// ++++ Render Filter UI 
+		var data_listFilter = get_listFilter();
+		//Render list type log 
+		var rowList_logType = data_listFilter.logType;
+		render_logType( rowList_logType );
+		//Render list file log 
+		var rowList_logFile = data_listFilter.logFile;
+		render_logFile( rowList_logFile );
 
 	}
 
-	function build_filterData() {
-		var FILTER = [];
-		// Filter Time Range
+	function update_filterStateByUI() {
+
+		// Update Filter Time Range
 		var startTime = $('[name=startTime]');
 		var endTime = $('[name=endTime]');
-		FILTER.push({
-			type: 'time',
+		update_filterState({
+			typeFilter: 'time',
 			start : startTime.val(),
 			end : endTime.val()
 		});
 
-		// Filter Type
-		var typeLog = $('[name=typeLog]');
-		FILTER.push({
-			type: 'typeLog',
-			value : typeLog.val()
+		// Update Filter LogType
+		var logType = $('[name=logType]');
+		update_filterState({
+			typeFilter: 'logType',
+			value : logType.val()
+
 		});
 
-		return FILTER;
-	}
+		// Update Filter logFile
+		var logFile = $('[name=logFile]');
+		update_filterState({
+			typeFilter: 'logFile',
+			value : logFile.val()
 
+		});
+	}
 	function formatToDBTime(dateString) {
 		var date = new Date(dateString);
 
@@ -477,21 +489,64 @@ ROUTE.add( '/log/log_frontend', function( RouteObj ) {
 
 	}
 
-	function render_typeLog ( LOG_TYPE_LIST = [] ) {
+
+	function get_filterActiveByKey( typeFilterTarget, keyFilterTarget ) {
+		//KeyFilterTarget merupakan nama property pada object yang memiliki typeFilter dengan nilai typeFilterTarget
+
+		//Select option element based value OPTION_FILTER_STATE untuk row filter option logType
+
+		//Mengambil row data yang property typeFilternye memiliki nilai yang sama dengan argumen typeFilter
+		var row_filter_active = OPTION_FILTER_STATE.filter(function( row_data ){
+
+			return row_data.typeFilter == typeFilterTarget;
+		});
+		var filterVal = row_data[keyFilterTarget]; //Lihat Format Masing Masing row filter 
+
+		return filterVal;
+	}
+
+	function render_logType ( LOG_TYPE_LIST = [] ) {
 		//++++ Render Log Type List
 
-		var select_typeLog = $('[name=typeLog]');
-		select_typeLog.html(" ");
+
+		// Tambahkan element option awal untuk nilai ALL
+		var select_logType = $('[name=logType]');
+		select_logType.html(" ");
+		var option_all = `
+		<option value=""> All </option>
+		`;
+		select_logType.append( option_all );
+
+		//Tambahkan element option based LOG_TYPE_LIST dan Melakukan selected untuk element option based on filter yang sedang di apply di row dengan typeFilter logType pada OPTION_FILTER_STATE yang terupdate oleh buildDataFilter()
+
+		for (var i = 0; i < LOG_TYPE_LIST.length; i++) {
+
+			//Menentukan atribut selected based yang tersimpan di OPTION_FILTER_STATE pada row option dengan filterType logType 
+			var logType = LOG_TYPE_LIST[i];
+			var option = `<option value="${logType}"> ${logType} </option>`;
+			select_logType.append( option );
+
+		}
+
+
+
+	}
+	function render_logFile ( LOG_FILE_LIST = [] ) {
+		//++++ Render Log Type List
+
+		var select_logFile = $('[name=logFile]');
+		select_logFile.html(" ");
 		// Isi option awal untuk nilai ALL
 		var option_all = `
 		<option value=""> All </option>
 		`;
-		select_typeLog.append( option_all );
-		for (var i = 0; i < LOG_TYPE_LIST.length; i++) {
-			var typeLog = LOG_TYPE_LIST[i];
-			var option = `<option value="${typeLog}"> ${typeLog} </option>`;
-			select_typeLog.append( option );
+		select_logFile.append( option_all );
+		for (var i = 0; i < LOG_FILE_LIST.length; i++) {
+			var logFile = LOG_FILE_LIST[i];
+			var option = `<option value="${logFile}"> ${logFile} </option>`;
+			select_logFile.append( option );
 		}
+
 	}
 
 

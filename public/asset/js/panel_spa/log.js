@@ -16,7 +16,7 @@ const KEY_STORAGE_LOG = "LOG_APPS";
       end : "00:00"
     },
     {
-      type : "typeLog",
+      type : "logType",
       value : "ERROR CIT",
     }
 
@@ -24,6 +24,7 @@ const KEY_STORAGE_LOG = "LOG_APPS";
 
 
 */
+
 
 
 function logError(error, context = "", type = "GLOBAL") {
@@ -56,117 +57,144 @@ function deleteAllDataLog(){
 
 //==== FILTERING SECTION ====
 
-var OPTION_FILTER = [
+var FILTER_STATE = [
 
   {
-    type : "time",
+    typeFilter : "time",
     start : "00:00",
-    end : "00:00"
+    end : "00:00",
+    filter : function( data ) {
+
+      var result, msg_debug;
+
+      var startTime = this.start;
+      var endTime = this.end;
+
+      if ( 
+
+        ( startTime == "00:00" && endTime == "00:00"  ) 
+        ||
+        ( startTime.length < 1 && endTime.length < 1  ) 
+        ) 
+      {
+        //Kondisi data result tidak di filter atau all
+        msg_debug = "Data Tidak Terfilter Time";
+        result = data;
+      }else{
+        //Kondisi data result sudah di filter
+        msg_debug = "Data Terfilter Time";
+        result = data.filter(log => {
+          var logDate = new Date(log.time);
+
+          var current = logDate.getHours() * 60 + logDate.getMinutes();
+
+          var [startH, startM] = startTime.split(":").map(Number);
+          var [endH, endM] = endTime.split(":").map(Number);
+
+          var start = startH * 60 + startM;
+          var end = endH * 60 + endM;
+
+          return current >= start && current <= end;
+        })
+      }
+
+
+      console.log( `
+      ++++ FILTER TIME +++++ \n
+      Start : ${ startTime }, \n
+      End : ${ endTime } \n
+      Result : 
+      `, result);
+      return result;
+
+    }
+
+  }, 
+  {
+    typeFilter : "logType",
+    value : "",
+    filter : function (data) {
+
+      var result;
+      var logType = this.value;
+
+
+      if ( logType && logType.length > 0) {
+        result = data.filter(log => log.type === logType);
+      }else{
+        result = data; // kalau kosong, jangan filter
+      }
+
+      console.log( `
+        ++++ FILTER TYPE LOG +++++ \n
+        Type Log : ${ logType }, \n
+        Result : 
+      `, result);
+      return result;
+
+    }
   },
   {
-    type : "typeLog",
-    value : "ERROR CIT",
+    typeFilter : "logFile",
+    value : "",
+    filter: function( data ){
+
+      var result;
+      var logFile = this.value;
+
+      if (logFile && logFile.length > 0) {
+        result = data.filter(log => log.file === logFile);
+      } else {
+        result = data; // kalau kosong, jangan filter
+      }
+
+      console.log(`
+        ++++ FILTER FILE LOG +++++ \n
+        File Log : ${logFile}, \n
+        Result : 
+      `, result);
+
+      return result;
+
+    }
   }
 
 ];
-function filter_time(data, startTime, endTime) {
 
-  var result, msg_debug;
+function update_filterState( ROW_OPTION_FILTER_TARGET = {} ){
 
-
-  if ( 
-
-    ( startTime == "00:00" && endTime == "00:00"  ) 
-    ||
-    ( startTime.length < 1 && endTime.length < 1  ) 
-    ) 
-  {
-    //Kondisi data result tidak di filter atau all
-    msg_debug = "Data Tidak Terfilter Time";
-    result = data;
-  }else{
-    //Kondisi data result sudah di filter
-    msg_debug = "Data Terfilter Time";
-    result = data.filter(log => {
-      var logDate = new Date(log.time);
-
-      var current = logDate.getHours() * 60 + logDate.getMinutes();
-
-      var [startH, startM] = startTime.split(":").map(Number);
-      var [endH, endM] = endTime.split(":").map(Number);
-
-      var start = startH * 60 + startM;
-      var end = endH * 60 + endM;
-
-      return current >= start && current <= end;
-    })
+  var typeFilter = ROW_OPTION_FILTER_TARGET.typeFilter;
+  var index_filterStateDB, row_filterStateDB;
+  for (var i = 0; i < FILTER_STATE.length; i++) {
+    row_filterStateDB = FILTER_STATE[i];
+    index_filterStateDB = i;
+    if ( typeFilter == row_filterStateDB.typeFilter  ) {
+      break;
+    }
   }
 
+  var row_filterStateMerge = { ...row_filterStateDB,  ...   ROW_OPTION_FILTER_TARGET }
 
-
-  console.log( `
-    ++++ FILTER TIME +++++ \n
-    Start : ${ startTime }, \n
-    End : ${ endTime } \n
-    Result : 
-  `, result);
-  return result;
-
+  FILTER_STATE[index_filterStateDB] = row_filterStateMerge;
 }
-function filter_typeLog(data, typeLog) {
 
-  var result;
-
-  if ( typeLog || typeLog.length > 0) {
-    result = data.filter(log => log.type === typeLog);
-  }else{
-    result = data; // kalau kosong, jangan filter
-  }
-
-  console.log( `
-    ++++ FILTER TYPE LOG +++++ \n
-    Type Log : ${ typeLog }, \n
-    Result : 
-  `, result);
-  return result;
-}
-function FILTER_DATA_INIT( data, row_option_filter = {} ){
-  var type_filter = row_option_filter.type;
-  switch (type_filter) {
-
-  //Object Filter Time
-  case "time":
-    data = filter_time( data, row_option_filter.start, row_option_filter.end );
-    break;
-
-  //Object Filter Type Log
-  case "typeLog":
-    data = filter_typeLog( data, row_option_filter.value );
-    break;
-  }
-
-  return data;
-}
-//==== END OF FILTERING SECTION ====
 function get_dataLogAll() {
   return JSON.parse(localStorage.getItem(KEY_STORAGE_LOG)) || [];
 }
-function get_dataLogFilter( OPTION_FILTER = [] ){
+function get_dataLogByFilter(){
 
-  console.group("+++ FILTER DATA INIT ++++");
+  console.group("+++ get_dataLogByFilter ++++");
 
   //Data DB Source
   var data = get_dataLogAll();
-
-  //Filtering Data With Logic AND
-  for (var i = 0; i < OPTION_FILTER.length; i++) {
-    var row_filter = OPTION_FILTER[i];
-    //Re Init Data With Filter
-    data = FILTER_DATA_INIT( data, row_filter );
+  for (var i = 0; i < FILTER_STATE.length; i++) {
+    var row_filterState = FILTER_STATE[i];//Object
+    data = row_filterState.filter( data );
   }
 
   //Sorting Default DESC By Time
   data.sort((a, b) => new Date(b.time) - new Date(a.time));
+
 
   console.groupEnd();
   return data;
@@ -175,26 +203,34 @@ function get_dataLogFilter( OPTION_FILTER = [] ){
 // ++++++++++++ END OF GET DATA LOG WITH FILTER +++++++++++++
 
 
-function get_dataTypeLog() {
+function get_listFilter() {
 
-  var LIST_TYPE_LOG = [];
   var data = get_dataLogAll();
 
   //Mengumpulkan type log dari sumber data terupdate pada session log
+  var LIST_LOG_TYPE = [];
+  var LIST_LOG_FILE = [];
   for (var i = 0; i < data.length; i++) {
     var row_data = data[i];
-    var typeLog = row_data.type;
-    LIST_TYPE_LOG.push( typeLog );
+
+    var logType = row_data.type;
+    LIST_LOG_TYPE.push( logType );
+
+    var fileLog = row_data.file;
+    LIST_LOG_FILE.push( fileLog );
   }
 
+
   //Distinct nilai yang sama
-  LIST_TYPE_LOG = [...new Set(LIST_TYPE_LOG)];
-  console.log( LIST_TYPE_LOG );
-  return LIST_TYPE_LOG;
+  var result = {
+
+    logType : [...new Set(LIST_LOG_TYPE)],
+    logFile : [...new Set(LIST_LOG_FILE)]
+
+  }
+
+  return result;
 }
-
-
-
 
 
 

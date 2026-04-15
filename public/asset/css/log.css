@@ -1,0 +1,29 @@
+.container_option{
+	width: 100%;
+	background: #fff;
+	height: auto;
+	padding: 20px;
+	padding-top: 20px;
+	padding-bottom: 0;
+}
+.filter_section{
+	width: 100%;
+	display: flex;
+	gap: 20px;
+	overflow:auto;
+}
+
+.filter_section button{
+	width: auto;
+	white-space: nowrap;
+}
+.filter_section > div{
+	flex: 0 0 100px;
+	gap: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.filter_section > div label{
+	margin-bottom: 0;
+}
