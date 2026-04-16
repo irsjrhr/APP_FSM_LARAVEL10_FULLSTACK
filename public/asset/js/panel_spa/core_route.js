@@ -490,7 +490,7 @@ ROUTE.add( '/log/log_frontend', function( RouteObj ) {
 	}
 
 
-	function get_filterActiveByKey( typeFilterTarget, keyFilterTarget ) {
+	function get_filterActiveByKey( typeFilterTarget ) {
 		//KeyFilterTarget merupakan nama property pada object yang memiliki typeFilter dengan nilai typeFilterTarget
 
 		//Select option element based value OPTION_FILTER_STATE untuk row filter option logType
