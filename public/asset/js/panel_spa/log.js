@@ -161,10 +161,12 @@ var FILTER_STATE = [
 
 ];
 
-function update_filterState( ROW_OPTION_FILTER_TARGET = {} ){
 
-  var typeFilter = ROW_OPTION_FILTER_TARGET.typeFilter;
-  var index_filterStateDB, row_filterStateDB;
+
+function get_filterState_byTypeFilter( typeFilter ){
+  var 
+  index_filterStateDB = 0, 
+  row_filterStateDB = {};
   for (var i = 0; i < FILTER_STATE.length; i++) {
     row_filterStateDB = FILTER_STATE[i];
     index_filterStateDB = i;
@@ -173,10 +175,33 @@ function update_filterState( ROW_OPTION_FILTER_TARGET = {} ){
     }
   }
 
+  /*
+  row_filterStateDB = {
+  typeFilter: "time",
+  start: ""
+  end : ""
+  }
+  */
+
+  return {
+    index_filterStateDB : index_filterStateDB,
+    row_filterStateDB : row_filterStateDB
+  }
+}
+function update_filterState( ROW_OPTION_FILTER_TARGET = {} ){
+
+  var typeFilter = ROW_OPTION_FILTER_TARGET.typeFilter;
+  var filterState_byTypeFilter = get_filterState_byTypeFilter( typeFilter );
+ 
+  var index_filterStateDB = filterState_byTypeFilter.index_filterStateDB;
+  var row_filterStateDB = filterState_byTypeFilter.row_filterStateDB;
+
   var row_filterStateMerge = { ...row_filterStateDB,  ...   ROW_OPTION_FILTER_TARGET }
 
+  //Set Update Filter State By Index
   FILTER_STATE[index_filterStateDB] = row_filterStateMerge;
 }
+
 
 function get_dataLogAll() {
   return JSON.parse(localStorage.getItem(KEY_STORAGE_LOG)) || [];

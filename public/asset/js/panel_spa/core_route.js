@@ -383,12 +383,12 @@ ROUTE.add( '/log/log_frontend', function( RouteObj ) {
 
 	});
 
-	function load_data_table(){
-
+	function load_data_table( option_filter = true ){
 
 
 		//+++++ Render Table 
 		update_filterStateByUI();
+
 		var data_log_filter = get_dataLogByFilter();
 		render_tableLog(data_log_filter);
 
@@ -463,6 +463,8 @@ ROUTE.add( '/log/log_frontend', function( RouteObj ) {
 	}
 	function render_tableLog( data_log_filter = [] ) {
 
+
+
 		var table_logData = $('#table_logData');
 		var tbody = table_logData.find('tbody');
 
@@ -487,6 +489,13 @@ ROUTE.add( '/log/log_frontend', function( RouteObj ) {
 			tbody.append( tr )	
 		}
 
+		//Render update counting data log 
+		var banyak_data = data_log_filter.length
+		var banyak_data_el = $('.box_dashboard .banyak_data');
+
+		if ( banyak_data_el.length > 0 ) {
+			banyak_data_el.text( banyak_data )
+		}
 	}
 
 
@@ -517,18 +526,26 @@ ROUTE.add( '/log/log_frontend', function( RouteObj ) {
 		`;
 		select_logType.append( option_all );
 
-		//Tambahkan element option based LOG_TYPE_LIST dan Melakukan selected untuk element option based on filter yang sedang di apply di row dengan typeFilter logType pada OPTION_FILTER_STATE yang terupdate oleh buildDataFilter()
 
+		//+++ Tambahkan element option based LOG_TYPE_LIST dan Melakukan selected untuk element option based on filter yang sedang di apply di row dengan typeFilter logType pada OPTION_FILTER_STATE yang terupdate oleh buildDataFilter()
+
+		//Mengambil nilai logType yang sedang dipilih dan di implementasikan ke option value sebagai yang terselected 
+		var get_filterStateActiveTarget =  get_filterState_byTypeFilter( 'logType' );
+		var filterStateActiveTarget = get_filterStateActiveTarget.row_filterStateDB;
+		var logTypeActive = filterStateActiveTarget.value;
 		for (var i = 0; i < LOG_TYPE_LIST.length; i++) {
 
 			//Menentukan atribut selected based yang tersimpan di OPTION_FILTER_STATE pada row option dengan filterType logType 
 			var logType = LOG_TYPE_LIST[i];
-			var option = `<option value="${logType}"> ${logType} </option>`;
+			var option_atrSelected = ( logType == logTypeActive  ) ?
+			"selected"
+			:
+			""
+			;
+			var option = `<option value="${logType}" ${option_atrSelected}> ${logType} </option>`;
 			select_logType.append( option );
 
 		}
-
-
 
 	}
 	function render_logFile ( LOG_FILE_LIST = [] ) {
@@ -541,11 +558,28 @@ ROUTE.add( '/log/log_frontend', function( RouteObj ) {
 		<option value=""> All </option>
 		`;
 		select_logFile.append( option_all );
+
+
+
+		//Mengambil nilai logFile yang sedang dipilih dan di implementasikan ke option value sebagai yang terselected 
+		var get_filterStateActiveTarget =  get_filterState_byTypeFilter( 'logFile' );
+		var filterStateActiveTarget = get_filterStateActiveTarget.row_filterStateDB;
+		var logFileActive = filterStateActiveTarget.value;
+
 		for (var i = 0; i < LOG_FILE_LIST.length; i++) {
+
+			//Menentukan atribut selected based yang tersimpan di OPTION_FILTER_STATE pada row option dengan filterType logFile 
 			var logFile = LOG_FILE_LIST[i];
-			var option = `<option value="${logFile}"> ${logFile} </option>`;
+			var option_atrSelected = ( logFile == logFileActive  ) ?  
+			"selected"
+			:
+			""
+			;
+			var option = `<option value="${logFile}" ${option_atrSelected}> ${logFile} </option>`;
 			select_logFile.append( option );
+
 		}
+
 
 	}
 
